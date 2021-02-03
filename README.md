@@ -16,7 +16,7 @@ With QuizzBuzz, you can:
 
 What the tool will do for you:
 - Compile flash-cards into review sessions
-- Provide optimal review times for maximum knowledge retention
+- Prescribe review times for optimal knowledge retention
 - Display statistics and review performance
 - Suggest modifications to learning settings
 
