@@ -33,3 +33,10 @@ that could automatically space out repetition were quite unwieldy and not simpli
 in their user experience, so I set out to create **QuizzBuzz**, a project that anyone can use
 to help memorize anything in the most effective manner.
 
+## User Stories
+- As a user, I want to be able to add a flash card to a deck
+- As a user, I want to be able to remove flash cards from a deck
+- As a user, I want to be able to view all flash cards in a selected deck
+- As a user, I want to be able to edit flash cards in a deck
+- As a user, I want to be able to see how many cards I have due on any given day
+- As a user, I want to be able to see my statistics and performance
