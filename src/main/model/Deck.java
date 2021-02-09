@@ -6,6 +6,11 @@ public class Deck {
     private String title;
     private ArrayList<Card> cardList;
 
+    public Deck(String title) {
+        this.title = title;
+        cardList = new ArrayList<>();
+    }
+
     public String getTitle() {
         return title;
     }
