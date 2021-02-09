@@ -58,6 +58,7 @@ public class QuizApp {
 
         decks.add(d);
         System.out.println("Deck " + "\"" + s + "\"" + " created!");
+        deckMenu(d);
     }
 
     private void viewDecks() {
@@ -74,9 +75,26 @@ public class QuizApp {
             System.out.println("\nEnter a deck number to select a deck or enter any other key to return to menu:");
             int command = scanner.nextInt();
             if (command <= decks.size() && command > 0) {
-                System.out.println(decks.get(command - 1).toString());
+                deckMenu(decks.get(command - 1));
             }
 
+        }
+    }
+
+    private void deckMenu(Deck d) {
+        int selection = 0;
+
+        while (!(selection > 0)) {
+            System.out.println("\nDeck " + d.getTitle() + ":");
+            System.out.println("\t1) Study!");
+            System.out.println("\t2) View all cards");
+            System.out.println("\t3) Add a card");
+            System.out.println("\t4) Remove a card");
+            System.out.println("\t5) Return to menu");
+            selection = scanner.nextInt();
+        }
+        if (selection == 2) {
+            System.out.println("View cards");
         }
     }
 }

@@ -14,4 +14,16 @@ public class Deck {
     public String getTitle() {
         return title;
     }
+
+    public void printCards() {
+        if (cardList.size() == 0) {
+            System.out.println("No cards in current deck");
+        } else {
+            int i = 1;
+            for (Card c : cardList) {
+                System.out.println("Card " + i);
+                i++;
+            }
+        }
+    }
 }
