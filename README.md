@@ -38,5 +38,6 @@ to help memorize anything in the most effective manner.
 - As a user, I want to be able to remove flash cards from a deck
 - As a user, I want to be able to view all flash cards in a selected deck
 - As a user, I want to be able to edit flash cards in a deck
-- As a user, I want to be able to see how many cards I have due on any given day
+- As a user, I want to be able to add, remove, and rename decks
+- As a user, I want to be able to review my cards in a random order
 - As a user, I want to be able to see my statistics and performance
