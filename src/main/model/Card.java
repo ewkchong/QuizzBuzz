@@ -25,16 +25,23 @@ public class Card {
         return tags;
     }
 
+    // EFFECTS: prints front text, back text, and tags
     public void viewCard() {
         System.out.println("Front: " + this.front);
         System.out.println("Back: " + this.back);
         System.out.println("Tags: " + this.tags.toString());
     }
 
+    // REQUIRES: s is a non-empty string
+    // MODIFIES: this
+    // EFFECTS: changes front text of card to given string
     public void changeFront(String s) {
         this.front = s;
     }
 
+    // REQUIRES: s is a non-empty string
+    // MODIFIES: this
+    // EFFECTS: changes back text of card to given string
     public void changeBack(String s) {
         this.back = s;
     }

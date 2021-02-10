@@ -15,6 +15,7 @@ public class QuizApp {
         runQuizApp();
     }
 
+    // EFFECTS: opens start menu
     public void runQuizApp() {
         boolean keepOpen = true;
         int input;
@@ -36,6 +37,7 @@ public class QuizApp {
 
     }
 
+    // EFFECTS: diplays start menu options
     private void openMenu() {
         System.out.println("\nPlease select from one of the options below using the numbers:");
         System.out.println("\t1) Select from/view all Decks");
@@ -43,6 +45,7 @@ public class QuizApp {
         System.out.println("\t3) Quit");
     }
 
+    // EFFECTS: processes user key input for start menu
     private void processStartMenuCommand(int i) {
         if (i == 1) {
             viewDecks();
@@ -52,6 +55,8 @@ public class QuizApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a new deck with user-input generated title
     private void createDeck() {
         scanner.nextLine();
         String s = scanner.nextLine();
@@ -62,6 +67,7 @@ public class QuizApp {
         deckMenu(d);
     }
 
+    // EFFECTS: prints a list of all decks, allows selection
     private void viewDecks() {
         if (decks.size() == 0) {
             System.out.println("No decks to view!");
@@ -82,6 +88,7 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: displays operations for a given deck
     public void deckMenu(Deck d) {
         int selection = 0;
 
@@ -99,6 +106,9 @@ public class QuizApp {
         processDeckMenuCommand(d, selection);
     }
 
+    // REQUIRES: 1 <= s <= 7
+    // MODIFIES: this
+    // EFFECTS: processes user input from deck menu
     private void processDeckMenuCommand(Deck d, int s) {
         if (s == 2) {
             d.viewCards();
@@ -119,6 +129,7 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: waits for user to press ENTER before continuing
     public void waitForEnter() {
         while (true) {
             System.out.println("\nPress ENTER to return to menu...");
@@ -131,6 +142,7 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: adds a horizontal line under given string and prints
     public static void header(String h) {
         System.out.println("\n" + h);
         System.out.println("==============================================================");
