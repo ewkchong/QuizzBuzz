@@ -37,10 +37,10 @@ public class QuizApp {
     }
 
     private void openMenu() {
-        System.out.println("\nPlease select from one of the options below:");
-        System.out.println("\t1 -> Select from/view all Decks");
-        System.out.println("\t2 -> Create a new Deck");
-        System.out.println("\t3 -> Quit");
+        System.out.println("\nPlease select from one of the options below using the numbers:");
+        System.out.println("\t1) Select from/view all Decks");
+        System.out.println("\t2) Create a new Deck");
+        System.out.println("\t3) Quit");
     }
 
     private void processSelection(int i) {
@@ -53,7 +53,8 @@ public class QuizApp {
     }
 
     private void createDeck() {
-        String s = scanner.next();
+        scanner.nextLine();
+        String s = scanner.nextLine();
         Deck d = new Deck(s);
 
         decks.add(d);
@@ -81,7 +82,7 @@ public class QuizApp {
         }
     }
 
-    private void deckMenu(Deck d) {
+    public void deckMenu(Deck d) {
         int selection = 0;
 
         while (!(selection > 0)) {
@@ -90,11 +91,45 @@ public class QuizApp {
             System.out.println("\t2) View all cards");
             System.out.println("\t3) Add a card");
             System.out.println("\t4) Remove a card");
-            System.out.println("\t5) Return to menu");
+            System.out.println("\t5) Rename deck");
+            System.out.println("\t6) Delete deck");
+            System.out.println("\t7) Return to menu");
             selection = scanner.nextInt();
         }
         if (selection == 2) {
-            System.out.println("View cards");
+            d.viewCards();
+            waitForEnter();
+            deckMenu(d);
+        } else if (selection == 3) {
+            d.addCard();
+            waitForEnter();
+            deckMenu(d);
+        } else if (selection == 4) {
+            d.viewCards();
+            d.deleteCard();
+        } else if (selection == 5) {
+            d.renameDeck();
+            waitForEnter();
+        } else if (selection == 6) {
+            decks.remove(d);
         }
+
+    }
+
+    public void waitForEnter() {
+        while (true) {
+            System.out.println("\nPress ENTER to return to menu...");
+            scanner.nextLine();
+            String ent = scanner.nextLine();
+
+            if (ent.equals("")) {
+                break;
+            }
+        }
+    }
+
+    public static void header(String h) {
+        System.out.println("\n" + h);
+        System.out.println("=============================================");
     }
 }

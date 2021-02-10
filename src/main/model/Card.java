@@ -12,4 +12,22 @@ public class Card {
         this.back = back;
         this.tags = tags;
     }
+
+    public String getFront() {
+        return front;
+    }
+
+    public String getBack() {
+        return back;
+    }
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void viewCard() {
+        System.out.println("Front: " + this.front);
+        System.out.println("Back: " + this.back);
+        System.out.println("Tags: " + this.tags.toString());
+    }
 }
