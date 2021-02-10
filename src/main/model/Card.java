@@ -30,4 +30,12 @@ public class Card {
         System.out.println("Back: " + this.back);
         System.out.println("Tags: " + this.tags.toString());
     }
+
+    public void changeFront(String s) {
+        this.front = s;
+    }
+
+    public void changeBack(String s) {
+        this.back = s;
+    }
 }

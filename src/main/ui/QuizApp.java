@@ -12,14 +12,14 @@ public class QuizApp {
     public QuizApp() {
         scanner = new Scanner(System.in);
         decks = new ArrayList<>();
-        start();
+        runQuizApp();
     }
 
-    public void start() {
+    public void runQuizApp() {
         boolean keepOpen = true;
         int input;
 
-        System.out.println("Welcome to QuizzBuzz!");
+        header("Welcome to QuizzBuzz!");
         while (keepOpen) {
             openMenu();
             input = scanner.nextInt();
@@ -27,7 +27,7 @@ public class QuizApp {
             if (input == 3) {
                 keepOpen = false;
             } else {
-                processSelection(input);
+                processStartMenuCommand(input);
             }
 
         }
@@ -43,7 +43,7 @@ public class QuizApp {
         System.out.println("\t3) Quit");
     }
 
-    private void processSelection(int i) {
+    private void processStartMenuCommand(int i) {
         if (i == 1) {
             viewDecks();
         } else if (i == 2) {
@@ -96,24 +96,27 @@ public class QuizApp {
             System.out.println("\t7) Return to menu");
             selection = scanner.nextInt();
         }
-        if (selection == 2) {
+        processDeckMenuCommand(d, selection);
+    }
+
+    private void processDeckMenuCommand(Deck d, int s) {
+        if (s == 2) {
             d.viewCards();
             waitForEnter();
             deckMenu(d);
-        } else if (selection == 3) {
+        } else if (s == 3) {
             d.addCard();
             waitForEnter();
             deckMenu(d);
-        } else if (selection == 4) {
+        } else if (s == 4) {
             d.viewCards();
             d.deleteCard();
-        } else if (selection == 5) {
+        } else if (s == 5) {
             d.renameDeck();
             waitForEnter();
-        } else if (selection == 6) {
+        } else if (s == 6) {
             decks.remove(d);
         }
-
     }
 
     public void waitForEnter() {
@@ -130,6 +133,6 @@ public class QuizApp {
 
     public static void header(String h) {
         System.out.println("\n" + h);
-        System.out.println("=============================================");
+        System.out.println("==============================================================");
     }
 }

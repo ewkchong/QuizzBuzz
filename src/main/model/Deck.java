@@ -67,7 +67,7 @@ public class Deck {
         System.out.println("Enter in the number of the card you would like to delete, or 0 to quit:");
         int e = scanner.nextInt();
 
-        if (e <= cardList.size() || !(e <= 0)) {
+        if (e <= cardList.size() && !(e <= 0)) {
             cardList.remove(e - 1);
         }
     }
@@ -75,8 +75,7 @@ public class Deck {
     public void renameDeck() {
         header("Rename Deck:");
         System.out.println("Enter new name:");
-        String s = scanner.nextLine();
-        this.title = s;
+        this.title = scanner.nextLine();
         System.out.println("Deck name changed!");
     }
 }
