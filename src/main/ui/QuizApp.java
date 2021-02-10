@@ -1,5 +1,6 @@
 package ui;
 
+import model.Card;
 import model.Deck;
 
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class QuizApp {
                 i++;
             }
 
-            System.out.println("\nEnter a deck number to select a deck or enter any other key to return to menu:");
+            System.out.println("\nEnter a number to select a deck or enter 0 to return to menu:");
             int command = scanner.nextInt();
             if (command <= decks.size() && command > 0) {
                 deckMenu(decks.get(command - 1));
@@ -111,29 +112,91 @@ public class QuizApp {
     // EFFECTS: processes user input from deck menu
     private void processDeckMenuCommand(Deck d, int s) {
         if (s == 2) {
-            d.viewCards();
+            viewCards(d);
             waitForEnter();
             deckMenu(d);
         } else if (s == 3) {
-            d.addCard();
-            waitForEnter();
+            inputCardInfo(d);
             deckMenu(d);
         } else if (s == 4) {
-            d.viewCards();
-            d.deleteCard();
+            viewCards(d);
+            deleteSelectedCard(d);
         } else if (s == 5) {
-            d.renameDeck();
+            renameDeck(d);
             waitForEnter();
         } else if (s == 6) {
             decks.remove(d);
         }
     }
 
+    // EFFECTS: prints list of cards in current deck
+    public void viewCards(Deck d) {
+        header("Card List");
+        ArrayList<Card> cards = d.getCardList();
+
+        if (cards.size() == 0) {
+            System.out.println("No cards to view!");
+        } else {
+            int i = 1;
+            for (Card c : cards) {
+                System.out.println(i + ") ");
+                System.out.println("Front: " + c.getFront());
+                System.out.println("Back: " + c.getBack());
+                System.out.println("Tags: " + c.getTags().toString());
+                i++;
+            }
+        }
+    }
+
+    private void renameDeck(Deck d) {
+        header("Rename Deck:");
+
+        System.out.println("Enter new name:");
+        scanner.nextLine();
+        String title = scanner.nextLine();
+        d.renameDeck(title);
+        System.out.println("Deck name changed!");
+    }
+
+    private void deleteSelectedCard(Deck d) {
+        System.out.println("Enter in the number of the card you would like to delete, or 0 to quit:");
+        int e = scanner.nextInt();
+        d.deleteCard(e);
+    }
+
+    public void inputCardInfo(Deck d) {
+        ArrayList<String> tags = new ArrayList<>();
+
+        header("New Card:");
+
+        System.out.println("\tFront of Card:");
+        scanner.nextLine();
+        String front = scanner.nextLine();
+
+        System.out.println("\tBack of Card:");
+        String back = scanner.nextLine();
+
+        System.out.println("Tags (optional):");
+        boolean keepOpen = true;
+        while (keepOpen) {
+            System.out.println("\nEnter tag, or press ENTER to quit:");
+            String e = scanner.nextLine();
+
+            if (e.equals("")) {
+                keepOpen = false;
+            } else {
+                tags.add(e);
+            }
+        }
+
+        d.addCard(front, back, tags);
+        System.out.println("Card added!");
+    }
+
     // EFFECTS: waits for user to press ENTER before continuing
     public void waitForEnter() {
         while (true) {
             System.out.println("\nPress ENTER to return to menu...");
-            scanner.nextLine();
             String ent = scanner.nextLine();
 
             if (ent.equals("")) {
