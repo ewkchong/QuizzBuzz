@@ -111,7 +111,9 @@ public class QuizApp {
     // MODIFIES: this
     // EFFECTS: processes user input from deck menu
     private void processDeckMenuCommand(Deck d, int s) {
-        if (s == 2) {
+        if (s == 1) {
+            new StudySession(d.getCardList());
+        } else if (s == 2) {
             viewCards(d);
             waitForEnter();
             deckMenu(d);

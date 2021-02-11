@@ -1,9 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import static ui.QuizApp.header;
 
 public class Deck {
     private String title;                              // title of deck
