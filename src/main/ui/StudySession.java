@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import static ui.QuizApp.header;
 
+// A study session that displays flash cards
 public class StudySession {
     private Deck deck;
     private ArrayList<Card> cards;

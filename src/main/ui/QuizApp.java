@@ -6,10 +6,12 @@ import model.Deck;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// A flash card application
 public class QuizApp {
     private ArrayList<Deck> decks;
     private Scanner scanner;
 
+    // EFFECTS: initializes user interface
     public QuizApp() {
         scanner = new Scanner(System.in);
         decks = new ArrayList<>();
@@ -34,7 +36,7 @@ public class QuizApp {
 
         }
 
-        System.out.println("Thank you for using QuizzBuzz! See you next Time!");
+        System.out.println("Thank you for using QuizzBuzz! See you next time!");
 
     }
 
@@ -105,7 +107,9 @@ public class QuizApp {
             selection = scanner.nextInt();
             scanner.reset();
         }
-        processDeckMenuCommand(d, selection);
+        if (!(selection > 7)) {
+            processDeckMenuCommand(d, selection);
+        }
     }
 
     // REQUIRES: 1 <= s <= 7
@@ -154,6 +158,8 @@ public class QuizApp {
         }
     }
 
+    // MODIFIES: Deck d
+    // EFFECTS: changes the name of deck to user-input
     private void renameDeck(Deck d) {
         header("Rename Deck:");
 
@@ -164,15 +170,23 @@ public class QuizApp {
         System.out.println("Deck name changed!");
     }
 
+    // MODIFIES: Deck d
+    // EFFECTS: removes user-selected card from deck
     private void deleteSelectedCard(Deck d) {
         System.out.println("\nEnter in the number of the card you would like to delete, or 0 to quit:");
         int e = scanner.nextInt();
-        if (e != 0) {
-            d.deleteCard(e);
-            System.out.println("\nCard deleted!");
+        if (e <= d.getCardList().size() && e >= 0) {
+            if (e != 0) {
+                d.deleteCard(e);
+                System.out.println("\nCard deleted!");
+            }
+        } else {
+            System.out.println("Invalid input! No card has been deleted");
         }
     }
 
+    // MODIFIES: d
+    // EFFECTS: user interface for adding a new card
     public void inputCardInfo(Deck d) {
         ArrayList<String> tags = new ArrayList<>();
 

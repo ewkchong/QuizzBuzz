@@ -2,11 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
+// A flash card with tags
 public class Card {
-    private String front;
-    private String back;
-    private ArrayList<String> tags;
+    private String front;            // Content on the "front" of the card
+    private String back;             // Content on the "back" of the card
+    private ArrayList<String> tags;  // List of tags applied to card
 
+
+    // Constructs a card
+    // EFFECTS: Card created with front, back, and tags
     public Card(String front, String back, ArrayList<String> tags) {
         this.front = front;
         this.back = back;

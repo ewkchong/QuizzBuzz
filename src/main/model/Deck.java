@@ -2,12 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+// A deck containing flash cards
 public class Deck {
     private String title;                              // title of deck
     private ArrayList<Card> cardList;                  // all cards in deck
 
     // REQUIRES: title given must be of non-zero length
-    // EFFECTS: instantiates new deck with given title
+    // EFFECTS: instantiates new deck with given title and empty list of cards
     public Deck(String title) {
         this.title = title;
         cardList = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Deck {
 
     }
 
-    // REQUIRES: user entry e must be between zero and the size of the card list
+    // REQUIRES: e must be between zero and the size of the card list
     // MODIFIES: this
     // EFFECTS: removes selected card from deck
     public void deleteCard(int e) {
