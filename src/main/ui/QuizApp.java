@@ -38,7 +38,7 @@ public class QuizApp {
 
     }
 
-    // EFFECTS: diplays start menu options
+    // EFFECTS: displays start menu options
     private void openMenu() {
         System.out.println("\nPlease select from one of the options below using the numbers:");
         System.out.println("\t1) Select from/view all Decks");
@@ -103,6 +103,7 @@ public class QuizApp {
             System.out.println("\t6) Delete deck");
             System.out.println("\t7) Return to menu");
             selection = scanner.nextInt();
+            scanner.reset();
         }
         processDeckMenuCommand(d, selection);
     }
@@ -113,6 +114,7 @@ public class QuizApp {
     private void processDeckMenuCommand(Deck d, int s) {
         if (s == 1) {
             new StudySession(d.getCardList());
+            deckMenu(d);
         } else if (s == 2) {
             viewCards(d);
             waitForEnter();
@@ -123,9 +125,11 @@ public class QuizApp {
         } else if (s == 4) {
             viewCards(d);
             deleteSelectedCard(d);
+            waitForEnter();
         } else if (s == 5) {
             renameDeck(d);
             waitForEnter();
+            deckMenu(d);
         } else if (s == 6) {
             decks.remove(d);
         }
@@ -161,9 +165,12 @@ public class QuizApp {
     }
 
     private void deleteSelectedCard(Deck d) {
-        System.out.println("Enter in the number of the card you would like to delete, or 0 to quit:");
+        System.out.println("\nEnter in the number of the card you would like to delete, or 0 to quit:");
         int e = scanner.nextInt();
-        d.deleteCard(e);
+        if (e != 0) {
+            d.deleteCard(e);
+            System.out.println("\nCard deleted!");
+        }
     }
 
     public void inputCardInfo(Deck d) {
@@ -197,14 +204,15 @@ public class QuizApp {
 
     // EFFECTS: waits for user to press ENTER before continuing
     public void waitForEnter() {
+        Scanner tempScanner = new Scanner(System.in);
+        System.out.println("\nPress ENTER to return to menu...");
+        String ent = tempScanner.nextLine();
         while (true) {
-            System.out.println("\nPress ENTER to return to menu...");
-            String ent = scanner.nextLine();
-
             if (ent.equals("")) {
                 break;
             }
         }
+
     }
 
     // EFFECTS: adds a horizontal line under given string and prints

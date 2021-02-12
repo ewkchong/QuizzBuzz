@@ -16,10 +16,15 @@ public class StudySession {
     private Scanner scanner;
 
     public StudySession(ArrayList<Card> cards) {
-        this.cards = cards;
-        studyList = generateStudyList(cards.size());
-        this.scanner = new Scanner(System.in);
-        beginStudySession();
+        if (cards.size() == 0) {
+            System.out.println("No cards to study!");
+        } else {
+            this.cards = cards;
+            studyList = generateStudyList(cards.size());
+            this.scanner = new Scanner(System.in);
+            beginStudySession();
+        }
+
     }
 
     // REQUIRES: n > 0
@@ -48,7 +53,11 @@ public class StudySession {
         return sequence;
     }
 
-    // EFFECTS: displays front of each card, back revealed
+    /*
+     * EFFECTS: displays front of each card in study list,
+     *          one at a time, displays back of card
+     *          when ENTER is pressed by user
+     */
     private void beginStudySession() {
         header("Study Session");
         int i = 1;
