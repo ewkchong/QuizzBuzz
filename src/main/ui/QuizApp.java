@@ -120,8 +120,7 @@ public class QuizApp {
             new StudySession(d.getCardList());
             deckMenu(d);
         } else if (s == 2) {
-            viewCards(d);
-            waitForEnter();
+            cardsMenu(d);
             deckMenu(d);
         } else if (s == 3) {
             inputCardInfo(d);
@@ -138,6 +137,99 @@ public class QuizApp {
             decks.remove(d);
         }
     }
+
+    private void cardsMenu(Deck d) {
+        while (true) {
+            viewCards(d);
+            header("Options");
+
+            System.out.println("1) Add a Card");
+            System.out.println("2) Edit a Card");
+            System.out.println("3) Remove a Card");
+            System.out.println("4) Return to Menu");
+
+            System.out.println("\nPlease choose a number or return to menu");
+            int command = scanner.nextInt();
+            if (command == 1) {
+                inputCardInfo(d);
+            } else if (command == 2) {
+                userSelectEditCard(d);
+            } else if (command == 3) {
+                deleteSelectedCard(d);
+            } else if (command == 4) {
+                break;
+            } else {
+                System.out.println("Invalid Command!");
+            }
+        }
+    }
+
+    private void userSelectEditCard(Deck d) {
+        System.out.println("Enter a card number to edit that card");
+        int e = scanner.nextInt();
+        if (e <= d.getCardList().size() && e > 0) {
+            Card c = d.getCardList().get(e - 1);
+            chooseEdit(c);
+        } else {
+            System.out.println("Invalid input");
+        }
+
+    }
+
+    private void chooseEdit(Card c) {
+        System.out.println("Would you like to edit front, back, or tags?:");
+        System.out.println("\t 1) Front");
+        System.out.println("\t 2) Back");
+        System.out.println("\t 3) Tags");
+        int e = scanner.nextInt();
+        if (e == 1) {
+            editCardUI("front", c);
+        } else if (e == 2) {
+            editCardUI("back", c);
+        } else if (e == 3) {
+            editTags(c);
+        } else {
+            System.out.println("Invalid Input!");
+            waitForEnter();
+        }
+    }
+
+    private void editCardUI(String choice, Card card) {
+        System.out.println("Enter new value:");
+        if (choice.equals("front")) {
+            scanner.nextLine();
+            String entry = scanner.nextLine();
+            card.changeFront(entry);
+            System.out.println("Card changed!");
+        } else {
+            scanner.nextLine();
+            String entry = scanner.nextLine();
+            card.changeBack(entry);
+            System.out.println("Card changed!");
+        }
+        waitForEnter();
+    }
+
+    private void editTags(Card card) {
+        System.out.println("Tags:");
+        ArrayList<String> tags = card.getTags();
+        System.out.println(tags);
+
+        System.out.println("Enter the name of a new tag to add, or existing tag to remove");
+        scanner.nextLine();
+        String entry = scanner.nextLine();
+        int i = tags.indexOf(entry);
+
+        if (i != -1) {
+            tags.remove(i);
+            System.out.println("\nTag" + entry + "removed!");
+        } else {
+            tags.add(entry);
+            System.out.println("\nTag" + entry + "added!");
+        }
+        waitForEnter();
+    }
+
 
     // EFFECTS: prints list of cards in current deck
     public void viewCards(Deck d) {
