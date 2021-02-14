@@ -41,4 +41,17 @@ public class Card {
     public void changeBack(String s) {
         this.back = s;
     }
+
+
+    // REQUIRES: i > -1
+    // MODIFIES: this
+    // EFFECTS: removes tag named entry if in list,
+    //          adds tag if tag entry not already in list
+    public void changeTag(int i, String entry) {
+        if (i != -1) {
+            tags.remove(i);
+        } else {
+            tags.add(entry);
+        }
+    }
 }

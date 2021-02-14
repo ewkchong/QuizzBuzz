@@ -9,10 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
     Card c;
+    ArrayList<String> tags;
 
     @BeforeEach
     public void runBefore() {
         c = new Card("","",new ArrayList<>());
+        tags = c.getTags();
     }
 
     @Test
@@ -27,5 +29,25 @@ class CardTest {
         assertEquals(c.getBack(), "");
         c.changeBack("Ottawa");
         assertEquals(c.getBack(), "Ottawa");
+    }
+
+    @Test
+    public void testAddTag() {
+        assertEquals(tags.size(), 0);
+        c.changeTag(-1, "Vocabulary");
+        assertEquals(tags.size(), 1);
+        assertTrue(tags.contains("Vocabulary"));
+    }
+
+    @Test
+    public void testRemoveTag() {
+        assertEquals(tags.size(), 0);
+        c.changeTag(-1, "Vocabulary");
+        assertEquals(tags.size(), 1);
+        assertTrue(tags.contains("Vocabulary"));
+
+        c.changeTag(0, "Vocabulary");
+        assertEquals(tags.size(), 0);
+        assertFalse(tags.contains("Vocabulary"));
     }
 }

@@ -231,10 +231,10 @@ public class QuizApp {
         int i = tags.indexOf(entry);
 
         if (i != -1) {
-            tags.remove(i);
+            card.changeTag(i, entry);
             System.out.println("\nTag " + entry + " removed!");
         } else {
-            tags.add(entry);
+            card.changeTag(i, entry);
             System.out.println("\nTag " + entry + " added!");
         }
         waitForEnter();
