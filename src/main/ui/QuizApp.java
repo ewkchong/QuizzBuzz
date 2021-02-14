@@ -151,7 +151,7 @@ public class QuizApp {
             System.out.println("3) Remove a Card");
             System.out.println("4) Return to Menu");
 
-            System.out.println("\nPlease choose a number or return to menu");
+            System.out.println("\nPlease choose a number or return to menu:");
             int command = scanner.nextInt();
             if (command == 1) {
                 inputCardInfo(d);
@@ -169,7 +169,7 @@ public class QuizApp {
 
     // EFFECTS: allows user to select a card to edit
     private void userSelectEditCard(Deck d) {
-        System.out.println("Enter a card number to edit that card");
+        System.out.println("Enter a card number to edit that card:");
         int e = scanner.nextInt();
         if (e <= d.getCardList().size() && e > 0) {
             Card c = d.getCardList().get(e - 1);
@@ -225,7 +225,7 @@ public class QuizApp {
         ArrayList<String> tags = card.getTags();
         System.out.println(tags);
 
-        System.out.println("Enter the name of a new tag to add, or existing tag to remove");
+        System.out.println("Enter the name of a new tag to add, or existing tag to remove:");
         scanner.nextLine();
         String entry = scanner.nextLine();
         int i = tags.indexOf(entry);
