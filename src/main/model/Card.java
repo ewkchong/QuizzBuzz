@@ -8,7 +8,6 @@ public class Card {
     private String back;             // Content on the "back" of the card
     private ArrayList<String> tags;  // List of tags applied to card
 
-
     // Constructs a card
     // EFFECTS: Card created with front, back, and tags
     public Card(String front, String back, ArrayList<String> tags) {

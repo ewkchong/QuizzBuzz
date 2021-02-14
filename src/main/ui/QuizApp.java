@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 // A flash card application
 public class QuizApp {
-    private ArrayList<Deck> decks;
-    private Scanner scanner;
+    private ArrayList<Deck> decks;     // List of decks created by user
+    private Scanner scanner;           // Scanner for user input
 
     // EFFECTS: initializes user interface
     public QuizApp() {
@@ -48,6 +48,7 @@ public class QuizApp {
         System.out.println("\t3) Quit");
     }
 
+    // REQUIRES: i == 1 OR i ==2
     // EFFECTS: processes user key input for start menu
     private void processStartMenuCommand(int i) {
         if (i == 1) {
@@ -118,6 +119,7 @@ public class QuizApp {
     private void processDeckMenuCommand(Deck d, int s) {
         if (s == 1) {
             new StudySession(d.getCardList());
+            waitForEnter();
             deckMenu(d);
         } else if (s == 2) {
             cardsMenu(d);
@@ -138,6 +140,7 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: displays operations on list of cards and processes user input
     private void cardsMenu(Deck d) {
         while (true) {
             viewCards(d);
@@ -164,6 +167,7 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: allows user to select a card to edit
     private void userSelectEditCard(Deck d) {
         System.out.println("Enter a card number to edit that card");
         int e = scanner.nextInt();
@@ -176,6 +180,8 @@ public class QuizApp {
 
     }
 
+
+    // EFFECTS: processes user choice for editing a card
     private void chooseEdit(Card c) {
         System.out.println("Would you like to edit front, back, or tags?:");
         System.out.println("\t 1) Front");
@@ -194,6 +200,7 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: processes user input to change front or back of card
     private void editCardUI(String choice, Card card) {
         System.out.println("Enter new value:");
         if (choice.equals("front")) {
@@ -210,6 +217,9 @@ public class QuizApp {
         waitForEnter();
     }
 
+
+    // MODIFIES: card
+    // EFFECTS: processes user input for editing tags of a single card
     private void editTags(Card card) {
         System.out.println("Tags:");
         ArrayList<String> tags = card.getTags();
@@ -222,10 +232,10 @@ public class QuizApp {
 
         if (i != -1) {
             tags.remove(i);
-            System.out.println("\nTag" + entry + "removed!");
+            System.out.println("\nTag " + entry + " removed!");
         } else {
             tags.add(entry);
-            System.out.println("\nTag" + entry + "added!");
+            System.out.println("\nTag " + entry + " added!");
         }
         waitForEnter();
     }
