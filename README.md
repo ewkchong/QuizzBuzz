@@ -41,3 +41,7 @@ to help memorize anything in the most effective manner.
 - As a user, I want to be able to add, remove, and rename decks
 - As a user, I want to be able to review my cards in a random order
 - As a user, I want to be able to see my statistics and performance
+- As a user, I want to be able to save my decks to file
+- As a user, I want to be able to load my decks from file
+- As a user, when I quit the application, I want to be able to choose whether I want to save my deck/its changes
+or not

@@ -73,10 +73,10 @@ public class QuizApp {
 
     // EFFECTS: prints a list of all decks, allows selection
     private void viewDecks() {
+        header("Deck List");
         if (decks.size() == 0) {
             System.out.println("No decks to view!");
         } else {
-            System.out.println("Deck List:");
             int i = 1;
             for (Deck d : decks) {
                 System.out.println("\t" + i + ") " + d.getTitle());
