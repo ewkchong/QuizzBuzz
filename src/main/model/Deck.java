@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // A deck containing flash cards
@@ -43,5 +46,22 @@ public class Deck {
     // EFFECTS: changes the title of the deck to user-input string
     public void renameDeck(String t) {
         this.title = t;
+    }
+
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("title", title);
+        json.put("cardList", cardListToJson());
+        return json;
+    }
+
+    private JSONArray cardListToJson() {
+        JSONArray array = new JSONArray();
+        for (Card c: cardList) {
+            array.put(c.toJson());
+        }
+        return array;
     }
 }

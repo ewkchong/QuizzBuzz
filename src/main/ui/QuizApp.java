@@ -2,6 +2,7 @@ package ui;
 
 import model.Card;
 import model.Deck;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -328,7 +329,6 @@ public class QuizApp {
                 break;
             }
         }
-
     }
 
     // EFFECTS: adds a horizontal line under given string and prints
@@ -336,4 +336,13 @@ public class QuizApp {
         System.out.println("\n" + h);
         System.out.println("==============================================================");
     }
+
+    public JSONArray deckListToJson() {
+        JSONArray array = new JSONArray();
+        for (Deck d: decks) {
+            array.put(d.toJson());
+        }
+        return array;
+    }
+
 }

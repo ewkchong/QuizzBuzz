@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import java.util.ArrayList;
 
 // A flash card with tags
@@ -53,5 +54,13 @@ public class Card {
         } else {
             tags.add(entry);
         }
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("front", front);
+        json.put("back", back);
+        json.put("tags", tags);
+        return json;
     }
 }
