@@ -1,7 +1,9 @@
 package persistence;
 
+import model.Card;
 import model.Deck;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,18 +35,42 @@ public class Reader {
     }
 
     public ArrayList<Deck> parseDeckList(JSONArray json) {
-        return null;
+        ArrayList<Deck> deckList = new ArrayList<>();
+        for (Object deck : json) {
+            JSONObject jsonObject = (JSONObject) deck;
+            deckList.add(parseDeck((JSONObject) deck));
+        }
+        return deckList;
     }
 
-    public void parseDeck() {
+    public Deck parseDeck(JSONObject deck) {
+        String title = deck.getString("title");
 
+        return new Deck(title, parseCardList(deck));
     }
 
-    public void parseCardList() {
-
+    public ArrayList<Card> parseCardList(JSONObject deck) {
+        ArrayList<Card> cardList = new ArrayList<>();
+        JSONArray cardArray = deck.getJSONArray("cardList");
+        for (Object card : cardArray) {
+            cardList.add(parseCard((JSONObject) card));
+        }
+        return cardList;
     }
 
-    public void parseCard() {
+    public Card parseCard(JSONObject card) {
+        String front = card.getString("front");
+        String back = card.getString("back");
+        ArrayList<String> tags = parseTags(card);
+        return new Card(front, back, tags);
+    }
 
+    private ArrayList<String> parseTags(JSONObject card) {
+        ArrayList<String> tags = new ArrayList<>();
+        JSONArray tagArray = card.getJSONArray("tags");
+        for (Object tag: tagArray) {
+            tags.add((String) tag);
+        }
+        return tags;
     }
 }

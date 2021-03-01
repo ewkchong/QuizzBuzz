@@ -29,22 +29,18 @@ public class Card {
         return tags;
     }
 
-    // REQUIRES: s is a non-empty string
     // MODIFIES: this
     // EFFECTS: changes front text of card to given string
     public void changeFront(String s) {
         this.front = s;
     }
 
-    // REQUIRES: s is a non-empty string
     // MODIFIES: this
     // EFFECTS: changes back text of card to given string
     public void changeBack(String s) {
         this.back = s;
     }
 
-
-    // REQUIRES: i > -1
     // MODIFIES: this
     // EFFECTS: removes tag named entry if in list,
     //          adds tag if tag entry not already in list

@@ -17,6 +17,11 @@ public class Deck {
         cardList = new ArrayList<>();
     }
 
+    public Deck(String title, ArrayList<Card> cardList) {
+        this.title = title;
+        this.cardList = cardList;
+    }
+
     public String getTitle() {
         return title;
     }

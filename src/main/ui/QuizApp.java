@@ -17,9 +17,9 @@ public class QuizApp {
     private Scanner scanner;           // Scanner for user input
 
     // EFFECTS: initializes user interface
-    public QuizApp() {
+    public QuizApp(ArrayList<Deck> decks) {
         scanner = new Scanner(System.in);
-        decks = new ArrayList<>();
+        this.decks = decks;
         runQuizApp();
     }
 
@@ -29,6 +29,7 @@ public class QuizApp {
         int input;
 
         header("Welcome to QuizzBuzz!");
+
         while (keepOpen) {
             openMenu();
             input = scanner.nextInt();
