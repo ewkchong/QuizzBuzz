@@ -1,0 +1,38 @@
+[
+    {
+        "cardList": [
+            {
+                "back": "2",
+                "front": "1+1",
+                "tags": [
+                    "Arithmetic",
+                    "Addition"
+                ]
+            },
+            {
+                "back": "1",
+                "front": "2-1",
+                "tags": [
+                    "Arithmetic",
+                    "Subtraction"
+                ]
+            }
+        ],
+        "title": "Math"
+    },
+    {
+        "cardList": [
+            {
+                "back": "4",
+                "front": "2 x 2",
+                "tags": ["Multiplication"]
+            },
+            {
+                "back": "2",
+                "front": "4 / 2",
+                "tags": ["Division"]
+            }
+        ],
+        "title": "Advanced Math"
+    }
+]

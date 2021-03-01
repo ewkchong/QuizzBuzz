@@ -3,7 +3,9 @@ package ui;
 import model.Card;
 import model.Deck;
 import org.json.JSONArray;
+import persistence.Writer;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,9 +38,8 @@ public class QuizApp {
             }
 
         }
-
+        saveMenu();
         System.out.println("Thank you for using QuizzBuzz! See you next time!");
-
     }
 
     // EFFECTS: displays start menu options
@@ -343,6 +344,23 @@ public class QuizApp {
             array.put(d.toJson());
         }
         return array;
+    }
+
+    public void saveMenu() {
+        System.out.println("Would you like to save all changes to decks/cards?");
+        System.out.println("\t1) Yes");
+        System.out.println("\t2) No");
+        scanner.nextLine();
+        String entry = scanner.nextLine();
+        if (entry.equals("1")) {
+            try {
+                Writer writer = new Writer("./data/decks.json");
+                writer.save(deckListToJson());
+                System.out.println("Saved!");
+            } catch (FileNotFoundException e) {
+                System.out.println("File cannot be found, NOOO!!!!");
+            }
+        }
     }
 
 }
