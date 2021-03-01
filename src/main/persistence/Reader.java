@@ -18,17 +18,11 @@ public class Reader {
         this.path = path;
     }
 
-    public String getStringFromJson() {
-        String s = "";
-        try {
-            s = new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            System.out.println("File cannot be found!");
-        }
-        return s;
+    public String getStringFromJson() throws IOException {
+        return new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
     }
 
-    public ArrayList<Deck> read() {
+    public ArrayList<Deck> read() throws IOException {
         String jsonString = getStringFromJson();
         JSONArray json = new JSONArray(jsonString);
         return parseDeckList(json);
