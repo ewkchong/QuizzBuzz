@@ -3,9 +3,11 @@ package ui;
 import model.Card;
 import model.Deck;
 import org.json.JSONArray;
+import persistence.Reader;
 import persistence.Writer;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,7 +52,7 @@ public class QuizApp {
         System.out.println("\t3) Quit");
     }
 
-    // REQUIRES: i == 1 OR i ==2
+    // REQUIRES: i == 1 OR i == 2
     // EFFECTS: processes user key input for start menu
     private void processStartMenuCommand(int i) {
         if (i == 1) {
