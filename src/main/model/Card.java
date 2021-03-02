@@ -8,6 +8,10 @@ public class Card {
     private String front;            // Content on the "front" of the card
     private String back;             // Content on the "back" of the card
     private ArrayList<String> tags;  // List of tags applied to card
+    private int lastReviewDate;
+    private int reviewDate;
+    private double ease;
+    private int status;
 
     // Constructs a card
     // EFFECTS: Card created with front, back, and tags
