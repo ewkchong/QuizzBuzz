@@ -4,6 +4,10 @@ import model.Card;
 import model.Deck;
 import org.json.JSONArray;
 import persistence.Writer;
+import ui.ss.AllStudySession;
+import ui.ss.NormalStudySession;
+import ui.ss.StudySession;
+import ui.ss.TagStudySession;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -121,7 +125,7 @@ public class QuizApp {
     // EFFECTS: processes user input from deck menu
     private void processDeckMenuCommand(Deck d, int s) {
         if (s == 1) {
-            new StudySession(d.getCardList());
+            studySessionMenu(d);
             waitForEnter();
             deckMenu(d);
         } else if (s == 2) {
@@ -362,6 +366,49 @@ public class QuizApp {
                 System.out.println("File cannot be found, NOOO!!!!");
             }
         }
+    }
+
+    public void studySessionMenu(Deck d) {
+        header("How would you like to study?");
+        System.out.println("\t1) Study");
+        System.out.println("\t2) Study by Tag (ignore schedule)");
+        System.out.println("\t3) Study all cards (ignore schedule)");
+        scanner.nextLine();
+        while (true) {
+            String entry = scanner.nextLine();
+            if (entry.equals("1")) {
+                StudySession ss = new NormalStudySession(d.getCardList());
+                ss.begin();
+                break;
+            } else if (entry.equals("2")) {
+                beginTagStudy(d);
+                break;
+            } else if (entry.equals("3")) {
+                StudySession ss = new AllStudySession(d.getCardList());
+                ss.begin();
+                break;
+            } else {
+                System.out.println("Invalid Input!");
+            }
+        }
+
+    }
+
+    public void beginTagStudy(Deck d) {
+        ArrayList<String> tags = new ArrayList<>();
+        boolean keepOpen = true;
+        while (keepOpen) {
+            System.out.println("\nEnter name of tag (case sensitive) to study, or press ENTER to quit:");
+            String e = scanner.nextLine();
+
+            if (e.equals("")) {
+                keepOpen = false;
+            } else {
+                tags.add(e);
+            }
+        }
+        StudySession ss = new TagStudySession(d.getCardList(), tags);
+        ss.begin();
     }
 
 }

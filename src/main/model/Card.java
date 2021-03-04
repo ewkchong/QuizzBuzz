@@ -12,7 +12,6 @@ public class Card {
     private ArrayList<String> tags;  // List of tags applied to card
     private int reviewCount;
     private long currentInterval;    // Current review interval in hours
-    private long lastReviewDate;
     private long reviewDate;
     private double ease;
     private int status;
@@ -25,7 +24,7 @@ public class Card {
         this.tags = tags;
         reviewCount = 0;
         status = 0;
-        lastReviewDate = 0;
+        currentInterval = 0;
         reviewDate = 0;
         ease = 2.5;
     }
@@ -42,14 +41,6 @@ public class Card {
         return tags;
     }
 
-    public double getEase() {
-        return ease;
-    }
-
-    public long getCurrentInterval() {
-        return currentInterval;
-    }
-
     public long getReviewDate() {
         return reviewDate;
     }
@@ -62,8 +53,29 @@ public class Card {
         this.back = s;
     }
 
-    public void setCurrentInterval(int i) {
-        this.currentInterval = i;
+    public Card setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
+        return this;
+    }
+
+    public Card setStatus(int status) {
+        this.status = status;
+        return this;
+    }
+
+    public Card setCurrentInterval(long currentInterval) {
+        this.currentInterval = currentInterval;
+        return this;
+    }
+
+    public Card setReviewDate(long reviewDate) {
+        this.reviewDate = reviewDate;
+        return this;
+    }
+
+    public Card setEase(double ease) {
+        this.ease = ease;
+        return this;
     }
 
     // MODIFIES: this
@@ -84,6 +96,11 @@ public class Card {
         json.put("front", front);
         json.put("back", back);
         json.put("tags", tags);
+        json.put("reviewCount", reviewCount);
+        json.put("status", status);
+        json.put("currentInterval", currentInterval);
+        json.put("reviewDate", reviewDate);
+        json.put("ease", ease);
         return json;
     }
 
@@ -92,6 +109,7 @@ public class Card {
     // EFFECTS: determines the amount of days before next review date
     public void processReview(int diff) {
         calculateEase(diff);
+
         if (reviewCount == 0) {
             currentInterval = 24;
         } else if (reviewCount == 1) {
@@ -99,12 +117,13 @@ public class Card {
         } else {
             currentInterval *= ease;
         }
+
         if (currentInterval >= (24 * 21)) {
             status = 1;
         }
 
+        reviewCount++;
         long day = new ReviewCalendar().time();
-        lastReviewDate = day;
         reviewDate = day + currentInterval;
     }
 

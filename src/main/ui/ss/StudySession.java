@@ -1,4 +1,4 @@
-package ui;
+package ui.ss;
 
 import model.Card;
 import model.ReviewCalendar;
@@ -11,46 +11,23 @@ import java.util.stream.Stream;
 import static ui.QuizApp.header;
 
 // a study session that displays flash cards for user to study
-public class StudySession {
-    private ArrayList<Card> cards;      // list of cards from deck, un-shuffled
-    private ArrayList<Card> studyList;  // list of cards from deck, shuffled
-    private Scanner scanner;            // scanner for user input
-    private int correctReviews;         // amount of cards marked as correct during study session
+public abstract class StudySession {
+    protected ArrayList<Card> cards;      // list of cards from deck, un-shuffled
+    protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
+    protected Scanner scanner;            // scanner for user input
+    protected int correctReviews;         // amount of cards marked as correct during study session
 
     // EFFECTS: constructs a new session with given list of cards to study
     public StudySession(ArrayList<Card> cards) {
         this.cards = cards;
-        studyList = generateStudyList(cards.size());
         this.scanner = new Scanner(System.in);
-        beginStudySession();
-
     }
 
-    // REQUIRES: n > 0
-    // MODIFIES: this
-    // EFFECTS: uses shuffle sequence to randomize order of cards
-    //          filters out cards that are not ready for review
-    private ArrayList<Card> generateStudyList(Integer n) {
-        ArrayList<Integer> shuffleSequence = generateShuffleSequence(n);
-        ArrayList<Card> list = new ArrayList<>(cards);
-
-        for (int i = 0; i < n; i++) {
-            list.set(shuffleSequence.get(i), cards.get(i));
-        }
-
-        Stream<Card> cardStream = list.stream();
-        System.out.println(new ReviewCalendar().displayTime());
-        List<Card> filteredList = cardStream.filter(card -> new ReviewCalendar().time() > card.getReviewDate())
-                                            .collect(Collectors.toList());
-
-        list = new ArrayList<>(filteredList);
-
-        return list;
-    }
+    protected abstract ArrayList<Card> generateStudyList(int n);
 
     // REQUIRES: n > 0
     // EFFECTS: generates a random sequence of integers from 0 to n
-    private static ArrayList<Integer> generateShuffleSequence(Integer n) {
+    protected ArrayList<Integer> generateShuffleSequence(Integer n) {
         ArrayList<Integer> sequence = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
@@ -65,7 +42,8 @@ public class StudySession {
      *          one at a time, displays back of card
      *          when ENTER is pressed by user
      */
-    private void beginStudySession() {
+    public void begin() {
+        studyList = generateStudyList(cards.size());
         header("Study Session");
         if (studyList.size() != 0) {
             int i = 1;
@@ -92,9 +70,9 @@ public class StudySession {
 
     // REQUIRES: cards.size() > 0
     // EFFECTS: calculates proportion of correct cards reviewed
-    private String calcSuccessRate() {
+    protected String calcSuccessRate() {
         double correct = correctReviews;
-        double total = cards.size();
+        double total = studyList.size();
         double rate = (correct / total) * 100;
 
         DecimalFormat df = new DecimalFormat("#.#");

@@ -56,7 +56,14 @@ public class Reader {
         String front = card.getString("front");
         String back = card.getString("back");
         ArrayList<String> tags = parseTags(card);
-        return new Card(front, back, tags);
+
+        Card c = new Card(front, back, tags).setReviewCount(card.getInt("reviewCount"))
+                .setCurrentInterval(card.getLong("currentInterval"))
+                .setReviewDate(card.getLong("reviewDate"))
+                .setEase(card.getDouble("ease"))
+                .setStatus(card.getInt("status"));
+
+        return c;
     }
 
     private ArrayList<String> parseTags(JSONObject card) {

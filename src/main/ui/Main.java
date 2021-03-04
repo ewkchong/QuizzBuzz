@@ -1,5 +1,6 @@
 package ui;
 
+import org.json.JSONException;
 import persistence.Reader;
 
 import java.io.IOException;
@@ -10,8 +11,8 @@ public class Main {
         Reader reader = new Reader("./data/decks.json");
         try {
             new QuizApp(reader.read());
-        } catch (IOException e) {
-            System.out.println("Could not find file to load!");
+        } catch (IOException | JSONException e) {
+            new QuizApp(new ArrayList<>());
         }
     }
 }
