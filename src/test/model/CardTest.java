@@ -20,14 +20,14 @@ class CardTest {
     @Test
     public void testChangeFront() {
         assertEquals(c.getFront(), "");
-        c.changeFront("What is the capital city of Canada?");
+        c.setFront("What is the capital city of Canada?");
         assertEquals(c.getFront(), "What is the capital city of Canada?");
     }
 
     @Test
     public void testChangeBack() {
         assertEquals(c.getBack(), "");
-        c.changeBack("Ottawa");
+        c.setBack("Ottawa");
         assertEquals(c.getBack(), "Ottawa");
     }
 

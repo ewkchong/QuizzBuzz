@@ -1,12 +1,12 @@
 package ui;
 
 import model.Card;
-import model.Deck;
+import model.ReviewCalendar;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ui.QuizApp.header;
 
@@ -19,20 +19,17 @@ public class StudySession {
 
     // EFFECTS: constructs a new session with given list of cards to study
     public StudySession(ArrayList<Card> cards) {
-        if (cards.size() == 0) {
-            System.out.println("No cards to study!");
-        } else {
-            this.cards = cards;
-            studyList = generateStudyList(cards.size());
-            this.scanner = new Scanner(System.in);
-            beginStudySession();
-        }
+        this.cards = cards;
+        studyList = generateStudyList(cards.size());
+        this.scanner = new Scanner(System.in);
+        beginStudySession();
 
     }
 
     // REQUIRES: n > 0
     // MODIFIES: this
     // EFFECTS: uses shuffle sequence to randomize order of cards
+    //          filters out cards that are not ready for review
     private ArrayList<Card> generateStudyList(Integer n) {
         ArrayList<Integer> shuffleSequence = generateShuffleSequence(n);
         ArrayList<Card> list = new ArrayList<>(cards);
@@ -40,6 +37,13 @@ public class StudySession {
         for (int i = 0; i < n; i++) {
             list.set(shuffleSequence.get(i), cards.get(i));
         }
+
+        Stream<Card> cardStream = list.stream();
+        System.out.println(new ReviewCalendar().displayTime());
+        List<Card> filteredList = cardStream.filter(card -> new ReviewCalendar().time() > card.getReviewDate())
+                                            .collect(Collectors.toList());
+
+        list = new ArrayList<>(filteredList);
 
         return list;
     }
@@ -63,26 +67,27 @@ public class StudySession {
      */
     private void beginStudySession() {
         header("Study Session");
-        int i = 1;
-        for (Card c: studyList) {
-            header("Card " + i);
-            System.out.println("\tFront: " + c.getFront());
-            while (true) {
-                System.out.println("\nPress ENTER to show answer...");
-                if (i != 1) {
-                    scanner.nextLine();
+        if (studyList.size() != 0) {
+            int i = 1;
+            for (Card c : studyList) {
+                header("Card " + i);
+                System.out.println("\tFront: " + c.getFront());
+                while (true) {
+                    System.out.println("\nPress ENTER to show answer...");
+                    if (scanner.nextLine().equals("")) {
+                        System.out.println("\tBack: " + c.getBack());
+                        break;
+                    }
                 }
-                if (scanner.nextLine().equals("")) {
-                    System.out.println("\tBack: " + c.getBack());
-                    break;
-                }
+                cardDifficulty(c);
+                i++;
             }
-            cardDifficulty(c);
-            i++;
-        }
 
-        System.out.println("Study session complete!");
-        System.out.println("Success Rate: " + calcSuccessRate() + "% of " + cards.size() + " cards reviewed");
+            System.out.println("Study session complete!");
+            System.out.println("Success Rate: " + calcSuccessRate() + "% of " + cards.size() + " cards reviewed");
+        } else {
+            System.out.println("No cards to study!");
+        }
     }
 
     // REQUIRES: cards.size() > 0
@@ -100,16 +105,18 @@ public class StudySession {
     // EFFECTS: processes user input for difficulty of card
     private void cardDifficulty(Card c) {
         System.out.println("\nDifficulty of card:");
-        System.out.println("\t1) Easy");
+        System.out.println("\t1) Hard");
         System.out.println("\t2) Good");
-        System.out.println("\t3) Hard");
+        System.out.println("\t3) Easy");
 
         while (true) {
-            int diff = scanner.nextInt();
-            if (diff == 1 || diff == 2) {
+            String diff = scanner.nextLine();
+            if (diff.equals("2") || diff.equals("3")) {
                 correctReviews++;
+                c.processReview(Integer.parseInt(diff));
                 break;
-            } else if (diff == 3) {
+            } else if (diff.equals("1")) {
+                c.processReview(Integer.parseInt(diff));
                 break;
             } else {
                 System.out.println("Invalid input, please try again!");

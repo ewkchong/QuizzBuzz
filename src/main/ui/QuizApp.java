@@ -3,11 +3,9 @@ package ui;
 import model.Card;
 import model.Deck;
 import org.json.JSONArray;
-import persistence.Reader;
 import persistence.Writer;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -211,12 +209,12 @@ public class QuizApp {
         if (choice.equals("front")) {
             scanner.nextLine();
             String entry = scanner.nextLine();
-            card.changeFront(entry);
+            card.setFront(entry);
             System.out.println("Card changed!");
         } else {
             scanner.nextLine();
             String entry = scanner.nextLine();
-            card.changeBack(entry);
+            card.setBack(entry);
             System.out.println("Card changed!");
         }
         waitForEnter();
