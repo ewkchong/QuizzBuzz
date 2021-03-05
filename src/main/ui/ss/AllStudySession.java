@@ -6,13 +6,18 @@ import java.util.ArrayList;
 
 import static ui.QuizApp.header;
 
+// A study session that allows the user to review all cards regardless of schedule
 public class AllStudySession extends StudySession {
 
+    // EFFECTS: constructs a study session for reviewing all cards,
+    //          regardless of schedule
     public AllStudySession(ArrayList<Card> cards) {
         super(cards);
 
     }
 
+    // EFFECTS: generates a study list using all of the decks cards,
+    //          does not filter out any cards
     @Override
     protected ArrayList<Card> generateStudyList(int n) {
         ArrayList<Integer> shuffleSequence = generateShuffleSequence(n);

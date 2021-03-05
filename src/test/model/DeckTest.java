@@ -73,4 +73,9 @@ public class DeckTest {
         d.renameDeck("CHIN 133");
         assertEquals(d.getTitle(), "CHIN 133");
     }
+
+    @Test
+    public void testToJson() {
+
+    }
 }

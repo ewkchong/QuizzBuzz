@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// A study session that prescribes the user review times for spaced repetition
 public class NormalStudySession extends StudySession {
 
     public NormalStudySession(ArrayList<Card> cards) {

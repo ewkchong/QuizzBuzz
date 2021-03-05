@@ -23,6 +23,7 @@ public abstract class StudySession {
         this.scanner = new Scanner(System.in);
     }
 
+    // EFFECTS: selects the proper cards to add to study session
     protected abstract ArrayList<Card> generateStudyList(int n);
 
     // REQUIRES: n > 0

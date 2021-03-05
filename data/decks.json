@@ -3,8 +3,8 @@
         "cardList": [
             {
                 "ease": 2.5,
-                "reviewCount": 1,
-                "reviewDate": 448601,
+                "reviewCount": 2,
+                "reviewDate": 448748,
                 "back": "4",
                 "front": "2 + 2",
                 "tags": [
@@ -12,17 +12,17 @@
                     "Addition"
                 ],
                 "status": 0,
-                "currentInterval": 24
+                "currentInterval": 144
             },
             {
                 "ease": 2.5,
-                "reviewCount": 0,
-                "reviewDate": 0,
+                "reviewCount": 1,
+                "reviewDate": 448628,
                 "back": "1",
                 "front": "3 - 2",
                 "tags": ["Subtraction"],
                 "status": 0,
-                "currentInterval": 0
+                "currentInterval": 24
             }
         ],
         "title": "Arithmetic"

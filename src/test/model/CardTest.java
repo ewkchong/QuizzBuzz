@@ -50,4 +50,50 @@ class CardTest {
         assertEquals(tags.size(), 0);
         assertFalse(tags.contains("Vocabulary"));
     }
+
+    @Test
+    public void testToJson() {
+
+    }
+
+    @Test
+    public void testEaseCalculationNormal() {
+
+    }
+
+    @Test
+    public void testEaseCalculationAtLowerLimit() {
+
+    }
+
+    @Test
+    public void testEaseCalculationPastLowerLimit() {
+
+    }
+
+
+    @Test
+    public void testProcessReviewCountZero() {
+
+    }
+
+    @Test
+    public void testProcessReviewCountOne() {
+
+    }
+
+    @Test
+    public void testProcessReviewCountMoreThanOne() {
+
+    }
+
+    @Test
+    public void testProcessReviewCardMature() {
+
+    }
+
+    @Test
+    public void testProcessReviewCardPastMature() {
+
+    }
 }

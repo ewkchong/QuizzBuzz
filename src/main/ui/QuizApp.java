@@ -11,6 +11,8 @@ import ui.ss.TagStudySession;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // A flash card application
@@ -102,7 +104,6 @@ public class QuizApp {
     // EFFECTS: displays operations for a given deck
     public void deckMenu(Deck d) {
         int selection = 0;
-
         while (!(selection > 0)) {
             System.out.println("\nDeck " + d.getTitle() + ":");
             System.out.println("\t1) Study!");
@@ -343,6 +344,7 @@ public class QuizApp {
         System.out.println("==============================================================");
     }
 
+    // EFFECTS: changes list of decks into a JSON array
     public JSONArray deckListToJson() {
         JSONArray array = new JSONArray();
         for (Deck d: decks) {
@@ -351,6 +353,9 @@ public class QuizApp {
         return array;
     }
 
+
+    // EFFECTS: displays menu asking user if they would like to save changes,
+    //          processes user input
     public void saveMenu() {
         System.out.println("Would you like to save all changes to decks/cards?");
         System.out.println("\t1) Yes");
@@ -368,6 +373,9 @@ public class QuizApp {
         }
     }
 
+    // EFFECTS: displays menu asking user for type of study session,
+    //          processes user input, beginning appropriate type of
+    //          study session
     public void studySessionMenu(Deck d) {
         header("How would you like to study?");
         System.out.println("\t1) Study");
@@ -394,8 +402,11 @@ public class QuizApp {
 
     }
 
+    // EFFECTS: processes user input of arbitrary amount of tags,
+    //          uses tags to begin a study by tag session
     public void beginTagStudy(Deck d) {
         ArrayList<String> tags = new ArrayList<>();
+        displayTags(d);
         boolean keepOpen = true;
         while (keepOpen) {
             System.out.println("\nEnter name of tag (case sensitive) to study, or press ENTER to quit:");
@@ -409,6 +420,17 @@ public class QuizApp {
         }
         StudySession ss = new TagStudySession(d.getCardList(), tags);
         ss.begin();
+    }
+
+    // EFFECTS: prints a header and the set of all tags in the card list of given deck
+    private void displayTags(Deck d) {
+        ArrayList<Card> cards = d.getCardList();
+        header("List of Tags");
+        HashSet<String> tagSet = new HashSet<>();
+        for (Card c: cards) {
+            tagSet.addAll(c.getTags());
+        }
+        System.out.println(tagSet.toString());
     }
 
 }
