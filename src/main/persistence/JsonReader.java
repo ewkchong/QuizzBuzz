@@ -11,10 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class Reader {
+public class JsonReader {
     private String path;
 
-    public Reader(String path) {
+    public JsonReader(String path) {
         this.path = path;
     }
 

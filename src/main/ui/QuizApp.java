@@ -3,7 +3,7 @@ package ui;
 import model.Card;
 import model.Deck;
 import org.json.JSONArray;
-import persistence.Writer;
+import persistence.JsonWriter;
 import ui.ss.AllStudySession;
 import ui.ss.NormalStudySession;
 import ui.ss.StudySession;
@@ -359,7 +359,7 @@ public class QuizApp {
         String entry = scanner.nextLine();
         if (entry.equals("1")) {
             try {
-                Writer writer = new Writer("./data/decks.json");
+                JsonWriter writer = new JsonWriter("./data/decks.json");
                 writer.save(deckListToJson());
                 System.out.println("Saved!");
             } catch (FileNotFoundException e) {
