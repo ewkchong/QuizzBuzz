@@ -25,41 +25,10 @@ public class AllStudySession extends StudySession {
         return list;
     }
 
-    /*
-     * EFFECTS: displays front of each card in study list,
-     *          one at a time, displays back of card
-     *          when ENTER is pressed by user
-     */
-    @Override
-    public void begin() {
-        studyList = generateStudyList(cards.size());
-        header("Study Session");
-        if (studyList.size() != 0) {
-            int i = 1;
-            for (Card c : studyList) {
-                header("Card " + i);
-                System.out.println("\tFront: " + c.getFront());
-                while (true) {
-                    System.out.println("\nPress ENTER to show answer...");
-                    if (scanner.nextLine().equals("")) {
-                        System.out.println("\tBack: " + c.getBack());
-                        break;
-                    }
-                }
-                cardDifficulty(c);
-                i++;
-            }
-
-            System.out.println("Study session complete!");
-            System.out.println("Success Rate: " + calcSuccessRate() + "% of " + cards.size() + " cards reviewed");
-        } else {
-            System.out.println("No cards to study!");
-        }
-    }
-
     // MODIFIES: this
     // EFFECTS: processes user input for difficulty of card
-    private void cardDifficulty(Card c) {
+    @Override
+    protected void cardDifficulty(Card c) {
         System.out.println("\nDifficulty of card:");
         System.out.println("\t1) Hard");
         System.out.println("\t2) Good");

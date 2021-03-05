@@ -81,7 +81,7 @@ public abstract class StudySession {
 
     // MODIFIES: this
     // EFFECTS: processes user input for difficulty of card
-    private void cardDifficulty(Card c) {
+    protected void cardDifficulty(Card c) {
         System.out.println("\nDifficulty of card:");
         System.out.println("\t1) Hard");
         System.out.println("\t2) Good");

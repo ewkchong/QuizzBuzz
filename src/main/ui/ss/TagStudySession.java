@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static ui.QuizApp.header;
+
 public class TagStudySession extends StudySession {
     ArrayList<String> tags;
 
@@ -45,6 +47,28 @@ public class TagStudySession extends StudySession {
             }
         }
         return false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user input for difficulty of card
+    @Override
+    protected void cardDifficulty(Card c) {
+        System.out.println("\nDifficulty of card:");
+        System.out.println("\t1) Hard");
+        System.out.println("\t2) Good");
+        System.out.println("\t3) Easy");
+
+        while (true) {
+            String diff = scanner.nextLine();
+            if (diff.equals("2") || diff.equals("3")) {
+                correctReviews++;
+                break;
+            } else if (diff.equals("1")) {
+                break;
+            } else {
+                System.out.println("Invalid input, please try again!");
+            }
+        }
     }
 
 }
