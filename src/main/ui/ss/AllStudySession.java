@@ -13,7 +13,6 @@ public class AllStudySession extends StudySession {
     //          regardless of schedule
     public AllStudySession(ArrayList<Card> cards) {
         super(cards);
-
     }
 
     // EFFECTS: generates a study list using all of the decks cards,

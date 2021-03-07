@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 // A flash card with tags
 public class Card {
-    private String front;            // Content on the "front" of the card
-    private String back;             // Content on the "back" of the card
-    private final ArrayList<String> tags;  // List of tags applied to card
-    private int reviewCount;
-    private long currentInterval;    // Current review interval in hours
-    private long reviewDate;
-    private double ease;
-    private int status;
+    private String front;                   // Content on the "front" of the card
+    private String back;                    // Content on the "back" of the card
+    private final ArrayList<String> tags;   // List of tags applied to card
+    private int reviewCount;                // Running total of normal reviews done
+    private long currentInterval;           // Current review interval in hours
+    private long reviewDate;                // Next scheduled date of review
+    private double ease;                    // Ease factor used in calculating next interval
+    private int status;                     // 0 for "young" card, 1 for "mature" card
 
     // Constructs a card
     // EFFECTS: Card created with front, back, and tags

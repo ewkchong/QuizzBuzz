@@ -69,7 +69,6 @@ public abstract class StudySession {
         }
     }
 
-    // REQUIRES: cards.size() > 0
     // EFFECTS: calculates proportion of correct cards reviewed
     protected String calcSuccessRate() {
         double correct = correctReviews;

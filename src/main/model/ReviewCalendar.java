@@ -3,14 +3,13 @@ package model;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+// A calendar that represents dates in hours
 public class ReviewCalendar extends GregorianCalendar {
-
 
     // EFFECTS: instantiates a new calendar, with local time
     public ReviewCalendar() {
         super();
     }
-
 
     // EFFECTS: instantiates a new calendar, whose time is set to the given amount of hours since the epoch
     public ReviewCalendar(long hours) {

@@ -9,17 +9,20 @@ import java.util.stream.Stream;
 
 import static ui.QuizApp.header;
 
+// A study session that allows the user to study only the specified tags
 public class TagStudySession extends StudySession {
-    ArrayList<String> tags;
+    ArrayList<String> tags;     // list of tags to study
 
+    // constructs a new tag study session with given cards and set of tags
     public TagStudySession(ArrayList<Card> cards, ArrayList<String> tags) {
         super(cards);
         this.tags = tags;
     }
 
-    // REQUIRES: n > 0
     // MODIFIES: this
-    // EFFECTS: uses shuffle sequence to randomize order of cards
+    // EFFECTS: uses shuffle sequence to randomize order of cards,
+    //          filters out all cards that do not contain the correct tags,
+    //          returns filtered list
     @Override
     protected ArrayList<Card> generateStudyList(int n) {
         ArrayList<Integer> shuffleSequence = generateShuffleSequence(n);
@@ -38,6 +41,8 @@ public class TagStudySession extends StudySession {
         return list;
     }
 
+    // EFFECTS: returns true if any of the given card's tags
+    //          are in the given tag list
     private boolean toStudy(Card c) {
         ArrayList<String> cardTags = c.getTags();
 
@@ -50,7 +55,8 @@ public class TagStudySession extends StudySession {
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user input for difficulty of card
+    // EFFECTS: processes user input for difficulty of card,
+    //          does not affect scheduling of card
     @Override
     protected void cardDifficulty(Card c) {
         System.out.println("\nDifficulty of card:");

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 // A deck containing flash cards
 public class Deck {
-    private String title;                              // title of deck
-    private final ArrayList<Card> cardList;                  // all cards in deck
+    private String title;                       // title of deck
+    private final ArrayList<Card> cardList;     // list of all cards in deck
 
     // EFFECTS: instantiates new deck with given title and empty list of cards
     public Deck(String title) {
