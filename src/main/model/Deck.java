@@ -10,13 +10,13 @@ public class Deck {
     private String title;                              // title of deck
     private ArrayList<Card> cardList;                  // all cards in deck
 
-    // REQUIRES: title given must be of non-zero length
     // EFFECTS: instantiates new deck with given title and empty list of cards
     public Deck(String title) {
         this.title = title;
         cardList = new ArrayList<>();
     }
 
+    // EFFECTS: instantiates new deck with given title and given list of cards
     public Deck(String title, ArrayList<Card> cardList) {
         this.title = title;
         this.cardList = cardList;
@@ -58,18 +58,18 @@ public class Deck {
         this.title = t;
     }
 
-
+    // EFFECTS: returns a json representation of the deck object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-
         json.put("title", title);
         json.put("cardList", cardListToJson());
         return json;
     }
 
+    // EFFECTS: returns a json array representation of the card list
     public JSONArray cardListToJson() {
         JSONArray array = new JSONArray();
-        for (Card c: cardList) {
+        for (Card c : cardList) {
             array.put(c.toJson());
         }
         return array;

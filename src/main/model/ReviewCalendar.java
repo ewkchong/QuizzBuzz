@@ -5,22 +5,29 @@ import java.util.GregorianCalendar;
 
 public class ReviewCalendar extends GregorianCalendar {
 
+
+    // EFFECTS: instantiates a new calendar, with local time
     public ReviewCalendar() {
         super();
     }
 
+
+    // EFFECTS: instantiates a new calendar, whose time is set to the given amount of hours since the epoch
     public ReviewCalendar(long hours) {
         super();
         setTimeInMillis(hours * 3600000);
     }
 
+    // MODIFIES: this
     // EFFECTS: returns the current time in hours since the epoch
     public long time() {
         setTimeInMillis(System.currentTimeMillis());
         return (getTimeInMillis() / 3600000);
     }
 
-    public String displayTime() {
+
+    // EFFECTS: returns a string representation of the calendar object's date
+    public String displayDate() {
         int y = get(Calendar.YEAR);
         int m = get(Calendar.MONTH) + 1;
         int d = get(Calendar.DATE);

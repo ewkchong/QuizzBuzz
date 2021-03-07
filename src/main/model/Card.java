@@ -2,8 +2,6 @@ package model;
 
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 // A flash card with tags
 public class Card {
@@ -105,7 +103,6 @@ public class Card {
         }
     }
 
-    // !!!
     // EFFECTS: returns a JSONObject representation of this object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -120,7 +117,6 @@ public class Card {
         return json;
     }
 
-    // !!!
     // MODIFIES: this
     // EFFECTS: determines the amount of days before next review date
     public void processReview(int diff) {
@@ -143,7 +139,9 @@ public class Card {
         reviewDate = day + currentInterval;
     }
 
-    // !!!
+    // MODIFIES: this
+    // EFFECTS: changes ease factor based on a specified difficulty of review
+    //          if ease is too low (1.4), it gets reset to 1.4
     public void calculateEase(int diff) {
         if (ease <= 1.4) {
             ease = 1.4;

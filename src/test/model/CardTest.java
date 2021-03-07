@@ -61,13 +61,15 @@ class CardTest {
 
     @Test
     public void testToJson() {
+        c1.setStatus(1)
+                .setReviewDate(444444);
         JSONObject json = c1.toJson();
          assertEquals("1 + 1", json.getString("front"));
          assertEquals("2", json.getString("back"));
          assertEquals(2, json.getJSONArray("tags").length());
          assertEquals(0, json.getInt("reviewCount"));
-         assertEquals(0, json.getInt("status"));
-         assertEquals(0, json.getLong("reviewDate"));
+         assertEquals(1, json.getInt("status"));
+         assertEquals(444444, json.getLong("reviewDate"));
          assertEquals(0, json.getLong("currentInterval"));
          assertEquals(2.5, json.getDouble("ease"));
     }

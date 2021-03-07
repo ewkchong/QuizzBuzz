@@ -84,11 +84,11 @@ public class JsonWriterTest extends JsonTest {
         exampleTags.add("Subtraction");
         exampleTags.add("Difficult");
         Card c = new Card("2 - 2", "0", exampleTags);
-        c.setReviewCount(4);
-        c.setCurrentInterval(60);
-        c.setReviewDate(444444);
-        c.setEase(1.6);
-        c.setStatus(1);
+        c.setReviewCount(4)
+                .setCurrentInterval(60)
+                .setReviewDate(444444)
+                .setEase(1.6)
+                .setStatus(1);
         d.addCard(c);
 
         decks.add(d);

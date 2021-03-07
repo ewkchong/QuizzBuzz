@@ -10,11 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
     Deck d;
+    Deck d1;
     ArrayList<Card> cards;
 
     @BeforeEach
     public void runBefore() {
         d = new Deck("CHIN 131");
+        d1 = new Deck("MATH 101", new ArrayList<>());
         cards = d.getCardList();
     }
 
@@ -54,10 +56,10 @@ public class DeckTest {
     @Test
     public void testDeleteMultipleCards() {
         assertEquals(cards.size(), 0);
-        d.addCard("1+1", "2", new ArrayList<>());
-        d.addCard("1+2", "3", new ArrayList<>());
-        d.addCard("1+3", "4", new ArrayList<>());
-        d.addCard("1+4", "5", new ArrayList<>());
+        d.addCard(new Card("1+1", "2", new ArrayList<>()));
+        d.addCard(new Card("1+2", "3", new ArrayList<>()));
+        d.addCard(new Card("1+3", "4", new ArrayList<>()));
+        d.addCard(new Card("1+4", "5", new ArrayList<>()));
         assertEquals(cards.size(), 4);
         d.deleteCard(2);
         assertEquals(cards.size(), 3);
@@ -94,8 +96,8 @@ public class DeckTest {
 
     @Test
     public void testCardListToJson() {
-        d.addCard("c", "d", new ArrayList<>());
-        d.addCard("a", "b", new ArrayList<>());
-        assertEquals(2, d.cardListToJson().length());
+        d1.addCard("c", "d", new ArrayList<>());
+        d1.addCard("a", "b", new ArrayList<>());
+        assertEquals(2, d1.cardListToJson().length());
     }
 }
