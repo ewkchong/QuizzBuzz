@@ -41,8 +41,24 @@ public class Card {
         return tags;
     }
 
+    public double getEase() {
+        return ease;
+    }
+
+    public long getCurrentInterval() {
+        return currentInterval;
+    }
+
     public long getReviewDate() {
         return reviewDate;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public void setFront(String s) {
@@ -128,9 +144,9 @@ public class Card {
     }
 
     // !!!
-    private void calculateEase(int diff) {
-        if (ease <= 1.2) {
-            ease = 1.2;
+    public void calculateEase(int diff) {
+        if (ease <= 1.4) {
+            ease = 1.4;
         } else {
             ease += (0.1 - (3 - diff) * (0.08 + (3 - diff) * 0.02));
         }

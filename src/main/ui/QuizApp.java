@@ -20,11 +20,25 @@ public class QuizApp {
     private ArrayList<Deck> decks;     // List of decks created by user
     private Scanner scanner;           // Scanner for user input
 
-    // EFFECTS: initializes user interface
+    // EFFECTS: instantiates new application for user interface
     public QuizApp(ArrayList<Deck> decks) {
         scanner = new Scanner(System.in);
         this.decks = decks;
         runQuizApp();
+    }
+
+    public QuizApp(ArrayList<Deck> decks, Scanner scanner) {
+        this.scanner = scanner;
+        this.decks = decks;
+    }
+
+    public QuizApp() {
+        scanner = new Scanner(System.in);
+        decks = new ArrayList<>();
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
     }
 
     // EFFECTS: opens start menu

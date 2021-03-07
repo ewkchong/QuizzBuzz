@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,14 @@ public class DeckTest {
         assertEquals(cards.size(), 0);
         d.addCard("What is the capital city of China?", "Beijing", new ArrayList<>());
         assertEquals(cards.size(), 1);
+    }
+
+    @Test
+    public void testAddCardOneParam() {
+        assertEquals(0, cards.size());
+        Card c = new Card("A", "B", new ArrayList<>());
+        d.addCard(c);
+        assertEquals(1, cards.size());
     }
 
     @Test
@@ -76,6 +85,17 @@ public class DeckTest {
 
     @Test
     public void testToJson() {
+        d.addCard("c", "d", new ArrayList<>());
+        d.addCard("a", "b", new ArrayList<>());
+        JSONObject json = d.toJson();
+        assertEquals("CHIN 131", json.getString("title"));
+        assertEquals(2, json.getJSONArray("cardList").length());
+    }
 
+    @Test
+    public void testCardListToJson() {
+        d.addCard("c", "d", new ArrayList<>());
+        d.addCard("a", "b", new ArrayList<>());
+        assertEquals(2, d.cardListToJson().length());
     }
 }

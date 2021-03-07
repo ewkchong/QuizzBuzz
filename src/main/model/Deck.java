@@ -35,7 +35,12 @@ public class Deck {
     public void addCard(String front, String back, ArrayList<String> tags) {
         Card c = new Card(front, back, tags);
         cardList.add(c);
+    }
 
+    // MODIFIES: this
+    // EFFECTS: adds a card c to given deck
+    public void addCard(Card c) {
+        cardList.add(c);
     }
 
     // REQUIRES: e must be between zero and the size of the card list
@@ -62,7 +67,7 @@ public class Deck {
         return json;
     }
 
-    private JSONArray cardListToJson() {
+    public JSONArray cardListToJson() {
         JSONArray array = new JSONArray();
         for (Card c: cardList) {
             array.put(c.toJson());
