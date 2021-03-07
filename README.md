@@ -34,14 +34,15 @@ in their user experience, so I set out to create **QuizzBuzz**, a project that a
 to help memorize anything in the most effective manner.
 
 ## User Stories
-- As a user, I want to be able to add a flash card to a deck
-- As a user, I want to be able to remove flash cards from a deck
+- As a user, I want to be able to add, remove, and edit flash cards in a deck
 - As a user, I want to be able to view all flash cards in a selected deck
-- As a user, I want to be able to edit flash cards in a deck
 - As a user, I want to be able to add, remove, and rename decks
+- As a user, I want to have automatically scheduled review dates
 - As a user, I want to be able to review my cards in a random order
-- As a user, I want to be able to see my statistics and performance
+- As a user, I want to be able to review my cards by tag
+- As a user, I want to be able to review all my cards, ignoring the schedule
+- As a user, I want to be able to see my performance each session
 - As a user, I want to be able to save my decks to file
-- As a user, I want to be able to load my decks from file
+- As a user, I want my decks to be automatically loaded from file
 - As a user, when I quit the application, I want to be able to choose whether I want to save my deck/its changes
 or not
