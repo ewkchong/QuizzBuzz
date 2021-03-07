@@ -2,11 +2,9 @@ package persistence;
 
 import model.Card;
 import model.Deck;
-import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 import ui.QuizApp;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +17,7 @@ public class JsonWriterTest extends JsonTest {
     @Test
     public void testBadFileName() {
         try {
-            JsonWriter writer = new JsonWriter("./data/\0bad:file.json");
+            new JsonWriter("./data/\0bad:file.json");
             fail("File name cannot contain a colon");
         } catch (IOException e) {
             // pass!

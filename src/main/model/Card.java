@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Card {
     private String front;            // Content on the "front" of the card
     private String back;             // Content on the "back" of the card
-    private ArrayList<String> tags;  // List of tags applied to card
+    private final ArrayList<String> tags;  // List of tags applied to card
     private int reviewCount;
     private long currentInterval;    // Current review interval in hours
     private long reviewDate;

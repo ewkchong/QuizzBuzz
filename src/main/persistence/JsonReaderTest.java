@@ -5,7 +5,6 @@ import model.Deck;
 import org.junit.jupiter.api.Test;
 import ui.QuizApp;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;

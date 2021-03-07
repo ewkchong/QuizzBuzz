@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 
 public class JsonWriter {
     private static final int INDENT = 4;
-    private PrintWriter writer;
+    private final PrintWriter writer;
 
     public JsonWriter(String path) throws FileNotFoundException {
         writer = new PrintWriter(new File(path));

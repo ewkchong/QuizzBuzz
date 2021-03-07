@@ -12,13 +12,12 @@ import ui.ss.TagStudySession;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // A flash card application
 public class QuizApp {
-    private ArrayList<Deck> decks;     // List of decks created by user
-    private Scanner scanner;           // Scanner for user input
+    private final ArrayList<Deck> decks;     // List of decks created by user
+    private final Scanner scanner;           // Scanner for user input
 
     // EFFECTS: instantiates new application for user interface
     public QuizApp(ArrayList<Deck> decks) {
@@ -382,7 +381,7 @@ public class QuizApp {
                 writer.save(deckListToJson());
                 System.out.println("Saved!");
             } catch (FileNotFoundException e) {
-                System.out.println("File cannot be found, NOOO!!!!");
+                System.out.println("File cannot be found!");
             }
         }
     }

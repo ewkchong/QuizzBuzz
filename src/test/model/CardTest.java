@@ -4,7 +4,6 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,7 +76,7 @@ class CardTest {
     @Test
     public void testEaseCalculationNormal() {
         c1.calculateEase(3);
-        assertEquals(2.5 + (0.1 - (3 - 3) * (0.08 + (3 - 3) * 0.02)), c1.getEase());
+        assertEquals(2.5 + (0.1 - 0 * (0.08 + 0 * 0.02)), c1.getEase());
     }
 
     @Test
