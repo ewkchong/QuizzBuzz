@@ -9,7 +9,13 @@ import ui.ss.NormalStudySession;
 import ui.ss.StudySession;
 import ui.ss.TagStudySession;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -23,7 +29,7 @@ public class QuizApp {
     public QuizApp(ArrayList<Deck> decks) {
         scanner = new Scanner(System.in);
         this.decks = decks;
-        runQuizApp();
+        initializeFrame();
     }
 
     public QuizApp(ArrayList<Deck> decks, Scanner scanner) {
@@ -446,4 +452,28 @@ public class QuizApp {
         System.out.println(tagSet.toString());
     }
 
+    public void initializeFrame() {
+        JFrame frame = new JFrame("QuizzBuzz");
+        frame.getContentPane().add(logoPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1920, 1080);
+        frame.setVisible(true);
+    }
+
+    public JPanel logoPanel() {
+        try {
+            BufferedImage img = ImageIO.read(new File("data/logo.png"));
+            ImageIcon icon = new ImageIcon(img);
+            JLabel label = new JLabel("Welcome to QuizzBuzz!", icon, JLabel.CENTER);
+            label.setVerticalTextPosition(JLabel.BOTTOM);
+            label.setHorizontalTextPosition(JLabel.CENTER);
+            label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            JPanel panel = new JPanel();
+            panel.add(label);
+            return panel;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
