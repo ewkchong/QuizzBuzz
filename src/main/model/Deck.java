@@ -74,4 +74,9 @@ public class Deck {
         }
         return array;
     }
+
+    @Override
+    public String toString() {
+        return getTitle();
+    }
 }

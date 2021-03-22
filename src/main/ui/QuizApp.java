@@ -454,26 +454,32 @@ public class QuizApp {
 
     public void initializeFrame() {
         JFrame frame = new JFrame("QuizzBuzz");
-        frame.getContentPane().add(logoPanel());
+        try {
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("data/logo.png")));
+            frame.setIconImage(icon.getImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        frame.getContentPane().add(new MainMenu(decks));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
+        frame.pack();
         frame.setVisible(true);
     }
 
-    public JPanel logoPanel() {
-        try {
-            BufferedImage img = ImageIO.read(new File("data/logo.png"));
-            ImageIcon icon = new ImageIcon(img);
-            JLabel label = new JLabel("Welcome to QuizzBuzz!", icon, JLabel.CENTER);
-            label.setVerticalTextPosition(JLabel.BOTTOM);
-            label.setHorizontalTextPosition(JLabel.CENTER);
-            label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            JPanel panel = new JPanel();
-            panel.add(label);
-            return panel;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public JPanel logoPanel() {
+//        try {
+//            BufferedImage img = ImageIO.read(new File("data/logo.png"));
+//            ImageIcon icon = new ImageIcon(img);
+//            JLabel label = new JLabel("Welcome to QuizzBuzz!", icon, JLabel.CENTER);
+//            label.setVerticalTextPosition(JLabel.BOTTOM);
+//            label.setHorizontalTextPosition(JLabel.CENTER);
+//            label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//            JPanel panel = new JPanel();
+//            panel.add(label);
+//            return panel;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }
