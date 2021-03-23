@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class MainMenu extends JPanel implements ListSelectionListener {
     private static final String createString = "Create new deck";
+    private String imagePath = "data/logo200.png";
     private DefaultListModel<Deck> deckListModel;
     private JFrame parent;
     private ArrayList<Deck> decks;
@@ -37,6 +38,11 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             deckListModel.addElement(d);
         }
         displayList();
+    }
+
+    @Override
+    public JFrame getParent() {
+        return parent;
     }
 
     private void displayList() {
@@ -78,8 +84,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
     private void instantiateTextField(CreateDeckListener createDeckListener) {
         deckName = new JTextField(30);
-        deckName.setFont(new Font("Segoe UI", Font.PLAIN, 26));
-        deckName.setMaximumSize(new Dimension(2000, 50));
+        deckName.setFont(new Font("Segoe UI", Font.PLAIN, 19));
+        deckName.setMaximumSize(new Dimension(Short.MAX_VALUE, 50));
         deckName.addActionListener(createDeckListener);
         deckName.getDocument().addDocumentListener(createDeckListener);
     }
@@ -87,7 +93,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     public JLabel logoPanel() {
         JLabel logo = null;
         try {
-            BufferedImage image = ImageIO.read(new File("data/logo200.png"));
+            BufferedImage image = ImageIO.read(new File(imagePath));
             logo = new JLabel("QuizzBuzz", new ImageIcon(image), SwingConstants.CENTER);
             logo.setVerticalTextPosition(SwingConstants.BOTTOM);
             logo.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -103,12 +109,12 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         sidebar.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        viewButton = createButton("View Deck");
+        viewButton = makeButton("View Deck");
         viewButton.addActionListener(new ViewListener());
 
-        renameButton = createButton("Rename Deck");
+        renameButton = makeButton("Rename Deck");
 
-        deleteButton = createButton("Delete Deck");
+        deleteButton = makeButton("Delete Deck");
 
         c.gridx = 0;
         c.gridy = 0;
@@ -131,7 +137,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         return sidebar;
     }
 
-    private JButton createButton(String s) {
+    private JButton makeButton(String s) {
         JButton button = new JButton(s);
         button.setPreferredSize(new Dimension(200, 80));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -160,7 +166,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             Container frameContent = parent.getContentPane();
 
             frameContent.removeAll();
-            frameContent.add(new DeckMenu(selected));
+            frameContent.add(new DeckMenu(MainMenu.this, selected));
             frameContent.revalidate();
             frameContent.repaint();
         }
@@ -181,6 +187,9 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             Deck newDeck = new Deck(name);
             deckList.add(newDeck);
             deckListModel.addElement(newDeck);
+
+            deckName.requestFocusInWindow();
+            deckName.setText("");
         }
 
         @Override

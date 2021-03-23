@@ -467,21 +467,4 @@ public class QuizApp {
         frame.pack();
         frame.setVisible(true);
     }
-
-//    public JPanel logoPanel() {
-//        try {
-//            BufferedImage img = ImageIO.read(new File("data/logo.png"));
-//            ImageIcon icon = new ImageIcon(img);
-//            JLabel label = new JLabel("Welcome to QuizzBuzz!", icon, JLabel.CENTER);
-//            label.setVerticalTextPosition(JLabel.BOTTOM);
-//            label.setHorizontalTextPosition(JLabel.CENTER);
-//            label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//            JPanel panel = new JPanel();
-//            panel.add(label);
-//            return panel;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 }
