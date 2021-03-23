@@ -40,8 +40,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         displayList();
     }
 
-    @Override
-    public JFrame getParent() {
+    public JFrame getParentFrame() {
         return parent;
     }
 

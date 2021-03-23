@@ -21,7 +21,7 @@ public class DeckMenu extends JPanel {
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Container frameContent = mainMenu.getParent().getContentPane();
+            Container frameContent = mainMenu.getParentFrame().getContentPane();
 
             frameContent.removeAll();
             frameContent.add(mainMenu);
