@@ -460,7 +460,7 @@ public class QuizApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        frame.getContentPane().add(new MainMenu(decks));
+        frame.getContentPane().add(new MainMenu(decks, frame));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
