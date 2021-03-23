@@ -57,24 +57,31 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(listScrollPane, BorderLayout.CENTER);
 
-        deckName = new JTextField(30);
-        deckName.setFont(new Font("Segoe UI", Font.PLAIN, 26));
-        deckName.setMaximumSize(new Dimension(2000, 50));
-        deckName.addActionListener(createDeckListener);
-        deckName.getDocument().addDocumentListener(createDeckListener);
+        instantiateTextField(createDeckListener);
 
+        JPanel bottomRow = instantiateBottomRow(createButton);
+
+        mainPanel.add(bottomRow, BorderLayout.PAGE_END);
+        add(mainPanel, BorderLayout.CENTER);
+        add(buttonSidebar(), BorderLayout.LINE_END);
+    }
+
+    private JPanel instantiateBottomRow(JButton createButton) {
         JPanel bottomRow = new JPanel();
         bottomRow.setLayout(new BoxLayout(bottomRow, BoxLayout.LINE_AXIS));
         bottomRow.add(deckName);
         bottomRow.add(Box.createHorizontalStrut(10));
         bottomRow.add(createButton);
         bottomRow.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        return bottomRow;
+    }
 
-        mainPanel.add(bottomRow, BorderLayout.PAGE_END);
-        add(mainPanel, BorderLayout.CENTER);
-//        add(listScrollPane, BorderLayout.CENTER);
-        add(buttonSidebar(), BorderLayout.LINE_END);
-//        add(bottomRow, BorderLayout.PAGE_END);
+    private void instantiateTextField(CreateDeckListener createDeckListener) {
+        deckName = new JTextField(30);
+        deckName.setFont(new Font("Segoe UI", Font.PLAIN, 26));
+        deckName.setMaximumSize(new Dimension(2000, 50));
+        deckName.addActionListener(createDeckListener);
+        deckName.getDocument().addDocumentListener(createDeckListener);
     }
 
     public JLabel logoPanel() {
