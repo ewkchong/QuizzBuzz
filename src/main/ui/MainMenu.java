@@ -39,11 +39,32 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         for (Deck d: decks) {
             deckListModel.addElement(d);
         }
+        registerFonts();
         createAndShowUI();
+    }
+
+    private void registerFonts() {
+        try {
+            Font montserrat = Font.createFont(
+                    Font.TRUETYPE_FONT,
+                    new File("data/fonts/Montserrat-Regular.ttf"));
+            Font bold = Font.createFont(
+                    Font.TRUETYPE_FONT,
+                    new File("data/fonts/Montserrat-Bold.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(montserrat);
+            ge.registerFont(bold);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public JFrame getParentFrame() {
         return parent;
+    }
+
+    public JList<Deck> getList() {
+        return list;
     }
 
     private void createAndShowUI() {
@@ -105,7 +126,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     public JLabel logoPanel() {
         JLabel logo = null;
         try {
-            String imagePath = "data/logo200.png";
+            String imagePath = "data/images/logo200.png";
             BufferedImage image = ImageIO.read(new File(imagePath));
             logo = new JLabel("QuizzBuzz", new ImageIcon(image), SwingConstants.CENTER);
             logo.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -230,9 +251,9 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         private void tobs(String name) {
             String imagePath;
             if (name.equals("tobs")) {
-                imagePath = "data/tobs.png";
+                imagePath = "data/images/tobs.png";
             } else {
-                imagePath = "data/logo200.png";
+                imagePath = "data/images/logo200.png";
             }
             BufferedImage image = null;
             try {
@@ -273,10 +294,6 @@ public class MainMenu extends JPanel implements ListSelectionListener {
                 MainMenu.this.getParentFrame().revalidate();
                 MainMenu.this.getParentFrame().repaint();
             }
-        }
-
-        private void addComponents(JDialog dialog) {
-
         }
     }
 }

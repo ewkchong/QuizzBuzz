@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -15,6 +16,7 @@ public class Main {
             e.printStackTrace();
         }
         JsonReader reader = new JsonReader("./data/decks.json");
+
         try {
             new QuizApp(reader.read());
         } catch (IOException | JSONException e) {

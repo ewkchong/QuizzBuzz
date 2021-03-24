@@ -457,7 +457,7 @@ public class QuizApp {
     public void initializeFrame() {
         JFrame frame = new JFrame("QuizzBuzz");
         try {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("data/logo.png")));
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("data/images/logo.png")));
             frame.setIconImage(icon.getImage());
         } catch (IOException e) {
             e.printStackTrace();
