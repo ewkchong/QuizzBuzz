@@ -1,6 +1,7 @@
 package ui;
 
 import model.Deck;
+import ui.utilities.QuizAppUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class MainMenu extends JPanel implements ListSelectionListener {
     private final DefaultListModel<Deck> deckListModel;
-    private final JFrame parent;
+    private final JFrame parentFrame;
     private final ArrayList<Deck> decks;
     private JList<Deck> list;
     private JButton viewButton;
@@ -28,8 +29,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     private JLabel logoPanel;
     private JPanel sidebar;
 
-    public MainMenu(ArrayList<Deck> decks, JFrame parent) {
-        this.parent = parent;
+    public MainMenu(ArrayList<Deck> decks, JFrame parentFrame) {
+        this.parentFrame = parentFrame;
         setPreferredSize(new Dimension(1024, 768));
         setLayout(new BorderLayout(0,0));
         this.decks = decks;
@@ -60,23 +61,20 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     }
 
     public JFrame getParentFrame() {
-        return parent;
-    }
-
-    public JList<Deck> getList() {
-        return list;
+        return parentFrame;
     }
 
     private void createAndShowUI() {
         list = new JList<>(deckListModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-//      list.setSelectedIndex(0);
+        list.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
+//        list.setSelectedIndex(0);
         list.addListSelectionListener(this);
         list.setFixedCellHeight(60);
         JScrollPane listScrollPane = new JScrollPane(list);
 
         JButton createButton = new JButton("Create New Deck");
+        createButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 12));
         CreateDeckListener createDeckListener = new CreateDeckListener(createButton, decks);
         createButton.setEnabled(false);
         createButton.addActionListener(createDeckListener);
@@ -117,7 +115,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
     private void instantiateTextField(CreateDeckListener createDeckListener) {
         deckName = new JTextField(30);
-        deckName.setFont(new Font("Segoe UI", Font.PLAIN, 19));
+        deckName.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 19));
         deckName.setMaximumSize(new Dimension(Short.MAX_VALUE, 50));
         deckName.addActionListener(createDeckListener);
         deckName.getDocument().addDocumentListener(createDeckListener);
@@ -131,7 +129,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             logo = new JLabel("QuizzBuzz", new ImageIcon(image), SwingConstants.CENTER);
             logo.setVerticalTextPosition(SwingConstants.BOTTOM);
             logo.setHorizontalTextPosition(SwingConstants.CENTER);
-            logo.setFont(new Font("Segoe UI", Font.BOLD, 24));
+            logo.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 24));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -176,9 +174,17 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     private JButton makeButton(String s) {
         JButton button = new JButton(s);
         button.setPreferredSize(new Dimension(200, 80));
+        button.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 12));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setEnabled(false);
         return button;
+    }
+
+    public void removeDeck(Deck d) {
+        decks.remove(d);
+        deckListModel.removeElement(d);
+        parentFrame.revalidate();
+        parentFrame.repaint();
     }
 
     @Override
@@ -199,7 +205,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     class ViewListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Deck selected = list.getSelectedValue();
-            Container frameContent = parent.getContentPane();
+            Container frameContent = parentFrame.getContentPane();
 
             frameContent.removeAll();
             frameContent.add(new DeckMenu(MainMenu.this, selected));
@@ -269,10 +275,13 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int i = list.getSelectedIndex();
             Deck d = list.getSelectedValue();
-            decks.remove(d);
-            deckListModel.removeElementAt(i);
+            int confirm = QuizAppUtilities.createDeleteDialog(d, parentFrame);
+            if (confirm == 0) {
+                int i = list.getSelectedIndex();
+                decks.remove(d);
+                deckListModel.removeElementAt(i);
+            }
         }
     }
 
@@ -281,18 +290,11 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             Deck d = list.getSelectedValue();
-            String s = (String) JOptionPane.showInputDialog(
-                    MainMenu.this.getParentFrame(),
-                    "What would you like to rename the deck to?",
-                    "Rename Deck",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
-                    d.getTitle());
+            String s = QuizAppUtilities.createRenameDialog(d, parentFrame);
             if (s != null && !(s.equals(""))) {
                 d.renameDeck(s);
-                MainMenu.this.getParentFrame().revalidate();
-                MainMenu.this.getParentFrame().repaint();
+                parentFrame.revalidate();
+                parentFrame.repaint();
             }
         }
     }
