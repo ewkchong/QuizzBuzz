@@ -140,7 +140,7 @@ public class DeckMenu extends JPanel {
         public void actionPerformed(ActionEvent e) {
             Container frameContent = mainMenu.getParentFrame().getContentPane();
             frameContent.removeAll();
-            frameContent.add(new CardListMenu(deck));
+            frameContent.add(new CardListMenu(deck, mainMenu));
             frameContent.revalidate();
             frameContent.repaint();
         }
