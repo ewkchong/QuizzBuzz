@@ -51,7 +51,7 @@ public class DeckMenu extends JPanel {
         buttonPanel.add(bt2, c);
 
         c.gridx = 2;
-        JButton bt3 = makeButton("Add a Card", null);
+        JButton bt3 = makeButton("Add a Card", new AddCardListener());
         buttonPanel.add(bt3, c);
 
         c.gridx = 0;
@@ -143,6 +143,16 @@ public class DeckMenu extends JPanel {
             frameContent.add(new CardListMenu(deck));
             frameContent.revalidate();
             frameContent.repaint();
+        }
+    }
+
+    class AddCardListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            AddCardDialog addCardDialog = new AddCardDialog(mainMenu.getParentFrame(), deck);
+            addCardDialog.pack();
+            addCardDialog.setVisible(true);
         }
     }
 }

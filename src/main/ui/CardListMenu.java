@@ -2,6 +2,7 @@ package ui;
 
 import model.Card;
 import model.Deck;
+import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -25,6 +26,8 @@ public class CardListMenu extends JPanel {
 
         table = new JTable(cardListData, columns);
         table.setModel(new CardTableModel());
+        table.setRowHeight(40);
+        table.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 18));
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
         add(scrollPane, BorderLayout.CENTER);
@@ -39,17 +42,24 @@ public class CardListMenu extends JPanel {
         c.ipady = 90;
         c.ipadx = 120;
         JButton addButton = new JButton("Add a Card");
+        setButtonSize(addButton, 150, 70);
         panel.add(addButton, c);
 
         c.gridy = 1;
         JButton editButton = new JButton("Edit Card");
+        setButtonSize(editButton, 150, 70);
         panel.add(editButton, c);
 
         c.gridy = 2;
         JButton deleteButton = new JButton("Delete Card");
+        setButtonSize(deleteButton, 150, 70);
         panel.add(deleteButton, c);
 
         return panel;
+    }
+
+    private void setButtonSize(JButton button, int width, int height) {
+        button.setPreferredSize(new Dimension(width, height));
     }
 
     private String[] initializeColumnTitle() {
