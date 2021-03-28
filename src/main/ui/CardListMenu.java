@@ -50,7 +50,8 @@ public class CardListMenu extends JPanel {
         tempTable.setModel(new CardTableModel(data, columns));
         tempTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tempTable.setRowHeight(40);
-        tempTable.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 18));
+        tempTable.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
+        tempTable.getTableHeader().setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 17));
         tempTable.getSelectionModel().addListSelectionListener(new EnableButtonListener());
 
         return tempTable;
@@ -64,6 +65,7 @@ public class CardListMenu extends JPanel {
         c.ipady = 90;
         c.ipadx = 120;
         JButton addButton = new JButton("Add a Card");
+        addButton.addActionListener(new AddCardListener());
         formatButton(addButton);
         panel.add(addButton, c);
 
@@ -137,7 +139,7 @@ public class CardListMenu extends JPanel {
         }
     }
 
-    class CardTableModel extends DefaultTableModel {
+    public class CardTableModel extends DefaultTableModel {
 
         public CardTableModel(String[][] data, String[] columns) {
             super(data, columns);
@@ -166,6 +168,15 @@ public class CardListMenu extends JPanel {
             parentFrame.setContentPane(new DeckMenu((MainMenu) mainMenu, deck));
             parentFrame.revalidate();
             parentFrame.repaint();
+        }
+    }
+
+    private class AddCardListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            AddCardDialog addCardDialog = new AddCardDialog(parentFrame, deck, table.getModel());
+            addCardDialog.pack();
+            addCardDialog.setVisible(true);
         }
     }
 }

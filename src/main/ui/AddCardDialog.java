@@ -1,9 +1,11 @@
 package ui;
 
+import model.Card;
 import model.Deck;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +18,18 @@ public class AddCardDialog extends JDialog {
     JTextField frontTextField;
     JTextField backTextField;
     JTextField tagTextField;
+    TableModel tableModel;
 
     public AddCardDialog(JFrame frame, Deck deck) {
         super(frame, true);
         this.deck = deck;
+        addComponents();
+    }
+
+    public AddCardDialog(JFrame frame, Deck deck, TableModel tableModel) {
+        super(frame, true);
+        this.deck = deck;
+        this.tableModel = tableModel;
         addComponents();
     }
 
@@ -120,7 +130,16 @@ public class AddCardDialog extends JDialog {
             List<String> tagsList = Arrays.asList(tagsArray);
             ArrayList<String> tagsArrayList = new ArrayList<>(tagsList);
 
-            deck.addCard(front, back, tagsArrayList);
+            Card c = new Card(front, back, tagsArrayList);
+            deck.addCard(c);
+
+            if (tableModel != null) {
+                String[] data = {String.valueOf(c.hashCode()), c.getFront(), c.getBack(), c.getTags().toString()};
+                CardListMenu.CardTableModel model = (CardListMenu.CardTableModel) tableModel;
+                model.addRow(data);
+                model.fireTableDataChanged();
+            }
+
             dispose();
         }
     }
