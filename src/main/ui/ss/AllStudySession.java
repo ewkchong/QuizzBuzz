@@ -4,8 +4,6 @@ import model.Card;
 
 import java.util.ArrayList;
 
-import static ui.QuizApp.header;
-
 // A study session that allows the user to review all cards regardless of schedule
 public class AllStudySession extends StudySession {
 

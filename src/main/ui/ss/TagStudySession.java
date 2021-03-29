@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static ui.QuizApp.header;
-
 // A study session that allows the user to study only the specified tags
 public class TagStudySession extends StudySession {
     ArrayList<String> tags;     // list of tags to study

@@ -155,4 +155,12 @@ public class DeckMenu extends JPanel {
             addCardDialog.setVisible(true);
         }
     }
+
+    class StudyListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }
 }

@@ -1,14 +1,9 @@
 package ui.ss;
 
 import model.Card;
-import model.ReviewCalendar;
 
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static ui.QuizApp.header;
 
 // a study session that displays flash cards for user to study
 public abstract class StudySession {
@@ -45,11 +40,9 @@ public abstract class StudySession {
      */
     public void begin() {
         studyList = generateStudyList(cards.size());
-        header("Study Session");
         if (studyList.size() != 0) {
             int i = 1;
             for (Card c : studyList) {
-                header("Card " + i);
                 System.out.println("\tFront: " + c.getFront());
                 while (true) {
                     System.out.println("\nPress ENTER to show answer...");
