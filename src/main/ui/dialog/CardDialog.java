@@ -1,6 +1,5 @@
-package ui;
+package ui.dialog;
 
-import model.Card;
 import model.Deck;
 import ui.utilities.QuizAppUtilities;
 
@@ -9,31 +8,21 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class AddCardDialog extends JDialog {
+public abstract class CardDialog extends JDialog {
     Deck deck;
+    String buttonText;
     JTextField frontTextField;
     JTextField backTextField;
     JTextField tagTextField;
     TableModel tableModel;
 
-    public AddCardDialog(JFrame frame, Deck deck) {
-        super(frame, true);
-        this.deck = deck;
-        addComponents();
+    public CardDialog(Frame owner, boolean modal) {
+        super(owner, modal);
+        buttonText = "Confirm";
     }
 
-    public AddCardDialog(JFrame frame, Deck deck, TableModel tableModel) {
-        super(frame, true);
-        this.deck = deck;
-        this.tableModel = tableModel;
-        addComponents();
-    }
-
-    private void addComponents() {
+    protected void addComponents() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -53,7 +42,7 @@ public class AddCardDialog extends JDialog {
         buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JButton addButton = new JButton("Add Card");
+        JButton addButton = new JButton(buttonText);
         addButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         addButton.addActionListener(new AddListener());
         buttonPanel.add(addButton, gbc);
@@ -69,7 +58,7 @@ public class AddCardDialog extends JDialog {
         contentPanel.add(buttonPanel, c);
     }
 
-    private void addTag(JPanel contentPanel, GridBagConstraints c) {
+    protected void addTag(JPanel contentPanel, GridBagConstraints c) {
         JLabel tagLabel = makeLabel("Tags");
         tagTextField = makeTextField(20);
         c.gridy = 4;
@@ -78,7 +67,7 @@ public class AddCardDialog extends JDialog {
         contentPanel.add(tagTextField, c);
     }
 
-    private void addBack(JPanel contentPanel, GridBagConstraints c) {
+    protected void addBack(JPanel contentPanel, GridBagConstraints c) {
         JLabel backLabel = makeLabel("Back of Card");
         backTextField = makeTextField(20);
         c.gridy = 2;
@@ -87,7 +76,7 @@ public class AddCardDialog extends JDialog {
         contentPanel.add(backTextField, c);
     }
 
-    private void addFront(JPanel contentPanel, GridBagConstraints c) {
+    protected void addFront(JPanel contentPanel, GridBagConstraints c) {
         JLabel frontLabel = makeLabel("Front of Card");
         frontTextField = makeTextField(20);
         c.gridy = 0;
@@ -96,19 +85,21 @@ public class AddCardDialog extends JDialog {
         contentPanel.add(frontTextField, c);
     }
 
-    private JTextField makeTextField(int columns) {
+    protected JTextField makeTextField(int columns) {
         JTextField textField = new JTextField(columns);
         textField.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
 
         return textField;
     }
 
-    private JLabel makeLabel(String s) {
+    protected JLabel makeLabel(String s) {
         JLabel label = new JLabel(s);
         label.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
 
         return label;
     }
+
+    protected abstract void handleAction();
 
     class CancelListener implements ActionListener {
 
@@ -122,25 +113,7 @@ public class AddCardDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String front = frontTextField.getText();
-            String back = backTextField.getText();
-            String tags = tagTextField.getText();
-
-            String[] tagsArray = tags.split("\\s*,\\s*");
-            List<String> tagsList = Arrays.asList(tagsArray);
-            ArrayList<String> tagsArrayList = new ArrayList<>(tagsList);
-
-            Card c = new Card(front, back, tagsArrayList);
-            deck.addCard(c);
-
-            if (tableModel != null) {
-                String[] data = {String.valueOf(c.hashCode()), c.getFront(), c.getBack(), c.getTags().toString()};
-                CardListMenu.CardTableModel model = (CardListMenu.CardTableModel) tableModel;
-                model.addRow(data);
-                model.fireTableDataChanged();
-            }
-
-            dispose();
+            handleAction();
         }
     }
 }

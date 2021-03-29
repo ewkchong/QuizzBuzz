@@ -2,12 +2,13 @@ package ui;
 
 import model.Card;
 import model.Deck;
+import ui.dialog.AddCardDialog;
+import ui.dialog.EditCardDialog;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -99,6 +100,7 @@ public class CardListMenu extends JPanel {
         c.gridy = 1;
         editButton = new JButton("Edit Card");
         formatButton(editButton);
+        editButton.addActionListener(new EditListener());
         editButton.setEnabled(false);
         panel.add(editButton, c);
     }
@@ -109,7 +111,7 @@ public class CardListMenu extends JPanel {
     }
 
     private String[] initializeColumnTitle() {
-        return new String[]{"ID",
+        return new String[]{"Card No.",
                             "Front",
                             "Back",
                             "Tags"};
@@ -119,7 +121,7 @@ public class CardListMenu extends JPanel {
         int i = 0;
         String[][] cardListData = new String[d.getCardList().size()][4];
         for (Card c: d.getCardList()) {
-            cardListData[i][0] = String.valueOf(c.hashCode());
+            cardListData[i][0] = String.valueOf(i);
             cardListData[i][1] = c.getFront();
             cardListData[i][2] = c.getBack();
             cardListData[i][3] = c.getTags().toString();
@@ -177,6 +179,20 @@ public class CardListMenu extends JPanel {
             AddCardDialog addCardDialog = new AddCardDialog(parentFrame, deck, table.getModel());
             addCardDialog.pack();
             addCardDialog.setVisible(true);
+        }
+    }
+
+    private class EditListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Card c = deck.getCardList().get(selectedRowIndex);
+            EditCardDialog editCardDialog = new EditCardDialog(parentFrame,
+                    deck,
+                    table.getModel(),
+                    c,
+                    selectedRowIndex);
+            editCardDialog.pack();
+            editCardDialog.setVisible(true);
         }
     }
 }

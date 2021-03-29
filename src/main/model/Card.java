@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Card {
     private String front;                   // Content on the "front" of the card
     private String back;                    // Content on the "back" of the card
-    private final ArrayList<String> tags;   // List of tags applied to card
+    private ArrayList<String> tags;         // List of tags applied to card
     private int reviewCount;                // Running total of normal reviews done
     private long currentInterval;           // Current review interval in hours
     private long reviewDate;                // Next scheduled date of review
@@ -101,6 +101,12 @@ public class Card {
         } else {
             tags.add(entry);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets tags as new array of strings
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 
     // EFFECTS: returns a JSONObject representation of this object

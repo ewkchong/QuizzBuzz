@@ -3,6 +3,9 @@ package ui.utilities;
 import model.Deck;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class QuizAppUtilities {
     public static final String UI_FONT = "Montserrat";
@@ -25,5 +28,12 @@ public class QuizAppUtilities {
                 "Delete Deck",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public static ArrayList<String> stringToArrayList(String tags) {
+        String[] tagsArray = tags.split("\\s*,\\s*");
+        List<String> tagsList = Arrays.asList(tagsArray);
+
+        return new ArrayList<>(tagsList);
     }
 }

@@ -1,7 +1,7 @@
 package ui;
 
-import model.Card;
 import model.Deck;
+import ui.dialog.AddCardDialog;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
