@@ -152,4 +152,15 @@ class CardTest {
         c.processReview(3);
         assertEquals(1, c.getStatus());
     }
+
+    @Test
+    public void testSetTags() {
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("Hello!");
+        tags.add("Bye!");
+        c.setTags(tags);
+        assertEquals(2, c.getTags().size());
+        assertTrue(c.getTags().contains("Hello!"));
+        assertTrue(c.getTags().contains("Bye!"));
+    }
 }

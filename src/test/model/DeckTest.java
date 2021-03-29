@@ -100,4 +100,10 @@ public class DeckTest {
         d1.addCard("a", "b", new ArrayList<>());
         assertEquals(2, d1.cardListToJson().length());
     }
+
+    @Test
+    public void testToString() {
+        String title = d1.toString();
+        assertEquals("MATH 101", title);
+    }
 }

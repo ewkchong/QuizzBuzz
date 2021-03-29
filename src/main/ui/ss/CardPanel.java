@@ -2,7 +2,6 @@ package ui.ss;
 
 import model.Card;
 import ui.DeckMenu;
-import ui.MainMenu;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
@@ -58,6 +57,7 @@ public class CardPanel extends JPanel {
         c.ipady = 150;
         JButton showAnswer = new JButton("Show Answer");
         showAnswer.addActionListener(new ShowAnswerListener());
+        showAnswer.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(showAnswer, c);
 
         add(buttonPanel, BorderLayout.PAGE_END);
@@ -70,16 +70,19 @@ public class CardPanel extends JPanel {
         c.ipady = 150;
         JButton easyButton = new JButton("Easy");
         easyButton.addActionListener(new EasyListener());
+        easyButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(easyButton, c);
 
         c.gridx = 1;
         JButton goodButton = new JButton("Good");
         goodButton.addActionListener(new GoodListener());
+        goodButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(goodButton, c);
 
         c.gridx = 2;
         JButton hardButton = new JButton("Hard");
         hardButton.addActionListener(new HardListener());
+        hardButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(hardButton, c);
     }
 
