@@ -1,13 +1,17 @@
 package ui;
 
+import model.Card;
 import model.Deck;
 import ui.dialog.AddCardDialog;
+import ui.ss.ChooseStudySessionMenu;
+import ui.ss.NormalStudySession;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class DeckMenu extends JPanel {
     private Deck deck;
@@ -43,7 +47,7 @@ public class DeckMenu extends JPanel {
     }
 
     private void addButtonsToPanel(GridBagConstraints c, JPanel buttonPanel) {
-        JButton bt1 = makeButton("Study!", null);
+        JButton bt1 = makeButton("Study!", new StudyListener());
         buttonPanel.add(bt1, c);
 
         c.gridx = 1;
@@ -160,7 +164,18 @@ public class DeckMenu extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            ArrayList<Card> cardList = deck.getCardList();
 
+            if (deck.getCardList().size() != 0) {
+                JFrame parentFrame = mainMenu.getParentFrame();
+                parentFrame.getContentPane().removeAll();
+                mainMenu.getParentFrame().setContentPane(new ChooseStudySessionMenu(cardList));
+            } else {
+                JOptionPane.showMessageDialog(mainMenu.getParentFrame(),
+                        "Currently no cards to study!",
+                        "Empty Study List",
+                        JOptionPane.PLAIN_MESSAGE);
+            }
         }
     }
 }

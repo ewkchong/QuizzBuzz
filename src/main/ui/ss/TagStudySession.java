@@ -1,6 +1,7 @@
 package ui.ss;
 
 import model.Card;
+import model.exceptions.EmptyStudyListException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class TagStudySession extends StudySession {
     //          filters out all cards that do not contain the correct tags,
     //          returns filtered list
     @Override
-    protected ArrayList<Card> generateStudyList(int n) {
+    protected ArrayList<Card> generateStudyList(int n) throws EmptyStudyListException {
         ArrayList<Integer> shuffleSequence = generateShuffleSequence(n);
         ArrayList<Card> list = new ArrayList<>(cards);
 
@@ -35,6 +36,10 @@ public class TagStudySession extends StudySession {
                 .collect(Collectors.toList());
 
         list = new ArrayList<>(filteredList);
+
+        if (list.size() == 0) {
+            throw new EmptyStudyListException();
+        }
 
         return list;
     }

@@ -1,12 +1,14 @@
 package ui.ss;
 
 import model.Card;
+import model.exceptions.EmptyStudyListException;
 
+import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
 // a study session that displays flash cards for user to study
-public abstract class StudySession {
+public abstract class StudySession extends JPanel {
     protected ArrayList<Card> cards;      // list of cards from deck, un-shuffled
     protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
     protected Scanner scanner;            // scanner for user input
@@ -19,7 +21,7 @@ public abstract class StudySession {
     }
 
     // EFFECTS: selects the proper cards to add to study session
-    protected abstract ArrayList<Card> generateStudyList(int n);
+    protected abstract ArrayList<Card> generateStudyList(int n) throws EmptyStudyListException;
 
     // REQUIRES: n > 0
     // EFFECTS: generates a random sequence of integers from 0 to n
@@ -38,27 +40,10 @@ public abstract class StudySession {
      *          one at a time, displays back of card
      *          when ENTER is pressed by user
      */
-    public void begin() {
+    public void begin() throws EmptyStudyListException {
         studyList = generateStudyList(cards.size());
         if (studyList.size() != 0) {
-            int i = 1;
-            for (Card c : studyList) {
-                System.out.println("\tFront: " + c.getFront());
-                while (true) {
-                    System.out.println("\nPress ENTER to show answer...");
-                    if (scanner.nextLine().equals("")) {
-                        System.out.println("\tBack: " + c.getBack());
-                        break;
-                    }
-                }
-                cardDifficulty(c);
-                i++;
-            }
-
-            System.out.println("Study session complete!");
-            System.out.println("Success Rate: " + calcSuccessRate() + "% of " + cards.size() + " cards reviewed");
-        } else {
-            System.out.println("No cards to study!");
+            return;
         }
     }
 

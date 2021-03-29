@@ -8,8 +8,6 @@ import ui.utilities.QuizAppUtilities;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class AddCardDialog extends CardDialog {
 
@@ -38,8 +36,13 @@ public class AddCardDialog extends CardDialog {
         Card c = new Card(front, back, tagsArrayList);
         deck.addCard(c);
 
+        ArrayList<Card> cardList = deck.getCardList();
+
         if (tableModel != null) {
-            String[] data = {String.valueOf(c.hashCode()), c.getFront(), c.getBack(), c.getTags().toString()};
+            String[] data = {String.valueOf(cardList.indexOf(c)),
+                    c.getFront(),
+                    c.getBack(),
+                    c.getTags().toString()};
             CardListMenu.CardTableModel model = (CardListMenu.CardTableModel) tableModel;
             model.addRow(data);
             model.fireTableDataChanged();

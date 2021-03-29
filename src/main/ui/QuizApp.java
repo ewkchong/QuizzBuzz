@@ -2,6 +2,7 @@ package ui;
 
 import model.Card;
 import model.Deck;
+import model.exceptions.EmptyStudyListException;
 import org.json.JSONArray;
 import persistence.JsonWriter;
 import ui.ss.AllStudySession;
@@ -92,7 +93,11 @@ public class QuizApp {
             }
         }
         StudySession ss = new TagStudySession(d.getCardList(), tags);
-        ss.begin();
+        try {
+            ss.begin();
+        } catch (EmptyStudyListException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initializeFrame() {
