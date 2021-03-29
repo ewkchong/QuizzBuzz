@@ -1,7 +1,6 @@
 package ui.ss;
 
 import model.Card;
-import model.exceptions.EmptyStudyListException;
 import ui.DeckMenu;
 
 import javax.swing.*;
