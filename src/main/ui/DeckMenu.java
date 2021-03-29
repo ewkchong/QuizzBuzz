@@ -169,7 +169,9 @@ public class DeckMenu extends JPanel {
             if (deck.getCardList().size() != 0) {
                 JFrame parentFrame = mainMenu.getParentFrame();
                 parentFrame.getContentPane().removeAll();
-                mainMenu.getParentFrame().setContentPane(new ChooseStudySessionMenu(cardList));
+                parentFrame.setContentPane(new ChooseStudySessionMenu(cardList, parentFrame, DeckMenu.this));
+                parentFrame.revalidate();
+                parentFrame.repaint();
             } else {
                 JOptionPane.showMessageDialog(mainMenu.getParentFrame(),
                         "Currently no cards to study!",

@@ -1,6 +1,7 @@
 package ui;
 
 import model.Deck;
+import persistence.JsonWriter;
 import ui.utilities.QuizAppUtilities;
 
 import javax.imageio.ImageIO;
@@ -14,10 +15,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainMenu extends JPanel implements ListSelectionListener {
+    private final QuizApp app;
     private final DefaultListModel<Deck> deckListModel;
     private final JFrame parentFrame;
     private final ArrayList<Deck> decks;
@@ -25,11 +28,13 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     private JButton viewButton;
     private JButton renameButton;
     private JButton deleteButton;
+    private JButton saveQuitButton;
     private JTextField deckName;
     private JLabel logoPanel;
     private JPanel sidebar;
 
-    public MainMenu(ArrayList<Deck> decks, JFrame parentFrame) {
+    public MainMenu(ArrayList<Deck> decks, JFrame parentFrame, QuizApp app) {
+        this.app = app;
         this.parentFrame = parentFrame;
         setPreferredSize(new Dimension(1024, 768));
         setLayout(new BorderLayout(0,0));
@@ -141,21 +146,11 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         sidebar.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        viewButton = makeButton("View Deck");
-        viewButton.addActionListener(new ViewListener());
+        initializeButtons();
 
-        renameButton = makeButton("Rename Deck");
-        renameButton.addActionListener(new RenameListener());
-
-        deleteButton = makeButton("Delete Deck");
-        deleteButton.addActionListener(new DeleteListener());
-
-        c.gridx = 0;
-        c.gridy = 0;
         c.ipady = 200;
         sidebar.add(viewButton, c);
 
-        // c.gridx = 0;
         c.gridy = 1;
         c.ipady = 0;
         sidebar.add(renameButton, c);
@@ -168,7 +163,29 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         c.insets = new Insets(20, 0,0,0);
         sidebar.add(logoPanel, c);
 
+        c.gridy = 4;
+        c.weighty = 0;
+        c.insets = new Insets(0,0,10,0);
+        sidebar.add(saveQuitButton, c);
+
         return sidebar;
+    }
+
+    private void initializeButtons() {
+        viewButton = makeButton("View Deck");
+        viewButton.addActionListener(new ViewListener());
+
+        renameButton = makeButton("Rename Deck");
+        renameButton.addActionListener(new RenameListener());
+
+        deleteButton = makeButton("Delete Deck");
+        deleteButton.addActionListener(new DeleteListener());
+
+        saveQuitButton = new JButton("Save and Quit");
+        saveQuitButton.setPreferredSize(new Dimension(180, 40));
+        saveQuitButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 12));
+        saveQuitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveQuitButton.addActionListener(new QuitListener());
     }
 
     private JButton makeButton(String s) {
@@ -296,6 +313,20 @@ public class MainMenu extends JPanel implements ListSelectionListener {
                 parentFrame.revalidate();
                 parentFrame.repaint();
             }
+        }
+    }
+
+    private class QuitListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                JsonWriter writer = new JsonWriter("./data/decks.json");
+                writer.save(app.deckListToJson());
+            } catch (FileNotFoundException f) {
+                System.out.println("File cannot be found!");
+            }
+            parentFrame.dispose();
         }
     }
 }

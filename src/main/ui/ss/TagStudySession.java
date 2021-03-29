@@ -2,7 +2,9 @@ package ui.ss;
 
 import model.Card;
 import model.exceptions.EmptyStudyListException;
+import ui.DeckMenu;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +15,8 @@ public class TagStudySession extends StudySession {
     ArrayList<String> tags;     // list of tags to study
 
     // constructs a new tag study session with given cards and set of tags
-    public TagStudySession(ArrayList<Card> cards, ArrayList<String> tags) {
-        super(cards);
+    public TagStudySession(ArrayList<Card> cards, JFrame parentFrame, ArrayList<String> tags, DeckMenu d) {
+        super(cards, parentFrame, d);
         this.tags = tags;
     }
 
@@ -23,7 +25,7 @@ public class TagStudySession extends StudySession {
     //          filters out all cards that do not contain the correct tags,
     //          returns filtered list
     @Override
-    protected ArrayList<Card> generateStudyList(int n) throws EmptyStudyListException {
+    protected ArrayList<Card> generateStudyList(int n) {
         ArrayList<Integer> shuffleSequence = generateShuffleSequence(n);
         ArrayList<Card> list = new ArrayList<>(cards);
 
@@ -36,10 +38,6 @@ public class TagStudySession extends StudySession {
                 .collect(Collectors.toList());
 
         list = new ArrayList<>(filteredList);
-
-        if (list.size() == 0) {
-            throw new EmptyStudyListException();
-        }
 
         return list;
     }

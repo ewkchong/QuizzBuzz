@@ -2,8 +2,10 @@ package ui.ss;
 
 import model.Card;
 import model.exceptions.EmptyStudyListException;
+import ui.DeckMenu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -13,15 +15,21 @@ public abstract class StudySession extends JPanel {
     protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
     protected Scanner scanner;            // scanner for user input
     protected int correctReviews;         // amount of cards marked as correct during study session
+    protected JFrame parentFrame;
+    protected DeckMenu deckMenu;
 
     // EFFECTS: constructs a new session with given list of cards to study
-    public StudySession(ArrayList<Card> cards) {
+    public StudySession(ArrayList<Card> cards, JFrame parentFrame, DeckMenu d) {
+        deckMenu = d;
+        this.parentFrame = parentFrame;
         this.cards = cards;
         this.scanner = new Scanner(System.in);
+        setLayout(new CardLayout());
+        begin();
     }
 
     // EFFECTS: selects the proper cards to add to study session
-    protected abstract ArrayList<Card> generateStudyList(int n) throws EmptyStudyListException;
+    protected abstract ArrayList<Card> generateStudyList(int n);
 
     // REQUIRES: n > 0
     // EFFECTS: generates a random sequence of integers from 0 to n
@@ -40,11 +48,16 @@ public abstract class StudySession extends JPanel {
      *          one at a time, displays back of card
      *          when ENTER is pressed by user
      */
-    public void begin() throws EmptyStudyListException {
+    public void begin() {
         studyList = generateStudyList(cards.size());
-        if (studyList.size() != 0) {
-            return;
+        int i = 0;
+        for (Card c: studyList) {
+            JPanel cardPanel = new CardPanel(c, this, i, studyList.size(), parentFrame, deckMenu);
+            add(cardPanel, String.valueOf(i));
+            i++;
         }
+        CardLayout cl = (CardLayout) getLayout();
+        cl.show(this, String.valueOf(0));
     }
 
     // EFFECTS: calculates proportion of correct cards reviewed

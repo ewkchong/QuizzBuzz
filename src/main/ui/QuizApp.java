@@ -77,29 +77,6 @@ public class QuizApp {
         }
     }
 
-    // EFFECTS: processes user input of arbitrary amount of tags,
-    //          uses tags to begin a study by tag session
-    public void beginTagStudy(Deck d) {
-        ArrayList<String> tags = new ArrayList<>();
-        boolean keepOpen = true;
-        while (keepOpen) {
-            System.out.println("\nEnter name of tag (case sensitive) to study, or press ENTER to quit:");
-            String e = scanner.nextLine();
-
-            if (e.equals("")) {
-                keepOpen = false;
-            } else {
-                tags.add(e);
-            }
-        }
-        StudySession ss = new TagStudySession(d.getCardList(), tags);
-        try {
-            ss.begin();
-        } catch (EmptyStudyListException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void initializeFrame() {
         JFrame frame = new JFrame("QuizzBuzz");
         try {
@@ -108,7 +85,7 @@ public class QuizApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        frame.getContentPane().add(new MainMenu(decks, frame));
+        frame.getContentPane().add(new MainMenu(decks, frame, this));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

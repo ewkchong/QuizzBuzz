@@ -2,7 +2,9 @@ package ui.ss;
 
 import model.Card;
 import model.ReviewCalendar;
+import ui.DeckMenu;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,8 +13,8 @@ import java.util.stream.Stream;
 // A study session that prescribes the user review times for spaced repetition
 public class NormalStudySession extends StudySession {
 
-    public NormalStudySession(ArrayList<Card> cards) {
-        super(cards);
+    public NormalStudySession(ArrayList<Card> cards, JFrame parentFrame, DeckMenu deckMenu) {
+        super(cards, parentFrame, deckMenu);
     }
 
     // REQUIRES: n > 0

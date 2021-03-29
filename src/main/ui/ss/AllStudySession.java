@@ -1,7 +1,9 @@
 package ui.ss;
 
 import model.Card;
+import ui.DeckMenu;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 // A study session that allows the user to review all cards regardless of schedule
@@ -9,8 +11,8 @@ public class AllStudySession extends StudySession {
 
     // EFFECTS: constructs a study session for reviewing all cards,
     //          regardless of schedule
-    public AllStudySession(ArrayList<Card> cards) {
-        super(cards);
+    public AllStudySession(ArrayList<Card> cards, JFrame parentFrame, DeckMenu d) {
+        super(cards, parentFrame, d);
     }
 
     // EFFECTS: generates a study list using all of the decks cards,
