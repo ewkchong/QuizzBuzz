@@ -13,10 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Menu showing options for deck
 public class DeckMenu extends JPanel {
-    private Deck deck;
-    private MainMenu mainMenu;
-    private JLabel title;
+    private Deck deck;          // main deck
+    private MainMenu mainMenu;  // previous menu
+    private JLabel title;       // title of deck
 
     public DeckMenu(MainMenu mainMenu, Deck d) {
         this.mainMenu = mainMenu;
@@ -26,12 +27,17 @@ public class DeckMenu extends JPanel {
         title = addTitlePanel();
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets layout of panel to border layout,
+    //          adds components
     private void addComponents() {
         setLayout(new BorderLayout());
         addTitlePanel();
         addButtonPanel();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and adds a button panel to parent panel
     private void addButtonPanel() {
         GridBagConstraints c = new GridBagConstraints();
         JPanel buttonPanel = new JPanel();
@@ -46,6 +52,7 @@ public class DeckMenu extends JPanel {
         add(buttonPanel, BorderLayout.CENTER);
     }
 
+    // EFFECTS: uses grid bag constraints to add buttons to button panel
     private void addButtonsToPanel(GridBagConstraints c, JPanel buttonPanel) {
         JButton bt1 = makeButton("Study!", new StudyListener());
         buttonPanel.add(bt1, c);
@@ -72,6 +79,7 @@ public class DeckMenu extends JPanel {
         buttonPanel.add(bt6, c);
     }
 
+    // EFFECTS: creates and returns a formatted button
     private JButton makeButton(String text, ActionListener listener) {
         JButton button = new JButton(text);
         button.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 14));
@@ -83,6 +91,8 @@ public class DeckMenu extends JPanel {
         return button;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a title panel and adds it to frame
     private JLabel addTitlePanel() {
         JLabel title = new JLabel(deck.getTitle(), SwingConstants.CENTER);
         title.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 48));
@@ -97,6 +107,8 @@ public class DeckMenu extends JPanel {
         return title;
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes content of frame to previous menu (main menu)
     private void backToMenu() {
         Container frameContent = mainMenu.getParentFrame().getContentPane();
 
@@ -107,6 +119,8 @@ public class DeckMenu extends JPanel {
     }
 
     class BackListener implements ActionListener {
+
+        // EFFECTS: calls backToMenu() on button press
         public void actionPerformed(ActionEvent e) {
             backToMenu();
         }
@@ -114,6 +128,8 @@ public class DeckMenu extends JPanel {
 
     class RenameListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: opens a rename dialog, takes user input to rename current deck
         @Override
         public void actionPerformed(ActionEvent e) {
             String s = QuizAppUtilities.createRenameDialog(deck, mainMenu.getParentFrame());
@@ -128,6 +144,8 @@ public class DeckMenu extends JPanel {
 
     class DeleteListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: opens a confirm dialog for user to delete current deck
         @Override
         public void actionPerformed(ActionEvent e) {
             int confirm = QuizAppUtilities.createDeleteDialog(deck, mainMenu.getParentFrame());
@@ -140,6 +158,8 @@ public class DeckMenu extends JPanel {
 
     class ViewCardsListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: changes frame content to list of cards
         @Override
         public void actionPerformed(ActionEvent e) {
             Container frameContent = mainMenu.getParentFrame().getContentPane();
@@ -152,6 +172,8 @@ public class DeckMenu extends JPanel {
 
     class AddCardListener implements ActionListener {
 
+        // EFFECTS: shows a new dialog that takes user input,
+        //          allows for adding cards to deck
         @Override
         public void actionPerformed(ActionEvent e) {
             AddCardDialog addCardDialog = new AddCardDialog(mainMenu.getParentFrame(), deck);
@@ -162,6 +184,8 @@ public class DeckMenu extends JPanel {
 
     class StudyListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: changes frame content to study session
         @Override
         public void actionPerformed(ActionEvent e) {
             ArrayList<Card> cardList = deck.getCardList();

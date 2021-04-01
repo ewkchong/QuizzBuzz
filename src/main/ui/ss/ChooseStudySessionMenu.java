@@ -11,11 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Menu that allows choice of type of study session
 public class ChooseStudySessionMenu extends JPanel {
-    ArrayList<Card> cardList;
-    JFrame parentFrame;
-    DeckMenu deckMenu;
+    ArrayList<Card> cardList;   // unfiltered list of cards to study
+    JFrame parentFrame;         // containing frame
+    DeckMenu deckMenu;          // previous menu
 
+    // EFFECTS: creates a new menu to choose study session for given list of cards
     public ChooseStudySessionMenu(ArrayList<Card> cardList, JFrame parentFrame, DeckMenu d) {
         deckMenu = d;
         this.cardList = cardList;
@@ -24,11 +26,14 @@ public class ChooseStudySessionMenu extends JPanel {
         addComponents();
     }
 
+    // EFFECTS: adds components to panel
     private void addComponents() {
         addTitle();
         addButtons();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and adds buttons to panel
     private void addButtons() {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -48,6 +53,8 @@ public class ChooseStudySessionMenu extends JPanel {
         add(buttonPanel, BorderLayout.CENTER);
     }
 
+    // EFFECTS: creates a button with the given text, adds given listener
+    //          returns button
     private JButton makeButton(String text, ActionListener listener) {
         JButton button = new JButton(text);
         button.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 22));
@@ -57,6 +64,8 @@ public class ChooseStudySessionMenu extends JPanel {
         return button;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates, formats, and adds title to panel
     private void addTitle() {
         JLabel title = new JLabel("Choose Study Method:", SwingConstants.CENTER);
         title.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 42));
@@ -70,6 +79,9 @@ public class ChooseStudySessionMenu extends JPanel {
     }
 
     private class RegularStudyListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: changes frame content to NormalStudySession
         @Override
         public void actionPerformed(ActionEvent e) {
             parentFrame.setContentPane(new NormalStudySession(cardList, parentFrame, deckMenu));
@@ -79,6 +91,9 @@ public class ChooseStudySessionMenu extends JPanel {
     }
 
     private class TagStudyListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: changes frame content to TagStudySession
         @Override
         public void actionPerformed(ActionEvent e) {
             parentFrame.setContentPane(new TagStudySession(cardList, parentFrame, new ArrayList<>(), deckMenu));
@@ -88,6 +103,9 @@ public class ChooseStudySessionMenu extends JPanel {
     }
 
     private class AllStudyListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: changes frame content to AllStudySession
         @Override
         public void actionPerformed(ActionEvent e) {
             parentFrame.setContentPane(new AllStudySession(cardList, parentFrame, deckMenu));

@@ -14,8 +14,8 @@ public abstract class StudySession extends JPanel {
     protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
     protected Scanner scanner;            // scanner for user input
     protected int correctReviews;         // amount of cards marked as correct during study session
-    protected JFrame parentFrame;
-    protected DeckMenu deckMenu;
+    protected JFrame parentFrame;         // containing frame
+    protected DeckMenu deckMenu;          // previous menu
 
     // EFFECTS: constructs a new session with given list of cards to study
     public StudySession(ArrayList<Card> cards, JFrame parentFrame, DeckMenu d) {
@@ -45,7 +45,7 @@ public abstract class StudySession extends JPanel {
     /*
      * EFFECTS: displays front of each card in study list,
      *          one at a time, displays back of card
-     *          when ENTER is pressed by user
+     *
      */
     public void begin() {
         studyList = generateStudyList(cards.size());

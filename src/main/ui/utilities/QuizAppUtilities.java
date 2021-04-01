@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Utilities used throughout the program
 public class QuizAppUtilities {
-    public static final String UI_FONT = "Montserrat";
+    public static final String UI_FONT = "Montserrat";  // font used throughout UI
 
+    // EFFECTS: shows a dialog to rename a deck
     public static String createRenameDialog(Deck d, JFrame parent) {
         return (String) JOptionPane.showInputDialog(
                 parent,
@@ -21,6 +23,7 @@ public class QuizAppUtilities {
                 d.getTitle());
     }
 
+    // EFFECTS: shows a dialog to confirm deletion of deck
     public static int createDeleteDialog(Deck d, JFrame parent) {
         return  JOptionPane.showConfirmDialog(
                 parent,
@@ -30,6 +33,7 @@ public class QuizAppUtilities {
                 JOptionPane.PLAIN_MESSAGE);
     }
 
+    // EFFECTS: splits a comma-separated list into an array list of strings
     public static ArrayList<String> stringToArrayList(String tags) {
         String[] tagsArray = tags.split("\\s*,\\s*");
         List<String> tagsList = Arrays.asList(tagsArray);

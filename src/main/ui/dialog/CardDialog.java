@@ -9,19 +9,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Representation of card dialog that takes user input
 public abstract class CardDialog extends JDialog {
-    Deck deck;
-    String buttonText;
-    JTextField frontTextField;
-    JTextField backTextField;
-    JTextField tagTextField;
-    TableModel tableModel;
+    Deck deck;                  // containing deck for card
+    String buttonText;          // text for button label
+    JTextField frontTextField;  // text field for front text
+    JTextField backTextField;   // text field for back text
+    JTextField tagTextField;    // text field for tags
+    TableModel tableModel;      // table of cards model
 
+    // EFFECTS: creates a new dialog with default button label "Confirm"
     public CardDialog(Frame owner, boolean modal) {
         super(owner, modal);
         buttonText = "Confirm";
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds all components to dialog
     protected void addComponents() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new GridBagLayout());
@@ -37,6 +41,8 @@ public abstract class CardDialog extends JDialog {
         add(contentPanel);
     }
 
+    // MODIFIES: contentPanel, c
+    // EFFECTS: adds buttons to given content panel with constraints
     private void addButtons(JPanel contentPanel, GridBagConstraints c) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
@@ -58,6 +64,8 @@ public abstract class CardDialog extends JDialog {
         contentPanel.add(buttonPanel, c);
     }
 
+    // MODIFIES: this, contentPanel, c
+    // EFFECTS: initializes text field for tag entry, adds it to given panel
     protected void addTag(JPanel contentPanel, GridBagConstraints c) {
         JLabel tagLabel = makeLabel("Tags");
         tagTextField = makeTextField(20);
@@ -67,6 +75,8 @@ public abstract class CardDialog extends JDialog {
         contentPanel.add(tagTextField, c);
     }
 
+    // MODIFIES: this, contentPanel, c
+    // EFFECTS: initializes text field for back entry, adds it to given panel
     protected void addBack(JPanel contentPanel, GridBagConstraints c) {
         JLabel backLabel = makeLabel("Back of Card");
         backTextField = makeTextField(20);
@@ -76,6 +86,8 @@ public abstract class CardDialog extends JDialog {
         contentPanel.add(backTextField, c);
     }
 
+    // MODIFIES: this, contentPanel, c
+    // EFFECTS: initializes text field for front entry, adds it to given panel
     protected void addFront(JPanel contentPanel, GridBagConstraints c) {
         JLabel frontLabel = makeLabel("Front of Card");
         frontTextField = makeTextField(20);
@@ -85,6 +97,7 @@ public abstract class CardDialog extends JDialog {
         contentPanel.add(frontTextField, c);
     }
 
+    // EFFECTS: creates and returns a text field with a given width
     protected JTextField makeTextField(int columns) {
         JTextField textField = new JTextField(columns);
         textField.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
@@ -92,6 +105,7 @@ public abstract class CardDialog extends JDialog {
         return textField;
     }
 
+    // EFFECTS: creates and returns a label with given text
     protected JLabel makeLabel(String s) {
         JLabel label = new JLabel(s);
         label.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
@@ -103,6 +117,7 @@ public abstract class CardDialog extends JDialog {
 
     class CancelListener implements ActionListener {
 
+        // EFFECTS: closes window on button press
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
@@ -111,6 +126,7 @@ public abstract class CardDialog extends JDialog {
 
     class AddListener implements ActionListener {
 
+        // EFFECTS: calls handleAction() on button press
         @Override
         public void actionPerformed(ActionEvent e) {
             handleAction();

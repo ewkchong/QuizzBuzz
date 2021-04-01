@@ -19,20 +19,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Menu displaying list of all decks and operations involving decks
 public class MainMenu extends JPanel implements ListSelectionListener {
-    private final QuizApp app;
-    private final DefaultListModel<Deck> deckListModel;
-    private final JFrame parentFrame;
-    private final ArrayList<Deck> decks;
-    private JList<Deck> list;
-    private JButton viewButton;
-    private JButton renameButton;
-    private JButton deleteButton;
-    private JButton saveQuitButton;
-    private JTextField deckName;
-    private JLabel logoPanel;
-    private JPanel sidebar;
+    private final QuizApp app;                              // parent application
+    private final DefaultListModel<Deck> deckListModel;     // model of deck list
+    private final JFrame parentFrame;                       // containing frame
+    private final ArrayList<Deck> decks;                    // list of decks
+    private JList<Deck> list;                               // JList of decks
+    private JButton viewButton;                             // button for viewing chosen deck
+    private JButton renameButton;                           // button for renaming chosen deck
+    private JButton deleteButton;                           // button for deleting chosen deck
+    private JButton saveQuitButton;                         // button for saving changes and quitting
+    private JTextField deckName;                            // text field for creating new decks
+    private JLabel logoPanel;                               // panel containing logo image
+    private JPanel sidebar;                                 // panel containing all sidebar buttons
 
+    // EFFECTS: creates a main menu displaying given decks in given frame
     public MainMenu(ArrayList<Deck> decks, JFrame parentFrame, QuizApp app) {
         this.app = app;
         this.parentFrame = parentFrame;
@@ -49,6 +51,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         createAndShowUI();
     }
 
+    // EFFECTS: registers required fonts for UI
     private void registerFonts() {
         try {
             Font montserrat = Font.createFont(
@@ -69,6 +72,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         return parentFrame;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds all components to frame
     private void createAndShowUI() {
         list = new JList<>(deckListModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -97,6 +102,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         add(sidebar, BorderLayout.LINE_END);
     }
 
+    // MODIFIES: this
+    // EFFECTS: returns a panel with bottom row components
     private JPanel instantiateBottomRow(JButton createButton) {
         JPanel bottomRow = new JPanel();
         GridBagConstraints c = new GridBagConstraints();
@@ -118,6 +125,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         return bottomRow;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates text field, assigns it to field, and formats it
     private void instantiateTextField(CreateDeckListener createDeckListener) {
         deckName = new JTextField(30);
         deckName.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 19));
@@ -126,6 +135,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         deckName.getDocument().addDocumentListener(createDeckListener);
     }
 
+
+    // EFFECTS: returns a panel containing the logo image
     public JLabel logoPanel() {
         JLabel logo = null;
         try {
@@ -141,6 +152,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         return logo;
     }
 
+    // EFFECTS: adds buttons to sidebar and returns sidebar
     public JPanel buttonSidebar() {
         JPanel sidebar = new JPanel();
         sidebar.setLayout(new GridBagLayout());
@@ -171,6 +183,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         return sidebar;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets button fields to new buttons, formats buttons and adds listeners
     private void initializeButtons() {
         viewButton = makeButton("View Deck");
         viewButton.addActionListener(new ViewListener());
@@ -188,6 +202,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         saveQuitButton.addActionListener(new QuitListener());
     }
 
+    // EFFECTS: returns a formatted button with label using given string
     private JButton makeButton(String s) {
         JButton button = new JButton(s);
         button.setPreferredSize(new Dimension(200, 80));
@@ -197,6 +212,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         return button;
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes deck from list of decks
     public void removeDeck(Deck d) {
         decks.remove(d);
         deckListModel.removeElement(d);
@@ -204,6 +221,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         parentFrame.repaint();
     }
 
+    // EFFECTS: listens to list selection, if something is selected,
+    //          enable all buttons
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (list.getSelectedIndex() == -1) {
@@ -220,6 +239,9 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
     // adapted from Java Swing ListDemo's FireListener
     class ViewListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: on button press, change frame to deck menu
         public void actionPerformed(ActionEvent e) {
             Deck selected = list.getSelectedValue();
             Container frameContent = parentFrame.getContentPane();
@@ -240,6 +262,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             this.deckList = deckList;
         }
 
+        // MODIFIES: this
+        // EFFECTS: gets text from text field, creates new deck with given text as name
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = deckName.getText();
@@ -252,25 +276,34 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             deckName.setText("");
         }
 
+        // EFFECTS: enables button if text is added
         @Override
         public void insertUpdate(DocumentEvent e) {
             enableButton();
         }
 
+        // MODIFIES: this
+        // EFFECTS: enables button
         private void enableButton() {
             button.setEnabled(true);
         }
 
+        // MODIFIES: this
+        // EFFECTS: enables button if text field non-empty
         @Override
         public void removeUpdate(DocumentEvent e) {
             button.setEnabled(e.getDocument().getLength() > 0);
         }
 
+        // MODIFIES: this
+        // EFFECTS: enables button if text field non-empty
         @Override
         public void changedUpdate(DocumentEvent e) {
             button.setEnabled(e.getDocument().getLength() > 0);
         }
 
+        // MODIFIES: this
+        // EFFECTS: changes logo image to tobs when a deck named "tobs" is created
         private void tobs(String name) {
             String imagePath;
             if (name.equals("tobs")) {
@@ -290,6 +323,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
     class DeleteListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: deletes selected deck, shows confirm dialog on button press
         @Override
         public void actionPerformed(ActionEvent e) {
             Deck d = list.getSelectedValue();
@@ -304,6 +339,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
     class RenameListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: renames selected deck, shows dialog to enter text on button press
         @Override
         public void actionPerformed(ActionEvent e) {
             Deck d = list.getSelectedValue();
@@ -318,6 +355,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
     private class QuitListener implements ActionListener {
 
+        // MODIFIES: this
+        // EFFECTS: saves app to JSON file, closes window on button press
         @Override
         public void actionPerformed(ActionEvent e) {
             try {

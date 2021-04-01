@@ -9,16 +9,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Panel that represents a flash card with a front and back
 public class CardPanel extends JPanel {
-    Card card;
-    JPanel cardPanel;
-    JLabel backText;
-    JPanel buttonPanel;
-    JFrame parentFrame;
-    DeckMenu deckMenu;
-    int index;
-    int size;
+    Card card;              // main card
+    JPanel cardPanel;       // panel containing card text
+    JLabel backText;        // label containing text of back of flash card
+    JPanel buttonPanel;     // panel containing difficulty buttons
+    JFrame parentFrame;     // containing frame
+    DeckMenu deckMenu;      // previous menu
+    int index;              // "place" in list of cards
+    int size;               // length of study list
 
+    // EFFECTS: creates new card panel to show a single card
     public CardPanel(Card c, JPanel cardPanel, int i, int size, JFrame parentFrame, DeckMenu d) {
         deckMenu = d;
         this.parentFrame = parentFrame;
@@ -31,6 +33,8 @@ public class CardPanel extends JPanel {
         addButtonPanel();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates components and adds them to panel
     private void addComponents() {
         JPanel frontPanel = new JPanel();
         frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.PAGE_AXIS));
@@ -47,6 +51,8 @@ public class CardPanel extends JPanel {
         add(frontPanel, BorderLayout.CENTER);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates button panel, adds buttons, and assigns it to field
     private void addButtonPanel() {
 
         buttonPanel = new JPanel(new GridBagLayout());
@@ -63,6 +69,8 @@ public class CardPanel extends JPanel {
         add(buttonPanel, BorderLayout.PAGE_END);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds difficulty buttons to panel with constraints
     private void addDifficultyButtons() {
         GridBagConstraints c = new GridBagConstraints();
 
@@ -87,6 +95,9 @@ public class CardPanel extends JPanel {
     }
 
     private class ShowAnswerListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: changes back text to be visible on pressing "Show answer"
         @Override
         public void actionPerformed(ActionEvent e) {
             backText.setForeground(new Color(0,0,0,188));
@@ -97,7 +108,11 @@ public class CardPanel extends JPanel {
         }
     }
 
+
     private class EasyListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
@@ -110,7 +125,11 @@ public class CardPanel extends JPanel {
         }
     }
 
+
     private class GoodListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
@@ -124,6 +143,9 @@ public class CardPanel extends JPanel {
     }
 
     private class HardListener implements ActionListener {
+
+        // MODIFIES: this
+        // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {

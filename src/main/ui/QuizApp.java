@@ -25,7 +25,7 @@ import java.util.Scanner;
 // A flash card application
 public class QuizApp {
     private ArrayList<Deck> decks;     // List of decks created by user
-    private final Scanner scanner;           // Scanner for user input
+    private final Scanner scanner;     // Scanner for user input
 
     // EFFECTS: instantiates new application for user interface
     public QuizApp(ArrayList<Deck> decks) {
@@ -34,12 +34,15 @@ public class QuizApp {
         initializeFrame();
     }
 
-
+    // EFFECTS: creates new QuizApp instance with given list of decks
+    //          and given scanner
     public QuizApp(ArrayList<Deck> decks, Scanner scanner) {
         this.scanner = scanner;
         this.decks = decks;
     }
 
+    // EFFECTS: creates new QuizApp instance with empty list of decks
+    //          and default scanner
     public QuizApp() {
         scanner = new Scanner(System.in);
         decks = new ArrayList<>();

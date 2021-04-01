@@ -75,8 +75,9 @@ public class Deck {
         return array;
     }
 
+    // EFFECTS: returns title of deck
     @Override
     public String toString() {
-        return getTitle();
+        return title;
     }
 }
