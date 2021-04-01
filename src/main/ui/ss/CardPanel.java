@@ -116,12 +116,15 @@ public class CardPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
-                parentFrame.setContentPane(deckMenu);
+                parentFrame.getContentPane().removeAll();
+                parentFrame.getContentPane().add(deckMenu);
                 parentFrame.getContentPane().revalidate();
                 parentFrame.getContentPane().repaint();
+            } else {
+                card.processReview(3);
+                CardLayout cl = (CardLayout) cardPanel.getLayout();
+                cl.next(cardPanel);
             }
-            CardLayout cl = (CardLayout) cardPanel.getLayout();
-            cl.next(cardPanel);
         }
     }
 
@@ -133,12 +136,15 @@ public class CardPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
-                parentFrame.setContentPane(deckMenu);
+                parentFrame.getContentPane().removeAll();
+                parentFrame.getContentPane().add(deckMenu);
                 parentFrame.getContentPane().revalidate();
                 parentFrame.getContentPane().repaint();
+            } else {
+                card.processReview(2);
+                CardLayout cl = (CardLayout) cardPanel.getLayout();
+                cl.next(cardPanel);
             }
-            CardLayout cl = (CardLayout) cardPanel.getLayout();
-            cl.next(cardPanel);
         }
     }
 
@@ -149,12 +155,15 @@ public class CardPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
-                parentFrame.setContentPane(deckMenu);
+                card.processReview(1);
+                parentFrame.getContentPane().removeAll();
+                parentFrame.getContentPane().add(deckMenu);
                 parentFrame.getContentPane().revalidate();
                 parentFrame.getContentPane().repaint();
+            } else {
+                CardLayout cl = (CardLayout) cardPanel.getLayout();
+                cl.next(cardPanel);
             }
-            CardLayout cl = (CardLayout) cardPanel.getLayout();
-            cl.next(cardPanel);
         }
     }
 }
