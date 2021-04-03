@@ -7,8 +7,11 @@ import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
 import ui.utilities.QuizAppUtilities;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -68,12 +71,34 @@ public abstract class StudySession extends JPanel {
     }
 
     // EFFECTS: calculates proportion of correct cards reviewed
-    protected String calcSuccessRate() {
+    private String calcSuccessRate() {
         double correct = correctReviews;
         double total = studyList.size();
         double rate = (correct / total) * 100;
 
         DecimalFormat df = new DecimalFormat("#.#");
         return df.format(rate);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: increments the amount of correct reviews by 1
+    protected void incrementCorrectReviews() {
+        correctReviews++;
+    }
+
+    // EFFECTS: displays a dialog showing percentage of correct reviews
+    protected void showPerformanceDialog() {
+        String successRate = calcSuccessRate();
+        ImageIcon icon = null;
+        try {
+            icon = new ImageIcon(ImageIO.read(new File("data/images/partypopper.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(parentFrame,
+                "You answered " + successRate + "% of " + studyList.size() + " cards correctly!",
+                "Performance",
+                JOptionPane.PLAIN_MESSAGE,
+                icon);
     }
 }

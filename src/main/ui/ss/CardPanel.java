@@ -1,7 +1,6 @@
 package ui.ss;
 
 import model.Card;
-import ui.DeckMenu;
 import ui.MainMenu;
 import ui.QuizApp;
 import ui.utilities.QuizAppUtilities;
@@ -15,7 +14,7 @@ import java.awt.event.ActionListener;
 public class CardPanel extends JPanel {
     QuizApp app;
     Card card;              // main card
-    JPanel cardPanel;       // panel containing card text
+    StudySession ss;       // panel containing card text
     JLabel backText;        // label containing text of back of flash card
     JPanel buttonPanel;     // panel containing difficulty buttons
     JFrame parentFrame;     // containing frame
@@ -23,10 +22,10 @@ public class CardPanel extends JPanel {
     int size;               // length of study list
 
     // EFFECTS: creates new card panel to show a single card
-    public CardPanel(Card c, JPanel cardPanel, int i, int size, QuizApp app) {
+    public CardPanel(Card c, StudySession ss, int i, int size, QuizApp app) {
         this.app = app;
         this.parentFrame = app.getFrame();
-        this.cardPanel = cardPanel;
+        this.ss = ss;
         card = c;
         index = i;
         this.size = size;
@@ -41,12 +40,12 @@ public class CardPanel extends JPanel {
         JPanel frontPanel = new JPanel();
         frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.PAGE_AXIS));
         JLabel front = new JLabel(card.getFront());
-        front.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 36));
+        front.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 52));
         frontPanel.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
         frontPanel.add(front);
 
         backText = new JLabel(card.getBack());
-        backText.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 26));
+        backText.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 42));
         backText.setForeground(new Color(0,0,0,0));
         frontPanel.add(backText);
 
@@ -58,14 +57,14 @@ public class CardPanel extends JPanel {
     private void addButtonPanel() {
 
         buttonPanel = new JPanel(new GridBagLayout());
-        buttonPanel.setPreferredSize(new Dimension(Short.MAX_VALUE, 300));
         GridBagConstraints c = new GridBagConstraints();
 
-        c.ipadx = 900;
+        c.weightx = 1.0;
+        c.ipadx = Short.MAX_VALUE;
         c.ipady = 150;
         JButton showAnswer = new JButton("Show Answer");
         showAnswer.addActionListener(new ShowAnswerListener());
-        showAnswer.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
+        showAnswer.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
         buttonPanel.add(showAnswer, c);
 
         add(buttonPanel, BorderLayout.PAGE_END);
@@ -76,23 +75,24 @@ public class CardPanel extends JPanel {
     private void addDifficultyButtons() {
         GridBagConstraints c = new GridBagConstraints();
 
-        c.ipadx = 300;
+        c.weightx = 1.0;
+        c.ipadx = Short.MAX_VALUE;
         c.ipady = 150;
-        JButton easyButton = new JButton(card.getFront() + ": Easy");
+        JButton easyButton = new JButton("Easy");
         easyButton.addActionListener(new EasyListener());
-        easyButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
+        easyButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
         buttonPanel.add(easyButton, c);
 
         c.gridx = 1;
-        JButton goodButton = new JButton(card.getBack() + ": Good");
+        JButton goodButton = new JButton("Good");
         goodButton.addActionListener(new GoodListener());
-        goodButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
+        goodButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
         buttonPanel.add(goodButton, c);
 
         c.gridx = 2;
-        JButton hardButton = new JButton(card.getBack() + ": Hard");
+        JButton hardButton = new JButton("Hard");
         hardButton.addActionListener(new HardListener());
-        hardButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
+        hardButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
         buttonPanel.add(hardButton, c);
     }
 
@@ -123,10 +123,13 @@ public class CardPanel extends JPanel {
                 parentFrame.getContentPane().add(new MainMenu(app));
                 parentFrame.revalidate();
                 parentFrame.repaint();
+                ss.incrementCorrectReviews();
+                ss.showPerformanceDialog();
             } else {
                 card.processReview(3);
-                CardLayout cl = (CardLayout) cardPanel.getLayout();
-                cl.next(cardPanel);
+                CardLayout cl = (CardLayout) ss.getLayout();
+                cl.next(ss);
+                ss.incrementCorrectReviews();
             }
         }
     }
@@ -144,10 +147,13 @@ public class CardPanel extends JPanel {
                 parentFrame.getContentPane().add(new MainMenu(app));
                 parentFrame.revalidate();
                 parentFrame.repaint();
+                ss.incrementCorrectReviews();
+                ss.showPerformanceDialog();
             } else {
                 card.processReview(2);
-                CardLayout cl = (CardLayout) cardPanel.getLayout();
-                cl.next(cardPanel);
+                CardLayout cl = (CardLayout) ss.getLayout();
+                cl.next(ss);
+                ss.incrementCorrectReviews();
             }
         }
     }
@@ -164,10 +170,11 @@ public class CardPanel extends JPanel {
                 parentFrame.getContentPane().add(new MainMenu(app));
                 parentFrame.revalidate();
                 parentFrame.repaint();
+                ss.showPerformanceDialog();
             } else {
                 card.processReview(1);
-                CardLayout cl = (CardLayout) cardPanel.getLayout();
-                cl.next(cardPanel);
+                CardLayout cl = (CardLayout) ss.getLayout();
+                cl.next(ss);
             }
         }
     }

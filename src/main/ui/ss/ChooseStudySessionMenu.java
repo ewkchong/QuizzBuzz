@@ -40,6 +40,10 @@ public class ChooseStudySessionMenu extends JPanel {
     private void addButtons() {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        c.ipadx = Short.MAX_VALUE;
+        c.ipady = 600;
 
         JButton allButton = makeButton("Study (ignore schedule)", new AllStudyListener());
         buttonPanel.add(allButton, c);
@@ -53,6 +57,13 @@ public class ChooseStudySessionMenu extends JPanel {
         JButton tagStudyButton = makeButton("Study by Tag", new TagStudyListener());
         buttonPanel.add(tagStudyButton, c);
 
+        c.ipady = 300;
+        c.gridx = 0;
+        c.gridwidth = 3;
+        c.gridy = 1;
+        JButton returnButton = makeButton("Return to Menu", new ReturnListener());
+        buttonPanel.add(returnButton, c);
+
         add(buttonPanel, BorderLayout.CENTER);
     }
 
@@ -61,7 +72,7 @@ public class ChooseStudySessionMenu extends JPanel {
     private JButton makeButton(String text, ActionListener listener) {
         JButton button = new JButton(text);
         button.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 22));
-        button.setPreferredSize(new Dimension(300, 600));
+//        button.setPreferredSize(new Dimension(300, 600));
         button.addActionListener(listener);
 
         return button;
@@ -126,6 +137,18 @@ public class ChooseStudySessionMenu extends JPanel {
             } catch (EmptyStudyListException f) {
                 QuizAppUtilities.showNoCardsWarning(parentFrame);
             }
+        }
+    }
+
+    private class ReturnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Container frameContent = parentFrame.getContentPane();
+
+            frameContent.removeAll();
+            frameContent.add(deckMenu);
+            frameContent.revalidate();
+            frameContent.repaint();
         }
     }
 }
