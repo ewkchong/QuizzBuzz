@@ -35,16 +35,16 @@ public class MainMenu extends JPanel implements ListSelectionListener {
     private JPanel sidebar;                                 // panel containing all sidebar buttons
 
     // EFFECTS: creates a main menu displaying given decks in given frame
-    public MainMenu(ArrayList<Deck> decks, JFrame parentFrame, QuizApp app) {
+    public MainMenu(QuizApp app) {
         this.app = app;
-        this.parentFrame = parentFrame;
+        this.parentFrame = app.getFrame();
         setPreferredSize(new Dimension(1024, 768));
         setLayout(new BorderLayout(0,0));
-        this.decks = decks;
+        this.decks = app.getDecks();
         logoPanel = logoPanel();
         sidebar = buttonSidebar();
         deckListModel = new DefaultListModel<>();
-        for (Deck d: decks) {
+        for (Deck d: app.getDecks()) {
             deckListModel.addElement(d);
         }
         registerFonts();
@@ -247,7 +247,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             Container frameContent = parentFrame.getContentPane();
 
             frameContent.removeAll();
-            frameContent.add(new DeckMenu(MainMenu.this, selected));
+            frameContent.add(new DeckMenu(MainMenu.this, selected, app));
             frameContent.revalidate();
             frameContent.repaint();
         }

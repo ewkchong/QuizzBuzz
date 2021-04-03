@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 
 // Menu displaying all cards in deck
 public class CardListMenu extends JPanel {
+    QuizApp app;
     JPanel mainMenu;            // previous menu
     JFrame parentFrame;         // parent containing frame
     JScrollPane scrollPane;     // scroll pane containing table
@@ -29,7 +30,8 @@ public class CardListMenu extends JPanel {
     Deck deck;                  // deck containing this card list
 
     // EFFECTS: creates new CardListMenu with default initial data
-    public CardListMenu(Deck d, MainMenu mainMenu) {
+    public CardListMenu(Deck d, MainMenu mainMenu, QuizApp app) {
+        this.app = app;
         this.parentFrame = mainMenu.getParentFrame();
         this.mainMenu = mainMenu;
         deck = d;
@@ -187,7 +189,7 @@ public class CardListMenu extends JPanel {
         // EFFECTS: sets content of frame to deck menu (returns to previous menu)
         @Override
         public void actionPerformed(ActionEvent e) {
-            parentFrame.setContentPane(new DeckMenu((MainMenu) mainMenu, deck));
+            parentFrame.setContentPane(new DeckMenu((MainMenu) mainMenu, deck, app));
             parentFrame.revalidate();
             parentFrame.repaint();
         }

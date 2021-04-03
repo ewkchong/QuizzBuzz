@@ -3,6 +3,8 @@ package ui.ss;
 import model.Card;
 import model.ReviewCalendar;
 import ui.DeckMenu;
+import ui.QuizApp;
+import ui.exceptions.EmptyStudyListException;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -13,8 +15,8 @@ import java.util.stream.Stream;
 // A study session that prescribes the user review times for spaced repetition
 public class NormalStudySession extends StudySession {
 
-    public NormalStudySession(ArrayList<Card> cards, JFrame parentFrame, DeckMenu deckMenu) {
-        super(cards, parentFrame, deckMenu);
+    public NormalStudySession(ArrayList<Card> cards, JFrame parentFrame, QuizApp app) throws EmptyStudyListException {
+        super(cards, parentFrame, app);
     }
 
     // REQUIRES: n > 0

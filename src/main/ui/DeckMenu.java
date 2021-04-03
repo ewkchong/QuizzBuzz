@@ -15,11 +15,13 @@ import java.util.ArrayList;
 
 // Menu showing options for deck
 public class DeckMenu extends JPanel {
+    private QuizApp app;
     private Deck deck;          // main deck
     private MainMenu mainMenu;  // previous menu
     private JLabel title;       // title of deck
 
-    public DeckMenu(MainMenu mainMenu, Deck d) {
+    public DeckMenu(MainMenu mainMenu, Deck d, QuizApp app) {
+        this.app = app;
         this.mainMenu = mainMenu;
         deck = d;
 
@@ -164,7 +166,7 @@ public class DeckMenu extends JPanel {
         public void actionPerformed(ActionEvent e) {
             Container frameContent = mainMenu.getParentFrame().getContentPane();
             frameContent.removeAll();
-            frameContent.add(new CardListMenu(deck, mainMenu));
+            frameContent.add(new CardListMenu(deck, mainMenu, app));
             frameContent.revalidate();
             frameContent.repaint();
         }
@@ -193,15 +195,14 @@ public class DeckMenu extends JPanel {
             if (deck.getCardList().size() != 0) {
                 JFrame parentFrame = mainMenu.getParentFrame();
                 parentFrame.getContentPane().removeAll();
-                parentFrame.setContentPane(new ChooseStudySessionMenu(cardList, parentFrame, DeckMenu.this));
+                parentFrame.setContentPane(new ChooseStudySessionMenu(cardList,DeckMenu.this, app));
                 parentFrame.revalidate();
                 parentFrame.repaint();
             } else {
-                JOptionPane.showMessageDialog(mainMenu.getParentFrame(),
-                        "Currently no cards to study!",
-                        "Empty Study List",
-                        JOptionPane.PLAIN_MESSAGE);
+                QuizAppUtilities.showNoCardsWarning(mainMenu.getParentFrame());
             }
         }
+
+
     }
 }

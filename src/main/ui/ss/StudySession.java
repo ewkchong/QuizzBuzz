@@ -2,6 +2,10 @@ package ui.ss;
 
 import model.Card;
 import ui.DeckMenu;
+import ui.MainMenu;
+import ui.QuizApp;
+import ui.exceptions.EmptyStudyListException;
+import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,19 +14,19 @@ import java.util.*;
 
 // a study session that displays flash cards for user to study
 public abstract class StudySession extends JPanel {
+    protected QuizApp app;
     protected ArrayList<Card> cards;      // list of cards from deck, un-shuffled
     protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
-    protected Scanner scanner;            // scanner for user input
     protected int correctReviews;         // amount of cards marked as correct during study session
     protected JFrame parentFrame;         // containing frame
-    protected DeckMenu deckMenu;          // previous menu
 
     // EFFECTS: constructs a new session with given list of cards to study
-    public StudySession(ArrayList<Card> cards, JFrame parentFrame, DeckMenu d) {
-        deckMenu = d;
-        this.parentFrame = parentFrame;
+    public StudySession(ArrayList<Card> cards,
+                        JFrame frame,
+                        QuizApp app) throws EmptyStudyListException {
+        this.app = app;
+        this.parentFrame = frame;
         this.cards = cards;
-        this.scanner = new Scanner(System.in);
         setLayout(new CardLayout());
         begin();
     }
@@ -47,16 +51,20 @@ public abstract class StudySession extends JPanel {
      *          one at a time, displays back of card
      *
      */
-    public void begin() {
+    public void begin() throws EmptyStudyListException {
         studyList = generateStudyList(cards.size());
-        int i = 0;
-        for (Card c: studyList) {
-            JPanel cardPanel = new CardPanel(c, this, i, studyList.size(), parentFrame, deckMenu);
-            add(cardPanel, String.valueOf(i));
-            i++;
+        if (studyList.size() == 0) {
+            throw new EmptyStudyListException();
+        } else {
+            int i = 0;
+            for (Card c : studyList) {
+                JPanel cardPanel = new CardPanel(c, this, i, studyList.size(), app);
+                add(cardPanel, String.valueOf(i));
+                i++;
+            }
+            CardLayout cl = (CardLayout) getLayout();
+            cl.show(this, String.valueOf(0));
         }
-        CardLayout cl = (CardLayout) getLayout();
-        cl.show(this, String.valueOf(0));
     }
 
     // EFFECTS: calculates proportion of correct cards reviewed
@@ -67,28 +75,5 @@ public abstract class StudySession extends JPanel {
 
         DecimalFormat df = new DecimalFormat("#.#");
         return df.format(rate);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: processes user input for difficulty of card
-    protected void cardDifficulty(Card c) {
-        System.out.println("\nDifficulty of card:");
-        System.out.println("\t1) Hard");
-        System.out.println("\t2) Good");
-        System.out.println("\t3) Easy");
-
-        while (true) {
-            String diff = scanner.nextLine();
-            if (diff.equals("2") || diff.equals("3")) {
-                correctReviews++;
-                c.processReview(Integer.parseInt(diff));
-                break;
-            } else if (diff.equals("1")) {
-                c.processReview(Integer.parseInt(diff));
-                break;
-            } else {
-                System.out.println("Invalid input, please try again!");
-            }
-        }
     }
 }

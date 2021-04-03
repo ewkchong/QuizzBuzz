@@ -40,4 +40,12 @@ public class QuizAppUtilities {
 
         return new ArrayList<>(tagsList);
     }
+
+    public static void showNoCardsWarning(JFrame parentFrame) {
+        JOptionPane.showMessageDialog(parentFrame,
+                "Currently no cards to study!",
+                "Empty Study List",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
 }

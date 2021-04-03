@@ -3,6 +3,7 @@ package ui.ss;
 import model.Card;
 import ui.DeckMenu;
 import ui.QuizApp;
+import ui.exceptions.EmptyStudyListException;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
@@ -13,15 +14,17 @@ import java.util.ArrayList;
 
 // Menu that allows choice of type of study session
 public class ChooseStudySessionMenu extends JPanel {
+    QuizApp app;
     ArrayList<Card> cardList;   // unfiltered list of cards to study
     JFrame parentFrame;         // containing frame
     DeckMenu deckMenu;          // previous menu
 
     // EFFECTS: creates a new menu to choose study session for given list of cards
-    public ChooseStudySessionMenu(ArrayList<Card> cardList, JFrame parentFrame, DeckMenu d) {
+    public ChooseStudySessionMenu(ArrayList<Card> cardList, DeckMenu d, QuizApp app) {
+        this.app = app;
         deckMenu = d;
         this.cardList = cardList;
-        this.parentFrame = parentFrame;
+        this.parentFrame = app.getFrame();
         setLayout(new BorderLayout());
         addComponents();
     }
@@ -84,9 +87,13 @@ public class ChooseStudySessionMenu extends JPanel {
         // EFFECTS: changes frame content to NormalStudySession
         @Override
         public void actionPerformed(ActionEvent e) {
-            parentFrame.setContentPane(new NormalStudySession(cardList, parentFrame, deckMenu));
-            parentFrame.getContentPane().revalidate();
-            parentFrame.getContentPane().repaint();
+            try {
+                parentFrame.setContentPane(new NormalStudySession(cardList, parentFrame, app));
+                parentFrame.getContentPane().revalidate();
+                parentFrame.getContentPane().repaint();
+            } catch (EmptyStudyListException f) {
+                QuizAppUtilities.showNoCardsWarning(parentFrame);
+            }
         }
     }
 
@@ -96,9 +103,13 @@ public class ChooseStudySessionMenu extends JPanel {
         // EFFECTS: changes frame content to TagStudySession
         @Override
         public void actionPerformed(ActionEvent e) {
-            parentFrame.setContentPane(new TagStudySession(cardList, parentFrame, new ArrayList<>(), deckMenu));
-            parentFrame.getContentPane().revalidate();
-            parentFrame.getContentPane().repaint();
+            try {
+                parentFrame.setContentPane(new TagStudySession(cardList, new ArrayList<>(), app));
+                parentFrame.getContentPane().revalidate();
+                parentFrame.getContentPane().repaint();
+            } catch (EmptyStudyListException f) {
+                QuizAppUtilities.showNoCardsWarning(parentFrame);
+            }
         }
     }
 
@@ -108,9 +119,13 @@ public class ChooseStudySessionMenu extends JPanel {
         // EFFECTS: changes frame content to AllStudySession
         @Override
         public void actionPerformed(ActionEvent e) {
-            parentFrame.setContentPane(new AllStudySession(cardList, parentFrame, deckMenu));
-            parentFrame.getContentPane().revalidate();
-            parentFrame.getContentPane().repaint();
+            try {
+                parentFrame.setContentPane(new AllStudySession(cardList, parentFrame, app));
+                parentFrame.getContentPane().revalidate();
+                parentFrame.getContentPane().repaint();
+            } catch (EmptyStudyListException f) {
+                QuizAppUtilities.showNoCardsWarning(parentFrame);
+            }
         }
     }
 }

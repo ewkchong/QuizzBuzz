@@ -2,6 +2,8 @@ package ui.ss;
 
 import model.Card;
 import ui.DeckMenu;
+import ui.QuizApp;
+import ui.exceptions.EmptyStudyListException;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -14,8 +16,8 @@ public class TagStudySession extends StudySession {
     ArrayList<String> tags;     // list of tags to study
 
     // constructs a new tag study session with given cards and set of tags
-    public TagStudySession(ArrayList<Card> cards, JFrame parentFrame, ArrayList<String> tags, DeckMenu d) {
-        super(cards, parentFrame, d);
+    public TagStudySession(ArrayList<Card> cards, ArrayList<String> tags, QuizApp app) throws EmptyStudyListException {
+        super(cards, app.getFrame(), app);
         this.tags = tags;
     }
 
@@ -53,28 +55,4 @@ public class TagStudySession extends StudySession {
         }
         return false;
     }
-
-    // MODIFIES: this
-    // EFFECTS: processes user input for difficulty of card,
-    //          does not affect scheduling of card
-    @Override
-    protected void cardDifficulty(Card c) {
-        System.out.println("\nDifficulty of card:");
-        System.out.println("\t1) Hard");
-        System.out.println("\t2) Good");
-        System.out.println("\t3) Easy");
-
-        while (true) {
-            String diff = scanner.nextLine();
-            if (diff.equals("2") || diff.equals("3")) {
-                correctReviews++;
-                break;
-            } else if (diff.equals("1")) {
-                break;
-            } else {
-                System.out.println("Invalid input, please try again!");
-            }
-        }
-    }
-
 }

@@ -25,11 +25,10 @@ import java.util.Scanner;
 // A flash card application
 public class QuizApp {
     private ArrayList<Deck> decks;     // List of decks created by user
-    private final Scanner scanner;     // Scanner for user input
+    private JFrame frame;
 
     // EFFECTS: instantiates new application for user interface
     public QuizApp(ArrayList<Deck> decks) {
-        scanner = new Scanner(System.in);
         this.decks = decks;
         initializeFrame();
     }
@@ -37,14 +36,12 @@ public class QuizApp {
     // EFFECTS: creates new QuizApp instance with given list of decks
     //          and given scanner
     public QuizApp(ArrayList<Deck> decks, Scanner scanner) {
-        this.scanner = scanner;
         this.decks = decks;
     }
 
     // EFFECTS: creates new QuizApp instance with empty list of decks
     //          and default scanner
     public QuizApp() {
-        scanner = new Scanner(System.in);
         decks = new ArrayList<>();
     }
 
@@ -67,16 +64,20 @@ public class QuizApp {
 
     // EFFECTS: creates and shows UI
     public void initializeFrame() {
-        JFrame frame = new JFrame("QuizzBuzz");
+        frame = new JFrame("QuizzBuzz");
         try {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("data/images/logo.png")));
             frame.setIconImage(icon.getImage());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        frame.getContentPane().add(new MainMenu(decks, frame, this));
+        frame.getContentPane().add(new MainMenu(this));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

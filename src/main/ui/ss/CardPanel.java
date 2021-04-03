@@ -2,6 +2,8 @@ package ui.ss;
 
 import model.Card;
 import ui.DeckMenu;
+import ui.MainMenu;
+import ui.QuizApp;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
@@ -11,19 +13,19 @@ import java.awt.event.ActionListener;
 
 // Panel that represents a flash card with a front and back
 public class CardPanel extends JPanel {
+    QuizApp app;
     Card card;              // main card
     JPanel cardPanel;       // panel containing card text
     JLabel backText;        // label containing text of back of flash card
     JPanel buttonPanel;     // panel containing difficulty buttons
     JFrame parentFrame;     // containing frame
-    DeckMenu deckMenu;      // previous menu
     int index;              // "place" in list of cards
     int size;               // length of study list
 
     // EFFECTS: creates new card panel to show a single card
-    public CardPanel(Card c, JPanel cardPanel, int i, int size, JFrame parentFrame, DeckMenu d) {
-        deckMenu = d;
-        this.parentFrame = parentFrame;
+    public CardPanel(Card c, JPanel cardPanel, int i, int size, QuizApp app) {
+        this.app = app;
+        this.parentFrame = app.getFrame();
         this.cardPanel = cardPanel;
         card = c;
         index = i;
@@ -76,19 +78,19 @@ public class CardPanel extends JPanel {
 
         c.ipadx = 300;
         c.ipady = 150;
-        JButton easyButton = new JButton("Easy");
+        JButton easyButton = new JButton(card.getFront() + ": Easy");
         easyButton.addActionListener(new EasyListener());
         easyButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(easyButton, c);
 
         c.gridx = 1;
-        JButton goodButton = new JButton("Good");
+        JButton goodButton = new JButton(card.getBack() + ": Good");
         goodButton.addActionListener(new GoodListener());
         goodButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(goodButton, c);
 
         c.gridx = 2;
-        JButton hardButton = new JButton("Hard");
+        JButton hardButton = new JButton(card.getBack() + ": Hard");
         hardButton.addActionListener(new HardListener());
         hardButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
         buttonPanel.add(hardButton, c);
@@ -116,10 +118,11 @@ public class CardPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
+                card.processReview(3);
                 parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(deckMenu);
-                parentFrame.getContentPane().revalidate();
-                parentFrame.getContentPane().repaint();
+                parentFrame.getContentPane().add(new MainMenu(app));
+                parentFrame.revalidate();
+                parentFrame.repaint();
             } else {
                 card.processReview(3);
                 CardLayout cl = (CardLayout) cardPanel.getLayout();
@@ -136,10 +139,11 @@ public class CardPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
+                card.processReview(2);
                 parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(deckMenu);
-                parentFrame.getContentPane().revalidate();
-                parentFrame.getContentPane().repaint();
+                parentFrame.getContentPane().add(new MainMenu(app));
+                parentFrame.revalidate();
+                parentFrame.repaint();
             } else {
                 card.processReview(2);
                 CardLayout cl = (CardLayout) cardPanel.getLayout();
@@ -157,10 +161,11 @@ public class CardPanel extends JPanel {
             if (index + 1 >= size) {
                 card.processReview(1);
                 parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(deckMenu);
-                parentFrame.getContentPane().revalidate();
-                parentFrame.getContentPane().repaint();
+                parentFrame.getContentPane().add(new MainMenu(app));
+                parentFrame.revalidate();
+                parentFrame.repaint();
             } else {
+                card.processReview(1);
                 CardLayout cl = (CardLayout) cardPanel.getLayout();
                 cl.next(cardPanel);
             }
