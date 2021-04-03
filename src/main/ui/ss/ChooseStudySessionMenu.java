@@ -1,6 +1,7 @@
 package ui.ss;
 
 import model.Card;
+import model.Deck;
 import ui.DeckMenu;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
@@ -17,13 +18,13 @@ public class ChooseStudySessionMenu extends JPanel {
     QuizApp app;
     ArrayList<Card> cardList;   // unfiltered list of cards to study
     JFrame parentFrame;         // containing frame
-    DeckMenu deckMenu;          // previous menu
+    Deck deck;                  // deck for which this study session is for
 
     // EFFECTS: creates a new menu to choose study session for given list of cards
-    public ChooseStudySessionMenu(ArrayList<Card> cardList, DeckMenu d, QuizApp app) {
+    public ChooseStudySessionMenu(QuizApp app, Deck d) {
         this.app = app;
-        deckMenu = d;
-        this.cardList = cardList;
+        deck = d;
+        this.cardList = d.getCardList();
         this.parentFrame = app.getFrame();
         setLayout(new BorderLayout());
         addComponents();
@@ -99,7 +100,7 @@ public class ChooseStudySessionMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                parentFrame.setContentPane(new NormalStudySession(cardList, parentFrame, app));
+                parentFrame.setContentPane(new NormalStudySession(deck, parentFrame, app));
                 parentFrame.getContentPane().revalidate();
                 parentFrame.getContentPane().repaint();
             } catch (EmptyStudyListException f) {
@@ -115,9 +116,20 @@ public class ChooseStudySessionMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                parentFrame.setContentPane(new TagStudySession(cardList, new ArrayList<>(), app));
-                parentFrame.getContentPane().revalidate();
-                parentFrame.getContentPane().repaint();
+                String s = (String) JOptionPane.showInputDialog(
+                        parentFrame,
+                        "Enter Tags",
+                        "Tags to Study",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "");
+                if (s != null) {
+                    ArrayList<String> tags = QuizAppUtilities.stringToArrayList(s.toLowerCase());
+                    parentFrame.setContentPane(new TagStudySession(deck, tags, app));
+                    parentFrame.getContentPane().revalidate();
+                    parentFrame.getContentPane().repaint();
+                }
             } catch (EmptyStudyListException f) {
                 QuizAppUtilities.showNoCardsWarning(parentFrame);
             }
@@ -131,7 +143,7 @@ public class ChooseStudySessionMenu extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                parentFrame.setContentPane(new AllStudySession(cardList, parentFrame, app));
+                parentFrame.setContentPane(new AllStudySession(deck, parentFrame, app));
                 parentFrame.getContentPane().revalidate();
                 parentFrame.getContentPane().repaint();
             } catch (EmptyStudyListException f) {
@@ -143,12 +155,7 @@ public class ChooseStudySessionMenu extends JPanel {
     private class ReturnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Container frameContent = parentFrame.getContentPane();
-
-            frameContent.removeAll();
-            frameContent.add(deckMenu);
-            frameContent.revalidate();
-            frameContent.repaint();
+            app.returnToDeckMenu(deck);
         }
     }
 }

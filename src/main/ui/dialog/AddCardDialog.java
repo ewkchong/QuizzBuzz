@@ -54,6 +54,8 @@ public class AddCardDialog extends CardDialog {
             model.fireTableDataChanged();
         }
 
+        parentFrame.setTitle("QuizzBuzz (Unsaved Changes)");
+
         dispose();
     }
 }

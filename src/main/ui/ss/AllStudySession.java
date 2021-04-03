@@ -1,6 +1,7 @@
 package ui.ss;
 
 import model.Card;
+import model.Deck;
 import ui.DeckMenu;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
@@ -13,8 +14,9 @@ public class AllStudySession extends StudySession {
 
     // EFFECTS: constructs a study session for reviewing all cards,
     //          regardless of schedule
-    public AllStudySession(ArrayList<Card> cards, JFrame parentFrame, QuizApp app) throws EmptyStudyListException {
-        super(cards, parentFrame, app);
+    public AllStudySession(Deck d, JFrame parentFrame, QuizApp app) throws EmptyStudyListException {
+        super(d, parentFrame, app);
+        begin();
     }
 
     // EFFECTS: generates a study list using all of the decks cards,

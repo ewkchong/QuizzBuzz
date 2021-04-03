@@ -17,10 +17,12 @@ public abstract class CardDialog extends JDialog {
     JTextField backTextField;   // text field for back text
     JTextField tagTextField;    // text field for tags
     TableModel tableModel;      // table of cards model
+    JFrame parentFrame;
 
     // EFFECTS: creates a new dialog with default button label "Confirm"
     public CardDialog(Frame owner, boolean modal) {
         super(owner, modal);
+        parentFrame = (JFrame) owner;
         buttonText = "Confirm";
     }
 

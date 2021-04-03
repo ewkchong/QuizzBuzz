@@ -2,6 +2,7 @@ package ui;
 
 import model.Card;
 import model.Deck;
+import model.ReviewCalendar;
 import ui.dialog.AddCardDialog;
 import ui.dialog.EditCardDialog;
 import ui.utilities.QuizAppUtilities;
@@ -48,6 +49,7 @@ public class CardListMenu extends JPanel {
         table = initializeTable(cardListData);
         scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.LINE_END);
     }
@@ -127,18 +129,20 @@ public class CardListMenu extends JPanel {
         return new String[]{"Card No.",
                             "Front",
                             "Back",
-                            "Tags"};
+                            "Tags",
+                            "Review Date"};
     }
 
     // EFFECTS: creates and returns a 2D array containing field data of card list
     public String[][] initializeData(Deck d) {
         int i = 0;
-        String[][] cardListData = new String[d.getCardList().size()][4];
+        String[][] cardListData = new String[d.getCardList().size()][5];
         for (Card c: d.getCardList()) {
             cardListData[i][0] = String.valueOf(i);
             cardListData[i][1] = c.getFront();
             cardListData[i][2] = c.getBack();
             cardListData[i][3] = c.getTags().toString();
+            cardListData[i][4] = new ReviewCalendar(c.getReviewDate()).displayDate();
             i++;
         }
         return cardListData;
@@ -180,6 +184,7 @@ public class CardListMenu extends JPanel {
             CardTableModel model = (CardTableModel) table.getModel();
             model.removeRow(selectedRowIndex);
             model.fireTableRowsDeleted(selectedRowIndex,selectedRowIndex);
+            app.updateTitle();
         }
     }
 
@@ -189,7 +194,7 @@ public class CardListMenu extends JPanel {
         // EFFECTS: sets content of frame to deck menu (returns to previous menu)
         @Override
         public void actionPerformed(ActionEvent e) {
-            parentFrame.setContentPane(new DeckMenu((MainMenu) mainMenu, deck, app));
+            parentFrame.setContentPane(new DeckMenu(app, deck));
             parentFrame.revalidate();
             parentFrame.repaint();
         }

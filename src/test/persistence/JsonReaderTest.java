@@ -29,7 +29,7 @@ public class JsonReaderTest extends JsonTest {
     public void testReadEmptyDecks() {
         try {
             JsonReader reader = new JsonReader("./data/testEmptyDecks.json");
-            QuizApp qa1 = new QuizApp(reader.read(), new Scanner(System.in));
+            QuizApp qa1 = new QuizApp(reader.read());
             ArrayList<Deck> decks1 = qa1.getDecks();
             Deck chin = decks1.get(0);
             Deck cpsc = decks1.get(1);
@@ -47,7 +47,7 @@ public class JsonReaderTest extends JsonTest {
     public void testReadNormalDeck() {
         try {
             JsonReader reader = new JsonReader("./data/testNormalDeck.json");
-            QuizApp app = new QuizApp(reader.read(), new Scanner(System.in));
+            QuizApp app = new QuizApp(reader.read());
             Deck d = app.getDecks().get(0);
             assertEquals("Arithmetic", d.getTitle());
             assertEquals(2, d.getCardList().size());

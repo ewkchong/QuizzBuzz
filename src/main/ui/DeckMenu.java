@@ -20,9 +20,9 @@ public class DeckMenu extends JPanel {
     private MainMenu mainMenu;  // previous menu
     private JLabel title;       // title of deck
 
-    public DeckMenu(MainMenu mainMenu, Deck d, QuizApp app) {
+    public DeckMenu(QuizApp app, Deck d) {
         this.app = app;
-        this.mainMenu = mainMenu;
+        this.mainMenu = new MainMenu(app);
         deck = d;
 
         addComponents();
@@ -154,6 +154,7 @@ public class DeckMenu extends JPanel {
             if (confirm == 0) {
                 backToMenu();
                 mainMenu.removeDeck(deck);
+                app.updateTitle();
             }
         }
     }
@@ -195,7 +196,7 @@ public class DeckMenu extends JPanel {
             if (deck.getCardList().size() != 0) {
                 JFrame parentFrame = mainMenu.getParentFrame();
                 parentFrame.getContentPane().removeAll();
-                parentFrame.setContentPane(new ChooseStudySessionMenu(cardList,DeckMenu.this, app));
+                parentFrame.setContentPane(new ChooseStudySessionMenu(app, deck));
                 parentFrame.revalidate();
                 parentFrame.repaint();
             } else {

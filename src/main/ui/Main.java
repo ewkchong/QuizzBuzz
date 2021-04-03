@@ -17,7 +17,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JsonReader reader = new JsonReader("./data/decks.json");
+        JsonReader reader = new JsonReader("data/decks.json");
 
         try {
             new QuizApp(reader.read());

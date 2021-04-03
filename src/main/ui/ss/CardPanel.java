@@ -1,6 +1,8 @@
 package ui.ss;
 
 import model.Card;
+import model.Deck;
+import ui.DeckMenu;
 import ui.MainMenu;
 import ui.QuizApp;
 import ui.utilities.QuizAppUtilities;
@@ -64,7 +66,7 @@ public class CardPanel extends JPanel {
         c.ipady = 150;
         JButton showAnswer = new JButton("Show Answer");
         showAnswer.addActionListener(new ShowAnswerListener());
-        showAnswer.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
+        showAnswer.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 18));
         buttonPanel.add(showAnswer, c);
 
         add(buttonPanel, BorderLayout.PAGE_END);
@@ -80,20 +82,28 @@ public class CardPanel extends JPanel {
         c.ipady = 150;
         JButton easyButton = new JButton("Easy");
         easyButton.addActionListener(new EasyListener());
-        easyButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
+        easyButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 18));
         buttonPanel.add(easyButton, c);
 
         c.gridx = 1;
         JButton goodButton = new JButton("Good");
         goodButton.addActionListener(new GoodListener());
-        goodButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
+        goodButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 18));
         buttonPanel.add(goodButton, c);
 
         c.gridx = 2;
         JButton hardButton = new JButton("Hard");
         hardButton.addActionListener(new HardListener());
-        hardButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
+        hardButton.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 18));
         buttonPanel.add(hardButton, c);
+    }
+
+    // EFFECTS: changes the GUI back to the deck menu
+    private void returnToMenu() {
+        parentFrame.getContentPane().removeAll();
+        parentFrame.getContentPane().add(new DeckMenu(app, ss.getDeck()));
+        parentFrame.revalidate();
+        parentFrame.repaint();
     }
 
     private class ShowAnswerListener implements ActionListener {
@@ -110,6 +120,19 @@ public class CardPanel extends JPanel {
         }
     }
 
+    private void processCorrectReview(int diff) {
+        if (index + 1 >= size) {
+            card.processReview(diff);
+            returnToMenu();
+            ss.incrementCorrectReviews();
+            ss.showPerformanceDialog();
+        } else {
+            card.processReview(diff);
+            CardLayout cl = (CardLayout) ss.getLayout();
+            cl.next(ss);
+            ss.incrementCorrectReviews();
+        }
+    }
 
     private class EasyListener implements ActionListener {
 
@@ -117,20 +140,7 @@ public class CardPanel extends JPanel {
         // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (index + 1 >= size) {
-                card.processReview(3);
-                parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(new MainMenu(app));
-                parentFrame.revalidate();
-                parentFrame.repaint();
-                ss.incrementCorrectReviews();
-                ss.showPerformanceDialog();
-            } else {
-                card.processReview(3);
-                CardLayout cl = (CardLayout) ss.getLayout();
-                cl.next(ss);
-                ss.incrementCorrectReviews();
-            }
+            processCorrectReview(3);
         }
     }
 
@@ -141,20 +151,7 @@ public class CardPanel extends JPanel {
         // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (index + 1 >= size) {
-                card.processReview(2);
-                parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(new MainMenu(app));
-                parentFrame.revalidate();
-                parentFrame.repaint();
-                ss.incrementCorrectReviews();
-                ss.showPerformanceDialog();
-            } else {
-                card.processReview(2);
-                CardLayout cl = (CardLayout) ss.getLayout();
-                cl.next(ss);
-                ss.incrementCorrectReviews();
-            }
+            processCorrectReview(2);
         }
     }
 
@@ -166,10 +163,7 @@ public class CardPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (index + 1 >= size) {
                 card.processReview(1);
-                parentFrame.getContentPane().removeAll();
-                parentFrame.getContentPane().add(new MainMenu(app));
-                parentFrame.revalidate();
-                parentFrame.repaint();
+                returnToMenu();
                 ss.showPerformanceDialog();
             } else {
                 card.processReview(1);

@@ -33,20 +33,12 @@ public class QuizApp {
         initializeFrame();
     }
 
-    // EFFECTS: creates new QuizApp instance with given list of decks
-    //          and given scanner
-    public QuizApp(ArrayList<Deck> decks, Scanner scanner) {
-        this.decks = decks;
-    }
-
-    // EFFECTS: creates new QuizApp instance with empty list of decks
-    //          and default scanner
-    public QuizApp() {
-        decks = new ArrayList<>();
-    }
-
     public ArrayList<Deck> getDecks() {
         return decks;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
     public void setDecks(ArrayList<Deck> decks) {
@@ -62,6 +54,7 @@ public class QuizApp {
         return array;
     }
 
+    // MODIFIES this
     // EFFECTS: creates and shows UI
     public void initializeFrame() {
         frame = new JFrame("QuizzBuzz");
@@ -77,7 +70,19 @@ public class QuizApp {
         frame.setVisible(true);
     }
 
-    public JFrame getFrame() {
-        return frame;
+    // MODIFIES: this
+    // EFFECTS: changes the frame to a deck menu of given deck
+    public void returnToDeckMenu(Deck d) {
+        JFrame frame = this.getFrame();
+        frame.setContentPane(new DeckMenu(this, d));
+        frame.revalidate();
+        frame.repaint();
     }
+
+    // MODIFIES: this
+    // EFFECTS: adds (Unsaved Changes) to the end of title
+    public void updateTitle() {
+        frame.setTitle("QuizzBuzz (Unsaved Changes)");
+    }
+
 }

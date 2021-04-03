@@ -1,11 +1,10 @@
 package ui.ss;
 
 import model.Card;
-import ui.DeckMenu;
+import model.Deck;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,9 +15,10 @@ public class TagStudySession extends StudySession {
     ArrayList<String> tags;     // list of tags to study
 
     // constructs a new tag study session with given cards and set of tags
-    public TagStudySession(ArrayList<Card> cards, ArrayList<String> tags, QuizApp app) throws EmptyStudyListException {
-        super(cards, app.getFrame(), app);
+    public TagStudySession(Deck d, ArrayList<String> tags, QuizApp app) throws EmptyStudyListException {
+        super(d, app.getFrame(), app);
         this.tags = tags;
+        begin();
     }
 
     // MODIFIES: this
@@ -47,9 +47,11 @@ public class TagStudySession extends StudySession {
     //          are in the given tag list
     private boolean toStudy(Card c) {
         ArrayList<String> cardTags = c.getTags();
+        ArrayList<String> lowerCaseTags = new ArrayList<>(cardTags);
+        lowerCaseTags.replaceAll(String::toLowerCase);
 
         for (String t: tags) {
-            if (cardTags.contains(t)) {
+            if (lowerCaseTags.contains(t)) {
                 return true;
             }
         }

@@ -27,6 +27,9 @@ public class ReviewCalendar extends GregorianCalendar {
 
     // EFFECTS: returns a string representation of the calendar object's date
     public String displayDate() {
+        if (get(Calendar.YEAR) <= 1980) {
+            return "Undated";
+        }
         int y = get(Calendar.YEAR);
         int m = get(Calendar.MONTH) + 1;
         int d = get(Calendar.DATE);

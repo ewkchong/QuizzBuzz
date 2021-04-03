@@ -247,7 +247,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             Container frameContent = parentFrame.getContentPane();
 
             frameContent.removeAll();
-            frameContent.add(new DeckMenu(MainMenu.this, selected, app));
+            frameContent.add(new DeckMenu(app, selected));
             frameContent.revalidate();
             frameContent.repaint();
         }
@@ -274,6 +274,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
             deckName.requestFocusInWindow();
             deckName.setText("");
+            app.updateTitle();
+
         }
 
         // EFFECTS: enables button if text is added
@@ -333,6 +335,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
                 int i = list.getSelectedIndex();
                 decks.remove(d);
                 deckListModel.removeElementAt(i);
+                app.updateTitle();
             }
         }
     }

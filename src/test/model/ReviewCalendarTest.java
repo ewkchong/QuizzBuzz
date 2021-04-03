@@ -25,4 +25,10 @@ public class ReviewCalendarTest {
         rc = new ReviewCalendar(1615087174 / 3600);
         assertEquals("2021-3-6", rc.displayDate());
     }
+
+    @Test
+    public void testDisplayDateZero() {
+        rc = new ReviewCalendar(0);
+        assertEquals("Undated", rc.displayDate());
+    }
 }

@@ -91,6 +91,8 @@ public class EditCardDialog extends CardDialog {
         tableModel.setValueAt(back, selectedRow, 2);
         tableModel.setValueAt(tagsArrayList.toString(), selectedRow, 3);
 
+        parentFrame.setTitle("QuizzBuzz (Unsaved Changes)");
+
         dispose();
     }
 }

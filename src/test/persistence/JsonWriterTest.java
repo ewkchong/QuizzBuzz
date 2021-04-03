@@ -27,7 +27,7 @@ public class JsonWriterTest extends JsonTest {
     @Test
     public void testWriteEmptyDecks() {
         try {
-            QuizApp qa = new QuizApp();
+            QuizApp qa = new QuizApp(new ArrayList<>());
             ArrayList<Deck> decks = qa.getDecks();
             decks.add(new Deck("CHIN 131"));
             decks.add(new Deck("CPSC 210"));
@@ -35,7 +35,7 @@ public class JsonWriterTest extends JsonTest {
             writer.save(qa.deckListToJson());
 
             JsonReader reader = new JsonReader("./data/testEmptyDecks.json");
-            QuizApp qa1 = new QuizApp(reader.read(), new Scanner(System.in));
+            QuizApp qa1 = new QuizApp(reader.read());
             ArrayList<Deck> decks1 = qa1.getDecks();
             Deck chin = decks1.get(0);
             Deck cpsc = decks1.get(1);
@@ -53,12 +53,12 @@ public class JsonWriterTest extends JsonTest {
     public void testWriteNormalDeck() {
         try {
             JsonWriter writer = new JsonWriter("./data/testNormalDeck.json");
-            QuizApp qa = new QuizApp();
+            QuizApp qa = new QuizApp(new ArrayList<>());
             initializeNormalDeck(qa);
             writer.save(qa.deckListToJson());
 
             JsonReader reader = new JsonReader("./data/testNormalDeck.json");
-            QuizApp app = new QuizApp(reader.read(), new Scanner(System.in));
+            QuizApp app = new QuizApp(reader.read());
             Deck d = app.getDecks().get(0);
             assertEquals("Arithmetic", d.getTitle());
             assertEquals(2, d.getCardList().size());

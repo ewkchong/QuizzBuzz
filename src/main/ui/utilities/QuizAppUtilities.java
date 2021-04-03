@@ -1,8 +1,11 @@
 package ui.utilities;
 
 import model.Deck;
+import ui.DeckMenu;
+import ui.QuizApp;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +16,7 @@ public class QuizAppUtilities {
 
     // EFFECTS: shows a dialog to rename a deck
     public static String createRenameDialog(Deck d, JFrame parent) {
-        return (String) JOptionPane.showInputDialog(
+        String s = (String) JOptionPane.showInputDialog(
                 parent,
                 "What would you like to rename the deck to?",
                 "Rename Deck",
@@ -21,6 +24,10 @@ public class QuizAppUtilities {
                 null,
                 null,
                 d.getTitle());
+        if (s != null) {
+            parent.setTitle("QuizzBuzz (Unsaved Changes)");
+        }
+        return s;
     }
 
     // EFFECTS: shows a dialog to confirm deletion of deck
@@ -47,5 +54,4 @@ public class QuizAppUtilities {
                 "Empty Study List",
                 JOptionPane.PLAIN_MESSAGE);
     }
-
 }

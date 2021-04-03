@@ -1,6 +1,7 @@
 package ui.ss;
 
 import model.Card;
+import model.Deck;
 import ui.DeckMenu;
 import ui.MainMenu;
 import ui.QuizApp;
@@ -18,20 +19,25 @@ import java.util.*;
 // a study session that displays flash cards for user to study
 public abstract class StudySession extends JPanel {
     protected QuizApp app;
+    protected Deck deck;
     protected ArrayList<Card> cards;      // list of cards from deck, un-shuffled
     protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
     protected int correctReviews;         // amount of cards marked as correct during study session
     protected JFrame parentFrame;         // containing frame
 
     // EFFECTS: constructs a new session with given list of cards to study
-    public StudySession(ArrayList<Card> cards,
+    public StudySession(Deck deck,
                         JFrame frame,
-                        QuizApp app) throws EmptyStudyListException {
+                        QuizApp app) {
         this.app = app;
         this.parentFrame = frame;
-        this.cards = cards;
+        this.deck = deck;
+        this.cards = deck.getCardList();
         setLayout(new CardLayout());
-        begin();
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
     // EFFECTS: selects the proper cards to add to study session
