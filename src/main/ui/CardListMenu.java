@@ -17,8 +17,7 @@ import java.awt.event.ActionListener;
 
 // Menu displaying all cards in deck
 public class CardListMenu extends JPanel {
-    QuizApp app;
-    JPanel mainMenu;            // previous menu
+    QuizApp app;                // parent application
     JFrame parentFrame;         // parent containing frame
     JScrollPane scrollPane;     // scroll pane containing table
     String[][] cardListData;    // 2D array of card data
@@ -31,10 +30,9 @@ public class CardListMenu extends JPanel {
     Deck deck;                  // deck containing this card list
 
     // EFFECTS: creates new CardListMenu with default initial data
-    public CardListMenu(Deck d, MainMenu mainMenu, QuizApp app) {
+    public CardListMenu(Deck d, QuizApp app) {
         this.app = app;
-        this.parentFrame = mainMenu.getParentFrame();
-        this.mainMenu = mainMenu;
+        this.parentFrame = app.getFrame();
         deck = d;
         cardListData = initializeData(d);
         columns = initializeColumnTitle();
@@ -148,6 +146,7 @@ public class CardListMenu extends JPanel {
         return cardListData;
     }
 
+    // Listens for any card item to be selected
     class EnableButtonListener implements ListSelectionListener {
 
         // MODIFIES: this
@@ -161,6 +160,7 @@ public class CardListMenu extends JPanel {
         }
     }
 
+    // Custom un-editable table model
     public class CardTableModel extends DefaultTableModel {
 
         public CardTableModel(String[][] data, String[] columns) {
@@ -174,6 +174,7 @@ public class CardListMenu extends JPanel {
         }
     }
 
+    // Listens for "Delete Card" button press
     class DeleteListener implements ActionListener {
 
         // MODIFIES: this
@@ -188,6 +189,7 @@ public class CardListMenu extends JPanel {
         }
     }
 
+    // Listens for "Return to Menu" button press
     private class ReturnListener implements ActionListener {
 
         // MODIFIES: this
@@ -200,6 +202,7 @@ public class CardListMenu extends JPanel {
         }
     }
 
+    // Listens for "Add a Card" button press
     private class AddCardListener implements ActionListener {
 
         // EFFECTS: shows a dialog allowing for user input to add cards to list
@@ -211,6 +214,7 @@ public class CardListMenu extends JPanel {
         }
     }
 
+    // Listens for "Edit Card" button press
     private class EditListener implements ActionListener {
 
         // EFFECTS: shows a dialog allowing for user input to modify the fields of a card

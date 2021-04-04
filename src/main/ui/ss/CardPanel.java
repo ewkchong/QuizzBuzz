@@ -1,9 +1,7 @@
 package ui.ss;
 
 import model.Card;
-import model.Deck;
 import ui.DeckMenu;
-import ui.MainMenu;
 import ui.QuizApp;
 import ui.utilities.QuizAppUtilities;
 
@@ -14,9 +12,9 @@ import java.awt.event.ActionListener;
 
 // Panel that represents a flash card with a front and back
 public class CardPanel extends JPanel {
-    QuizApp app;
+    QuizApp app;            // parent application
     Card card;              // main card
-    StudySession ss;       // panel containing card text
+    StudySession ss;        // panel containing card text
     JLabel backText;        // label containing text of back of flash card
     JPanel buttonPanel;     // panel containing difficulty buttons
     JFrame parentFrame;     // containing frame
@@ -98,6 +96,7 @@ public class CardPanel extends JPanel {
         buttonPanel.add(hardButton, c);
     }
 
+    // MODIFIES: this
     // EFFECTS: changes the GUI back to the deck menu
     private void returnToMenu() {
         parentFrame.getContentPane().removeAll();
@@ -120,56 +119,57 @@ public class CardPanel extends JPanel {
         }
     }
 
-    private void processCorrectReview(int diff) {
+    // MODIFIES: this
+    // EFFECTS: processes user input for difficulty (1, 2 or 3)
+    //          returns GUI to deck menu
+    private void processDifficulty(int diff) {
         if (index + 1 >= size) {
             card.processReview(diff);
             returnToMenu();
-            ss.incrementCorrectReviews();
+            if (diff > 1) {
+                ss.incrementCorrectReviews();
+            }
             ss.showPerformanceDialog();
         } else {
             card.processReview(diff);
             CardLayout cl = (CardLayout) ss.getLayout();
             cl.next(ss);
-            ss.incrementCorrectReviews();
+            if (diff > 1) {
+                ss.incrementCorrectReviews();
+            }
         }
     }
 
+    // Listens for "Easy" button press
     private class EasyListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
-            processCorrectReview(3);
+            processDifficulty(3);
         }
     }
 
-
+    // Listens for "Good" button press
     private class GoodListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
-            processCorrectReview(2);
+            processDifficulty(2);
         }
     }
 
+    // Listens to "Hard" button press
     private class HardListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: goes back to menu if out of cards, otherwise continues
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (index + 1 >= size) {
-                card.processReview(1);
-                returnToMenu();
-                ss.showPerformanceDialog();
-            } else {
-                card.processReview(1);
-                CardLayout cl = (CardLayout) ss.getLayout();
-                cl.next(ss);
-            }
+            processDifficulty(1);
         }
     }
 }

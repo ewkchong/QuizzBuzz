@@ -31,6 +31,7 @@ public class AddCardDialog extends CardDialog {
 
     // MODIFIES: this
     // EFFECTS: adds card to deck with given user input as fields
+    //          updates title of frame to note unsaved changes
     @Override
     protected void handleAction() {
         String front = frontTextField.getText();

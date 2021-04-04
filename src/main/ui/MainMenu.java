@@ -78,7 +78,6 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         list = new JList<>(deckListModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 16));
-//        list.setSelectedIndex(0);
         list.addListSelectionListener(this);
         list.setFixedCellHeight(60);
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -221,6 +220,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         parentFrame.repaint();
     }
 
+    // MODIFIES: this
     // EFFECTS: listens to list selection, if something is selected,
     //          enable all buttons
     @Override
@@ -237,7 +237,8 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         }
     }
 
-    // adapted from Java Swing ListDemo's FireListener
+
+    // Listens for "View Deck" button press
     class ViewListener implements ActionListener {
 
         // MODIFIES: this
@@ -253,10 +254,12 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         }
     }
 
+    // Listens for "Create new Deck" button press
     class CreateDeckListener implements ActionListener, DocumentListener {
-        private final JButton button;
-        private final ArrayList<Deck> deckList;
+        private final JButton button;               // "Create new Deck" button
+        private final ArrayList<Deck> deckList;     // List of all decks
 
+        // EFFECTS: instantiates listener with given button and deck list
         public CreateDeckListener(JButton button, ArrayList<Deck> deckList) {
             this.button = button;
             this.deckList = deckList;
@@ -275,7 +278,6 @@ public class MainMenu extends JPanel implements ListSelectionListener {
             deckName.requestFocusInWindow();
             deckName.setText("");
             app.updateTitle();
-
         }
 
         // EFFECTS: enables button if text is added
@@ -323,6 +325,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         }
     }
 
+    // Listens for "Delete Deck" button press
     class DeleteListener implements ActionListener {
 
         // MODIFIES: this
@@ -340,6 +343,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         }
     }
 
+    // Listens for "Rename Deck" button press
     class RenameListener implements ActionListener {
 
         // MODIFIES: this
@@ -356,6 +360,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         }
     }
 
+    // Listens for "Save and Quit" button press
     private class QuitListener implements ActionListener {
 
         // MODIFIES: this

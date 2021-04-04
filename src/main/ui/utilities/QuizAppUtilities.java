@@ -14,6 +14,7 @@ import java.util.List;
 public class QuizAppUtilities {
     public static final String UI_FONT = "Montserrat";  // font used throughout UI
 
+    // MODIFIES: parent
     // EFFECTS: shows a dialog to rename a deck
     public static String createRenameDialog(Deck d, JFrame parent) {
         String s = (String) JOptionPane.showInputDialog(
@@ -48,6 +49,8 @@ public class QuizAppUtilities {
         return new ArrayList<>(tagsList);
     }
 
+    // EFFECTS: shows a dialog notifying the user
+    //          that there are no cards to study
     public static void showNoCardsWarning(JFrame parentFrame) {
         JOptionPane.showMessageDialog(parentFrame,
                 "Currently no cards to study!",

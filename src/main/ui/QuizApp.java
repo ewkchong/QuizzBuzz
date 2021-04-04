@@ -41,10 +41,6 @@ public class QuizApp {
         return frame;
     }
 
-    public void setDecks(ArrayList<Deck> decks) {
-        this.decks = decks;
-    }
-
     // EFFECTS: changes list of decks into a JSON array
     public JSONArray deckListToJson() {
         JSONArray array = new JSONArray();

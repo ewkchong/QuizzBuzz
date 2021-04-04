@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 // Menu that allows choice of type of study session
 public class ChooseStudySessionMenu extends JPanel {
-    QuizApp app;
+    QuizApp app;                // parent application
     ArrayList<Card> cardList;   // unfiltered list of cards to study
     JFrame parentFrame;         // containing frame
     Deck deck;                  // deck for which this study session is for
@@ -73,7 +73,6 @@ public class ChooseStudySessionMenu extends JPanel {
     private JButton makeButton(String text, ActionListener listener) {
         JButton button = new JButton(text);
         button.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 22));
-//        button.setPreferredSize(new Dimension(300, 600));
         button.addActionListener(listener);
 
         return button;
@@ -93,6 +92,7 @@ public class ChooseStudySessionMenu extends JPanel {
         add(titlePanel, BorderLayout.PAGE_START);
     }
 
+    // Listens for "Study" button press
     private class RegularStudyListener implements ActionListener {
 
         // MODIFIES: this
@@ -109,6 +109,7 @@ public class ChooseStudySessionMenu extends JPanel {
         }
     }
 
+    // Listens for "Study by Tag" button press
     private class TagStudyListener implements ActionListener {
 
         // MODIFIES: this
@@ -136,6 +137,7 @@ public class ChooseStudySessionMenu extends JPanel {
         }
     }
 
+    // Listens for "Study (ignore schedule)" button press
     private class AllStudyListener implements ActionListener {
 
         // MODIFIES: this
@@ -152,6 +154,7 @@ public class ChooseStudySessionMenu extends JPanel {
         }
     }
 
+    // Listens for "Return to Menu" button press
     private class ReturnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

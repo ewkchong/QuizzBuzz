@@ -26,6 +26,7 @@ public class ReviewCalendar extends GregorianCalendar {
 
 
     // EFFECTS: returns a string representation of the calendar object's date
+    //          returns "Undated" when the date value is set to the UNIX epoch
     public String displayDate() {
         if (get(Calendar.YEAR) <= 1980) {
             return "Undated";

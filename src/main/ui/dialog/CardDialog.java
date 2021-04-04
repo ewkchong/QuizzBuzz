@@ -117,6 +117,7 @@ public abstract class CardDialog extends JDialog {
 
     protected abstract void handleAction();
 
+    // Listens for "Cancel" button press
     class CancelListener implements ActionListener {
 
         // EFFECTS: closes window on button press
@@ -126,6 +127,7 @@ public abstract class CardDialog extends JDialog {
         }
     }
 
+    // Listens for "Add" button press
     class AddListener implements ActionListener {
 
         // EFFECTS: calls handleAction() on button press

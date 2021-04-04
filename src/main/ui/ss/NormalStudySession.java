@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 // A study session that prescribes the user review times for spaced repetition
 public class NormalStudySession extends StudySession {
 
+    // EFFECTS: instantiates a new scheduled study session with given deck
     public NormalStudySession(Deck d, JFrame parentFrame, QuizApp app) throws EmptyStudyListException {
         super(d, parentFrame, app);
         begin();

@@ -2,11 +2,8 @@ package ui.ss;
 
 import model.Card;
 import model.Deck;
-import ui.DeckMenu;
-import ui.MainMenu;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
-import ui.utilities.QuizAppUtilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,12 +11,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 // a study session that displays flash cards for user to study
 public abstract class StudySession extends JPanel {
-    protected QuizApp app;
-    protected Deck deck;
+    protected QuizApp app;                // parent application
+    protected Deck deck;                  // deck for this study session
     protected ArrayList<Card> cards;      // list of cards from deck, un-shuffled
     protected ArrayList<Card> studyList;  // list of cards from deck, shuffled
     protected int correctReviews;         // amount of cards marked as correct during study session
@@ -55,10 +53,12 @@ public abstract class StudySession extends JPanel {
         return sequence;
     }
 
+    // MODIFIES: this
     /*
      * EFFECTS: displays front of each card in study list,
-     *          one at a time, displays back of card
-     *
+     *          one at a time, displays back of card.
+     *          throws EmptyStudyListException if
+     *          filtered list has no cards
      */
     public void begin() throws EmptyStudyListException {
         studyList = generateStudyList(cards.size());

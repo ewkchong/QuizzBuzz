@@ -15,11 +15,13 @@ import java.util.ArrayList;
 
 // Menu showing options for deck
 public class DeckMenu extends JPanel {
-    private QuizApp app;
+    private QuizApp app;        // parent application
     private Deck deck;          // main deck
     private MainMenu mainMenu;  // previous menu
     private JLabel title;       // title of deck
 
+    // EFFECTS: instantiates a new deck menu with given deck
+    //          adds components to panel (this)
     public DeckMenu(QuizApp app, Deck d) {
         this.app = app;
         this.mainMenu = new MainMenu(app);
@@ -112,7 +114,7 @@ public class DeckMenu extends JPanel {
     // MODIFIES: this
     // EFFECTS: changes content of frame to previous menu (main menu)
     private void backToMenu() {
-        Container frameContent = mainMenu.getParentFrame().getContentPane();
+        Container frameContent = app.getFrame().getContentPane();
 
         frameContent.removeAll();
         frameContent.add(mainMenu);
@@ -120,6 +122,7 @@ public class DeckMenu extends JPanel {
         frameContent.repaint();
     }
 
+    // Listens for "Return to Menu" button press
     class BackListener implements ActionListener {
 
         // EFFECTS: calls backToMenu() on button press
@@ -128,29 +131,31 @@ public class DeckMenu extends JPanel {
         }
     }
 
+    // Listens for "Rename Deck" button press
     class RenameListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: opens a rename dialog, takes user input to rename current deck
         @Override
         public void actionPerformed(ActionEvent e) {
-            String s = QuizAppUtilities.createRenameDialog(deck, mainMenu.getParentFrame());
+            String s = QuizAppUtilities.createRenameDialog(deck, app.getFrame());
             if (s != null && !(s.equals(""))) {
                 deck.renameDeck(s);
                 title.setText(s);
-                mainMenu.getParentFrame().revalidate();
-                mainMenu.getParentFrame().repaint();
+                app.getFrame().revalidate();
+                app.getFrame().repaint();
             }
         }
     }
 
+    // Listens for "Delete Deck" button press
     class DeleteListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: opens a confirm dialog for user to delete current deck
         @Override
         public void actionPerformed(ActionEvent e) {
-            int confirm = QuizAppUtilities.createDeleteDialog(deck, mainMenu.getParentFrame());
+            int confirm = QuizAppUtilities.createDeleteDialog(deck, app.getFrame());
             if (confirm == 0) {
                 backToMenu();
                 mainMenu.removeDeck(deck);
@@ -159,48 +164,49 @@ public class DeckMenu extends JPanel {
         }
     }
 
+    // Listens for "View all Cards" button press
     class ViewCardsListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: changes frame content to list of cards
         @Override
         public void actionPerformed(ActionEvent e) {
-            Container frameContent = mainMenu.getParentFrame().getContentPane();
+            Container frameContent = app.getFrame().getContentPane();
             frameContent.removeAll();
-            frameContent.add(new CardListMenu(deck, mainMenu, app));
+            frameContent.add(new CardListMenu(deck, app));
             frameContent.revalidate();
             frameContent.repaint();
         }
     }
 
+    // Listens for "Add a Card" button press
     class AddCardListener implements ActionListener {
 
         // EFFECTS: shows a new dialog that takes user input,
         //          allows for adding cards to deck
         @Override
         public void actionPerformed(ActionEvent e) {
-            AddCardDialog addCardDialog = new AddCardDialog(mainMenu.getParentFrame(), deck);
+            AddCardDialog addCardDialog = new AddCardDialog(app.getFrame(), deck);
             addCardDialog.pack();
             addCardDialog.setVisible(true);
         }
     }
 
+    // Listens for "Study!" button press
     class StudyListener implements ActionListener {
 
         // MODIFIES: this
         // EFFECTS: changes frame content to study session
         @Override
         public void actionPerformed(ActionEvent e) {
-            ArrayList<Card> cardList = deck.getCardList();
-
             if (deck.getCardList().size() != 0) {
-                JFrame parentFrame = mainMenu.getParentFrame();
+                JFrame parentFrame = app.getFrame();
                 parentFrame.getContentPane().removeAll();
                 parentFrame.setContentPane(new ChooseStudySessionMenu(app, deck));
                 parentFrame.revalidate();
                 parentFrame.repaint();
             } else {
-                QuizAppUtilities.showNoCardsWarning(mainMenu.getParentFrame());
+                QuizAppUtilities.showNoCardsWarning(app.getFrame());
             }
         }
 
