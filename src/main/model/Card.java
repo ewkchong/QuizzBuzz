@@ -1,6 +1,7 @@
 package model;
 
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // A flash card with tags

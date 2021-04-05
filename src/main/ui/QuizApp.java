@@ -1,26 +1,13 @@
 package ui;
 
-import model.Card;
 import model.Deck;
 import org.json.JSONArray;
-import persistence.JsonWriter;
-import ui.ss.AllStudySession;
-import ui.ss.NormalStudySession;
-import ui.ss.StudySession;
-import ui.ss.TagStudySession;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Scanner;
 
 // A flash card application
 public class QuizApp {
@@ -44,7 +31,7 @@ public class QuizApp {
     // EFFECTS: changes list of decks into a JSON array
     public JSONArray deckListToJson() {
         JSONArray array = new JSONArray();
-        for (Deck d: decks) {
+        for (Deck d : decks) {
             array.put(d.toJson());
         }
         return array;

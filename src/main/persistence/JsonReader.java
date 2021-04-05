@@ -78,7 +78,7 @@ public class JsonReader {
     private ArrayList<String> parseTags(JSONObject card) {
         ArrayList<String> tags = new ArrayList<>();
         JSONArray tagArray = card.getJSONArray("tags");
-        for (Object tag: tagArray) {
+        for (Object tag : tagArray) {
             tags.add((String) tag);
         }
         return tags;

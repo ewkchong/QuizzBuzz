@@ -59,3 +59,26 @@ but not overridden are:
 - showPerformanceDialog()
 The only overriding method that is in all three sub-classes is:
 - generateStudyList()
+
+## Phase 4: Task 3
+If I had more time, I would re-factor the following:
+#### Merge MainMenu and QuizApp classes
+Since MainMenu uses all of QuizApp's two fields (the ArrayList of Deck and JFrame), all the functionality of MainMenu
+could be merged into QuizApp, keeping the class diagram more compact and simplistic. I found that there isn't a lot of
+functionality inside the current QuizApp class, and so it would be beneficial to merge the two classes into a new
+"QuizApp" class. 
+#### QuizApp, Card, and Deck implement an interface Save-able
+All of these classes have a method that changes them into a JSON-like format. The only issue with doing this
+refactoring is that the method in QuizApp has a different return value: a JSONArray as opposed to a JSONObject. So 
+there would have to be a lot of adjustment in terms of how the object data in this program is serialized.
+#### Split Card class to abide by Single Responsibility Principle and improve cohesion
+The card class seems to be able to be split into another class, as we can see two different categories of behaviour:
+one category which deals with the information of the card (like the text on the front, back, tags, etc.), and one 
+category which deals with the study/review data. Methods like processReview() and calculateEase() would be methods that
+are taken away and put into the new class which deals with study/review data.
+#### Reduce coupling in all the UI classes
+A significant portion of the UI classes involve moving from menu to menu. I believe that changing the content of the
+frame is quite repetitive, and there should definitely be a method abstracted out of the code that perhaps takes a 
+panel as a parameter and sets the content of the frame, revalidates, and repaints. In addition, I believe it would have
+also been a good idea to abstract out the creation of buttons in many of the classes, just so that there can be less 
+coupling between all the different classes and their similar JButton implementations in terms of formatting.

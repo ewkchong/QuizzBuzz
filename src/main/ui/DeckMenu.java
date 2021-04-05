@@ -1,17 +1,13 @@
 package ui;
 
-import model.Card;
 import model.Deck;
 import ui.dialog.AddCardDialog;
-import ui.ss.ChooseStudySessionMenu;
-import ui.ss.NormalStudySession;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 // Menu showing options for deck
 public class DeckMenu extends JPanel {
@@ -103,7 +99,7 @@ public class DeckMenu extends JPanel {
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(15,0,15,0));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
         titlePanel.add(title, BorderLayout.PAGE_START);
 
         add(titlePanel, BorderLayout.PAGE_START);

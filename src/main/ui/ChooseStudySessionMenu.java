@@ -1,8 +1,11 @@
-package ui.ss;
+package ui;
 
 import model.Deck;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
+import ui.ss.AllStudySession;
+import ui.ss.NormalStudySession;
+import ui.ss.TagStudySession;
 import ui.utilities.QuizAppUtilities;
 
 import javax.swing.*;
@@ -82,7 +85,7 @@ public class ChooseStudySessionMenu extends JPanel {
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(30,0,15,0));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 15, 0));
         titlePanel.add(title, BorderLayout.PAGE_START);
 
         add(titlePanel, BorderLayout.PAGE_START);

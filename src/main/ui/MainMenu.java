@@ -39,12 +39,12 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         this.app = app;
         this.parentFrame = app.getFrame();
         setPreferredSize(new Dimension(1024, 768));
-        setLayout(new BorderLayout(0,0));
+        setLayout(new BorderLayout(0, 0));
         this.decks = app.getDecks();
         logoPanel = logoPanel();
         sidebar = buttonSidebar();
         deckListModel = new DefaultListModel<>();
-        for (Deck d: app.getDecks()) {
+        for (Deck d : app.getDecks()) {
             deckListModel.addElement(d);
         }
         registerFonts();
@@ -112,7 +112,7 @@ public class MainMenu extends JPanel implements ListSelectionListener {
         c.gridy = 0;
         c.ipadx = Short.MAX_VALUE;
         c.weightx = 1.0;
-        c.insets = new Insets(5, 5, 5,0);
+        c.insets = new Insets(5, 5, 5, 0);
         bottomRow.add(deckName, c);
 
         c.gridx = 1;
@@ -171,12 +171,12 @@ public class MainMenu extends JPanel implements ListSelectionListener {
 
         c.gridy = 3;
         c.weighty = 1.0;
-        c.insets = new Insets(20, 0,0,0);
+        c.insets = new Insets(20, 0, 0, 0);
         sidebar.add(logoPanel, c);
 
         c.gridy = 4;
         c.weighty = 0;
-        c.insets = new Insets(0,0,10,0);
+        c.insets = new Insets(0, 0, 10, 0);
         sidebar.add(saveQuitButton, c);
 
         return sidebar;

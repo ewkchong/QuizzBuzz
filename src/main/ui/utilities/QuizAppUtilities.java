@@ -33,7 +33,7 @@ public class QuizAppUtilities {
 
     // EFFECTS: shows a dialog to confirm deletion of deck
     public static int createDeleteDialog(Deck d, JFrame parent) {
-        return  JOptionPane.showConfirmDialog(
+        return JOptionPane.showConfirmDialog(
                 parent,
                 "Are you sure you would like to delete the deck: " + '"' + d.getTitle() + '"' + "?",
                 "Delete Deck",

@@ -50,7 +50,7 @@ public class TagStudySession extends StudySession {
         ArrayList<String> lowerCaseTags = new ArrayList<>(cardTags);
         lowerCaseTags.replaceAll(String::toLowerCase);
 
-        for (String t: tags) {
+        for (String t : tags) {
             if (lowerCaseTags.contains(t)) {
                 return true;
             }

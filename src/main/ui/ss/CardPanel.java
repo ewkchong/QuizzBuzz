@@ -41,12 +41,12 @@ public class CardPanel extends JPanel {
         frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.PAGE_AXIS));
         JLabel front = new JLabel(card.getFront());
         front.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 52));
-        frontPanel.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
+        frontPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
         frontPanel.add(front);
 
         backText = new JLabel(card.getBack());
         backText.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 42));
-        backText.setForeground(new Color(0,0,0,0));
+        backText.setForeground(new Color(0, 0, 0, 0));
         frontPanel.add(backText);
 
         add(frontPanel, BorderLayout.CENTER);
@@ -111,7 +111,7 @@ public class CardPanel extends JPanel {
         // EFFECTS: changes back text to be visible on pressing "Show answer"
         @Override
         public void actionPerformed(ActionEvent e) {
-            backText.setForeground(new Color(0,0,0,188));
+            backText.setForeground(new Color(0, 0, 0, 188));
             buttonPanel.removeAll();
             addDifficultyButtons();
             buttonPanel.revalidate();
