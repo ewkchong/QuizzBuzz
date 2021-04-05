@@ -4,6 +4,10 @@
 </p>
 
 # QuizzBuzz
+<p align="center">
+<img src="https://media.giphy.com/media/cLYVKNPHfQFjMM8iPe/giphy.gif">
+</p>
+
 ## Introduction
 **QuizzBuzz** is a flash-card tool that uses a spaced-repetition algorithm to aid the user's memorization.
 It is the perfect tool for students, language learners, and anyone wanting to learn anything quickly.
