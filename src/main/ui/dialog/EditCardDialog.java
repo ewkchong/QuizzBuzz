@@ -39,7 +39,7 @@ public class EditCardDialog extends CardDialog {
     @Override
     public void addTag(JPanel contentPanel, GridBagConstraints c) {
         JLabel tagLabel = makeLabel("Tags");
-        tagTextField = makeTextField(20);
+        tagTextField = makeTextField();
         tagTextField.setText(createTagString());
         c.gridy = 4;
         contentPanel.add(tagLabel, c);
@@ -52,7 +52,7 @@ public class EditCardDialog extends CardDialog {
     @Override
     public void addBack(JPanel contentPanel, GridBagConstraints c) {
         JLabel backLabel = makeLabel("Back of Card");
-        backTextField = makeTextField(20);
+        backTextField = makeTextField();
         backTextField.setText(card.getBack());
         c.gridy = 2;
         contentPanel.add(backLabel, c);
@@ -65,7 +65,7 @@ public class EditCardDialog extends CardDialog {
     @Override
     public void addFront(JPanel contentPanel, GridBagConstraints c) {
         JLabel frontLabel = makeLabel("Front of Card");
-        frontTextField = makeTextField(20);
+        frontTextField = makeTextField();
         frontTextField.setText(card.getFront());
         c.gridy = 0;
         contentPanel.add(frontLabel, c);

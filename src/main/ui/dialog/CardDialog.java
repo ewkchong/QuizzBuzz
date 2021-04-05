@@ -11,13 +11,14 @@ import java.awt.event.ActionListener;
 
 // Representation of card dialog that takes user input
 public abstract class CardDialog extends JDialog {
-    Deck deck;                  // containing deck for card
-    String buttonText;          // text for button label
-    JTextField frontTextField;  // text field for front text
-    JTextField backTextField;   // text field for back text
-    JTextField tagTextField;    // text field for tags
-    TableModel tableModel;      // table of cards model
-    JFrame parentFrame;
+    protected Deck deck;                      // containing deck for card
+    protected String buttonText;              // text for button label
+    protected JTextField frontTextField;      // text field for front text
+    protected JTextField backTextField;       // text field for back text
+    protected JTextField tagTextField;        // text field for tags
+    protected TableModel tableModel;          // table of cards model
+    protected JFrame parentFrame;             // containing frame
+    protected final int textFieldWidth = 20;  // columns of all textFields
 
     // EFFECTS: creates a new dialog with default button label "Confirm"
     public CardDialog(Frame owner, boolean modal) {
@@ -70,7 +71,7 @@ public abstract class CardDialog extends JDialog {
     // EFFECTS: initializes text field for tag entry, adds it to given panel
     protected void addTag(JPanel contentPanel, GridBagConstraints c) {
         JLabel tagLabel = makeLabel("Tags");
-        tagTextField = makeTextField(20);
+        tagTextField = makeTextField();
         c.gridy = 4;
         contentPanel.add(tagLabel, c);
         c.gridy = 5;
@@ -81,7 +82,7 @@ public abstract class CardDialog extends JDialog {
     // EFFECTS: initializes text field for back entry, adds it to given panel
     protected void addBack(JPanel contentPanel, GridBagConstraints c) {
         JLabel backLabel = makeLabel("Back of Card");
-        backTextField = makeTextField(20);
+        backTextField = makeTextField();
         c.gridy = 2;
         contentPanel.add(backLabel, c);
         c.gridy = 3;
@@ -92,7 +93,7 @@ public abstract class CardDialog extends JDialog {
     // EFFECTS: initializes text field for front entry, adds it to given panel
     protected void addFront(JPanel contentPanel, GridBagConstraints c) {
         JLabel frontLabel = makeLabel("Front of Card");
-        frontTextField = makeTextField(20);
+        frontTextField = makeTextField();
         c.gridy = 0;
         contentPanel.add(frontLabel, c);
         c.gridy = 1;
@@ -100,8 +101,8 @@ public abstract class CardDialog extends JDialog {
     }
 
     // EFFECTS: creates and returns a text field with a given width
-    protected JTextField makeTextField(int columns) {
-        JTextField textField = new JTextField(columns);
+    protected JTextField makeTextField() {
+        JTextField textField = new JTextField(textFieldWidth);
         textField.setFont(new Font(QuizAppUtilities.UI_FONT, Font.PLAIN, 24));
 
         return textField;

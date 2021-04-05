@@ -2,7 +2,6 @@ package ui.ss;
 
 import model.Card;
 import model.Deck;
-import ui.DeckMenu;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
 import ui.utilities.QuizAppUtilities;
