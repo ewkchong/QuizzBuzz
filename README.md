@@ -55,12 +55,15 @@ I have chosen to implement a type hierarchy in my code. Since I have two differe
 examining the hierarchy involving the abstract class "StudySession". There are three sub-classes that extend the
 abstract class StudySession: AllStudySession, NormalStudySession, and TagStudySession. The methods that are inherited
 but not overridden are:
-- getDeck()
-- generateStudyList()
-- generateShuffleSequence()
-- begin()
-- incrementCorrectReviews()
-- showPerformanceDialog()
+<ul>
+<li>getDeck()</li> 
+<li>generateStudyList()</li> 
+<li>generateShuffleSequence()</li> 
+<li>begin()</li> 
+<li>incrementCorrectReviews()</li> 
+<li>showPerformanceDialog()</li> 
+</ul>
+
 The only overriding method that is in all three sub-classes is:
 - generateStudyList()
 
