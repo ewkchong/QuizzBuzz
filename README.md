@@ -17,8 +17,7 @@ With QuizzBuzz, you can:
 What the tool will do for you:
 - Compile flash-cards into review sessions
 - Prescribe review times for optimal knowledge retention
-- Display statistics and review performance
-- Suggest modifications to learning settings
+- Display review performance
 
 ## Why?
 Being a student in school for the vast majority of my life, it is an understatement to say that
@@ -46,3 +45,17 @@ to help memorize anything in the most effective manner.
 - As a user, I want my decks to be automatically loaded from file
 - As a user, when I quit the application, I want to be able to choose whether I want to save my deck/its changes
 or not
+
+## Phase 4: Task 2
+I have chosen to implement a type hierarchy in my code. Since I have two different type hierarchies, I will be
+examining the hierarchy involving the abstract class "StudySession". There are three sub-classes that extend the
+abstract class StudySession: AllStudySession, NormalStudySession, and TagStudySession. The methods that are inherited
+but not overridden are:
+- getDeck()
+- generateStudyList()
+- generateShuffleSequence()
+- begin()
+- incrementCorrectReviews()
+- showPerformanceDialog()
+The only overriding method that is in all three sub-classes is:
+- generateStudyList()

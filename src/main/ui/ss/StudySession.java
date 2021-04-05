@@ -60,7 +60,7 @@ public abstract class StudySession extends JPanel {
      *          throws EmptyStudyListException if
      *          filtered list has no cards
      */
-    public void begin() throws EmptyStudyListException {
+    protected void begin() throws EmptyStudyListException {
         studyList = generateStudyList(cards.size());
         if (studyList.size() == 0) {
             throw new EmptyStudyListException();

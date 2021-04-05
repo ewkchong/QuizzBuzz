@@ -1,6 +1,5 @@
 package ui.ss;
 
-import model.Card;
 import model.Deck;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 // Menu that allows choice of type of study session
 public class ChooseStudySessionMenu extends JPanel {
     QuizApp app;                // parent application
-    ArrayList<Card> cardList;   // unfiltered list of cards to study
     JFrame parentFrame;         // containing frame
     Deck deck;                  // deck for which this study session is for
 
@@ -23,7 +21,6 @@ public class ChooseStudySessionMenu extends JPanel {
     public ChooseStudySessionMenu(QuizApp app, Deck d) {
         this.app = app;
         deck = d;
-        this.cardList = d.getCardList();
         this.parentFrame = app.getFrame();
         setLayout(new BorderLayout());
         addComponents();
