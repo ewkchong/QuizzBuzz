@@ -5,6 +5,7 @@ import model.Deck;
 import ui.QuizApp;
 import ui.exceptions.EmptyStudyListException;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +42,16 @@ public class TagStudySession extends StudySession {
         list = new ArrayList<>(filteredList);
 
         return list;
+    }
+
+    @Override
+    protected void addPanels() {
+        int i = 0;
+        for (Card c : studyList) {
+            JPanel cardPanel = new NoScheduleCardPanel(c, this, i, studyList.size(), app);
+            add(cardPanel, String.valueOf(i));
+            i++;
+        }
     }
 
     // EFFECTS: returns true if any of the given card's tags

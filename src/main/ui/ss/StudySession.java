@@ -65,16 +65,13 @@ public abstract class StudySession extends JPanel {
         if (studyList.size() == 0) {
             throw new EmptyStudyListException();
         } else {
-            int i = 0;
-            for (Card c : studyList) {
-                JPanel cardPanel = new CardPanel(c, this, i, studyList.size(), app);
-                add(cardPanel, String.valueOf(i));
-                i++;
-            }
+            addPanels();
             CardLayout cl = (CardLayout) getLayout();
             cl.show(this, String.valueOf(0));
         }
     }
+
+    protected abstract void addPanels();
 
     // EFFECTS: calculates proportion of correct cards reviewed
     private String calcSuccessRate() {

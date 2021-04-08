@@ -57,5 +57,70 @@
             }
         ],
         "title": "Advanced Arithmetic"
+    },
+    {
+        "cardList": [
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Reykjavic",
+                "front": "Iceland",
+                "tags": ["Northern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Paris",
+                "front": "France",
+                "tags": ["Western"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Helsinki",
+                "front": "Finland",
+                "tags": ["Northern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Moscow",
+                "front": "Russia",
+                "tags": ["Eastern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Warsaw",
+                "front": "Poland",
+                "tags": ["Eastern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Berlin",
+                "front": "Germany",
+                "tags": ["Western"],
+                "status": 0,
+                "currentInterval": 0
+            }
+        ],
+        "title": "Capital Cities of Europe"
     }
 ]

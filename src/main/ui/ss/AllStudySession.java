@@ -32,4 +32,14 @@ public class AllStudySession extends StudySession {
 
         return list;
     }
+
+    @Override
+    protected void addPanels() {
+        int i = 0;
+        for (Card c : studyList) {
+            JPanel cardPanel = new NoScheduleCardPanel(c, this, i, studyList.size(), app);
+            add(cardPanel, String.valueOf(i));
+            i++;
+        }
+    }
 }
