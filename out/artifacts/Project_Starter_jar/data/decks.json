@@ -1,0 +1,126 @@
+[
+    {
+        "cardList": [
+            {
+                "ease": 2.5,
+                "reviewCount": 2,
+                "reviewDate": 448748,
+                "back": "4",
+                "front": "2 + 2",
+                "tags": [
+                    "Math",
+                    "Addition"
+                ],
+                "status": 0,
+                "currentInterval": 144
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 1,
+                "reviewDate": 448628,
+                "back": "1",
+                "front": "3 - 2",
+                "tags": ["Subtraction"],
+                "status": 0,
+                "currentInterval": 24
+            }
+        ],
+        "title": "Arithmetic"
+    },
+    {
+        "cardList": [
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "2",
+                "front": "2 x 1",
+                "tags": [
+                    "Multiplication",
+                    "Difficult"
+                ],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "2",
+                "front": "4 / 2",
+                "tags": [
+                    "Division",
+                    "Difficult"
+                ],
+                "status": 0,
+                "currentInterval": 0
+            }
+        ],
+        "title": "Advanced Arithmetic"
+    },
+    {
+        "cardList": [
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Reykjavic",
+                "front": "Iceland",
+                "tags": ["Northern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Paris",
+                "front": "France",
+                "tags": ["Western"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Helsinki",
+                "front": "Finland",
+                "tags": ["Northern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Moscow",
+                "front": "Russia",
+                "tags": ["Eastern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Warsaw",
+                "front": "Poland",
+                "tags": ["Eastern"],
+                "status": 0,
+                "currentInterval": 0
+            },
+            {
+                "ease": 2.5,
+                "reviewCount": 0,
+                "reviewDate": 0,
+                "back": "Berlin",
+                "front": "Germany",
+                "tags": ["Western"],
+                "status": 0,
+                "currentInterval": 0
+            }
+        ],
+        "title": "Capital Cities of Europe"
+    }
+]
