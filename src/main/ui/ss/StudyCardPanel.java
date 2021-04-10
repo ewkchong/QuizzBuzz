@@ -34,17 +34,22 @@ public abstract class StudyCardPanel extends JPanel {
     protected void addComponents() {
         JPanel frontPanel = new JPanel();
         frontPanel.setLayout(new BoxLayout(frontPanel, BoxLayout.PAGE_AXIS));
-        JLabel front = new JLabel(card.getFront());
-        front.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 52));
+        JLabel front = new JLabel("<html>" + card.getFront() + "</html>");
+        int fontSize = 44;
+        if (card.getFront().length() >= 500) {
+            fontSize = 9;
+        }
+        front.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, fontSize));
         frontPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
         frontPanel.add(front);
 
         backText = new JLabel(card.getBack());
-        backText.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 42));
+        backText.setFont(new Font(QuizAppUtilities.UI_FONT, Font.BOLD, 34));
         backText.setForeground(new Color(0, 0, 0, 0));
         frontPanel.add(backText);
+        JScrollPane scrollPane = new JScrollPane(frontPanel);
 
-        add(frontPanel, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     // MODIFIES: this
